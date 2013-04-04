@@ -35,15 +35,16 @@ namespace Farhang2
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Headword");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Headword");
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.headwordsListBox = new System.Windows.Forms.ListBox();
             this.cmbBoxAlphabet = new System.Windows.Forms.ComboBox();
             this.lblAlphabet = new System.Windows.Forms.Label();
             this.headwordsListGroupBox = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtSearch = new System.Windows.Forms.TextBox();
             this.lblSearch = new System.Windows.Forms.Label();
             this.headwordGroupBox = new System.Windows.Forms.GroupBox();
+            this.chkIncomplete = new System.Windows.Forms.CheckBox();
             this.lblDescription = new System.Windows.Forms.Label();
             this.lblPronunciation = new System.Windows.Forms.Label();
             this.lblLemma = new System.Windows.Forms.Label();
@@ -64,9 +65,57 @@ namespace Farhang2
             this.lblSourceText = new System.Windows.Forms.Label();
             this.lblType = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.groupBoxPreview = new System.Windows.Forms.GroupBox();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editDictionaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.saveChangesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.finishEditingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.findHeadwordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
+            this.selectAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.outputPreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.zoom100ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zoomInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zoomOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.headwordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newHeadwordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteHeadwordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
+            this.newEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
+            this.newSubentryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteSubentryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
+            this.firstToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.previousToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lastToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dictionaryPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statisticsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.maximizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.minimizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.unmaximizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.userGuideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.visitWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutFarhang20ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.previewGroupBox = new System.Windows.Forms.GroupBox();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
-            this.groupBoxStatistics = new System.Windows.Forms.GroupBox();
+            this.statisticsGroupBox = new System.Windows.Forms.GroupBox();
             this.btnViewStatistics = new System.Windows.Forms.Button();
             this.txtSubentriesCount = new System.Windows.Forms.TextBox();
             this.lblSubentriesCount = new System.Windows.Forms.Label();
@@ -76,18 +125,19 @@ namespace Farhang2
             this.lblEntriesCount = new System.Windows.Forms.Label();
             this.lblHeadwordsCount = new System.Windows.Forms.Label();
             this.lblSelectedAlphabet = new System.Windows.Forms.Label();
-            this.chkIncomplete = new System.Windows.Forms.CheckBox();
             this.headwordsListGroupBox.SuspendLayout();
             this.headwordGroupBox.SuspendLayout();
             this.entriesGroupBox.SuspendLayout();
             this.attributesGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtNumber)).BeginInit();
-            this.groupBoxPreview.SuspendLayout();
-            this.groupBoxStatistics.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
+            this.previewGroupBox.SuspendLayout();
+            this.statisticsGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
             // 
+            this.toolStrip1.Enabled = false;
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1056, 25);
@@ -158,7 +208,7 @@ namespace Farhang2
             // 
             this.headwordsListGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.headwordsListGroupBox.Controls.Add(this.textBox1);
+            this.headwordsListGroupBox.Controls.Add(this.txtSearch);
             this.headwordsListGroupBox.Controls.Add(this.lblSearch);
             this.headwordsListGroupBox.Controls.Add(this.cmbBoxAlphabet);
             this.headwordsListGroupBox.Controls.Add(this.lblAlphabet);
@@ -171,13 +221,15 @@ namespace Farhang2
             this.headwordsListGroupBox.TabIndex = 2;
             this.headwordsListGroupBox.TabStop = false;
             this.headwordsListGroupBox.Text = "Headwords\' List";
+            this.headwordsListGroupBox.Visible = false;
             // 
-            // textBox1
+            // txtSearch
             // 
-            this.textBox1.Location = new System.Drawing.Point(75, 48);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(140, 23);
-            this.textBox1.TabIndex = 1;
+            this.txtSearch.Location = new System.Drawing.Point(75, 48);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(140, 23);
+            this.txtSearch.TabIndex = 1;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // lblSearch
             // 
@@ -190,18 +242,31 @@ namespace Farhang2
             // 
             // headwordGroupBox
             // 
+            this.headwordGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.headwordGroupBox.Controls.Add(this.chkIncomplete);
             this.headwordGroupBox.Controls.Add(this.lblDescription);
             this.headwordGroupBox.Controls.Add(this.lblPronunciation);
             this.headwordGroupBox.Controls.Add(this.lblLemma);
             this.headwordGroupBox.Controls.Add(this.txtDescription);
             this.headwordGroupBox.Controls.Add(this.txtPronunciation);
             this.headwordGroupBox.Controls.Add(this.txtLemma);
-            this.headwordGroupBox.Location = new System.Drawing.Point(236, 52);
+            this.headwordGroupBox.Location = new System.Drawing.Point(236, 363);
             this.headwordGroupBox.Name = "headwordGroupBox";
-            this.headwordGroupBox.Size = new System.Drawing.Size(457, 148);
+            this.headwordGroupBox.Size = new System.Drawing.Size(457, 137);
             this.headwordGroupBox.TabIndex = 3;
             this.headwordGroupBox.TabStop = false;
             this.headwordGroupBox.Text = "Headword";
+            this.headwordGroupBox.Visible = false;
+            // 
+            // chkIncomplete
+            // 
+            this.chkIncomplete.AutoSize = true;
+            this.chkIncomplete.Location = new System.Drawing.Point(9, 109);
+            this.chkIncomplete.Name = "chkIncomplete";
+            this.chkIncomplete.Size = new System.Drawing.Size(78, 17);
+            this.chkIncomplete.TabIndex = 10;
+            this.chkIncomplete.Text = "Incomplete";
+            this.chkIncomplete.UseVisualStyleBackColor = true;
             // 
             // lblDescription
             // 
@@ -235,7 +300,7 @@ namespace Farhang2
             this.txtDescription.Location = new System.Drawing.Point(110, 78);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(341, 65);
+            this.txtDescription.Size = new System.Drawing.Size(341, 50);
             this.txtDescription.TabIndex = 2;
             // 
             // txtPronunciation
@@ -260,10 +325,10 @@ namespace Farhang2
             this.entriesTreeView.FullRowSelect = true;
             this.entriesTreeView.Location = new System.Drawing.Point(9, 22);
             this.entriesTreeView.Name = "entriesTreeView";
-            treeNode2.Name = "Headword";
-            treeNode2.Text = "Headword";
+            treeNode3.Name = "Headword";
+            treeNode3.Text = "Headword";
             this.entriesTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
+            treeNode3});
             this.entriesTreeView.Size = new System.Drawing.Size(442, 277);
             this.entriesTreeView.TabIndex = 0;
             // 
@@ -272,17 +337,17 @@ namespace Farhang2
             this.entriesGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.entriesGroupBox.Controls.Add(this.entriesTreeView);
-            this.entriesGroupBox.Location = new System.Drawing.Point(236, 201);
+            this.entriesGroupBox.Location = new System.Drawing.Point(236, 52);
             this.entriesGroupBox.Name = "entriesGroupBox";
             this.entriesGroupBox.Size = new System.Drawing.Size(457, 305);
             this.entriesGroupBox.TabIndex = 4;
             this.entriesGroupBox.TabStop = false;
             this.entriesGroupBox.Text = "Entries";
+            this.entriesGroupBox.Visible = false;
             // 
             // attributesGroupBox
             // 
             this.attributesGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.attributesGroupBox.Controls.Add(this.chkIncomplete);
             this.attributesGroupBox.Controls.Add(this.txtNumber);
             this.attributesGroupBox.Controls.Add(this.txtTranslation);
             this.attributesGroupBox.Controls.Add(this.lblNumber);
@@ -299,6 +364,7 @@ namespace Farhang2
             this.attributesGroupBox.TabIndex = 5;
             this.attributesGroupBox.TabStop = false;
             this.attributesGroupBox.Text = "Attributes";
+            this.attributesGroupBox.Visible = false;
             // 
             // txtNumber
             // 
@@ -339,6 +405,7 @@ namespace Farhang2
             this.cmbBoxDestinationLanguage.Name = "cmbBoxDestinationLanguage";
             this.cmbBoxDestinationLanguage.Size = new System.Drawing.Size(140, 23);
             this.cmbBoxDestinationLanguage.TabIndex = 3;
+            this.cmbBoxDestinationLanguage.Text = "Persisch";
             // 
             // cmbBoxType
             // 
@@ -352,6 +419,7 @@ namespace Farhang2
             this.cmbBoxType.Name = "cmbBoxType";
             this.cmbBoxType.Size = new System.Drawing.Size(140, 23);
             this.cmbBoxType.TabIndex = 0;
+            this.cmbBoxType.Text = "Entry";
             // 
             // txtSourceText
             // 
@@ -400,24 +468,372 @@ namespace Farhang2
             // 
             // menuStrip1
             // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.editToolStripMenuItem,
+            this.viewToolStripMenuItem,
+            this.headwordToolStripMenuItem,
+            this.toolsToolStripMenuItem,
+            this.windowToolStripMenuItem,
+            this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1056, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // groupBoxPreview
+            // fileToolStripMenuItem
             // 
-            this.groupBoxPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editDictionaryToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.saveChangesToolStripMenuItem,
+            this.exportXMLToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.finishEditingToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
+            this.fileToolStripMenuItem.Text = "&File";
+            // 
+            // editDictionaryToolStripMenuItem
+            // 
+            this.editDictionaryToolStripMenuItem.Name = "editDictionaryToolStripMenuItem";
+            this.editDictionaryToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.editDictionaryToolStripMenuItem.Text = "&Edit Dictionary";
+            this.editDictionaryToolStripMenuItem.Click += new System.EventHandler(this.editDictionaryToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(140, 6);
+            // 
+            // saveChangesToolStripMenuItem
+            // 
+            this.saveChangesToolStripMenuItem.Name = "saveChangesToolStripMenuItem";
+            this.saveChangesToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.saveChangesToolStripMenuItem.Text = "&Save Changes";
+            // 
+            // exportXMLToolStripMenuItem
+            // 
+            this.exportXMLToolStripMenuItem.Enabled = false;
+            this.exportXMLToolStripMenuItem.Name = "exportXMLToolStripMenuItem";
+            this.exportXMLToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.exportXMLToolStripMenuItem.Text = "&Export XML";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(140, 6);
+            // 
+            // finishEditingToolStripMenuItem
+            // 
+            this.finishEditingToolStripMenuItem.Name = "finishEditingToolStripMenuItem";
+            this.finishEditingToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.finishEditingToolStripMenuItem.Text = "&Finish Editing";
+            this.finishEditingToolStripMenuItem.Click += new System.EventHandler(this.finishEditingToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.findHeadwordToolStripMenuItem,
+            this.selectAllToolStripMenuItem,
+            this.selectAllToolStripMenuItem1,
+            this.copyToolStripMenuItem,
+            this.cutToolStripMenuItem,
+            this.pasteToolStripMenuItem});
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.editToolStripMenuItem.Text = "&Edit";
+            // 
+            // findHeadwordToolStripMenuItem
+            // 
+            this.findHeadwordToolStripMenuItem.Name = "findHeadwordToolStripMenuItem";
+            this.findHeadwordToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.findHeadwordToolStripMenuItem.Text = "&Find Headword";
+            // 
+            // selectAllToolStripMenuItem
+            // 
+            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(143, 6);
+            // 
+            // selectAllToolStripMenuItem1
+            // 
+            this.selectAllToolStripMenuItem1.Name = "selectAllToolStripMenuItem1";
+            this.selectAllToolStripMenuItem1.Size = new System.Drawing.Size(146, 22);
+            this.selectAllToolStripMenuItem1.Text = "&Select All";
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.copyToolStripMenuItem.Text = "&Copy";
+            // 
+            // cutToolStripMenuItem
+            // 
+            this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
+            this.cutToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.cutToolStripMenuItem.Text = "C&ut";
+            // 
+            // pasteToolStripMenuItem
+            // 
+            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.pasteToolStripMenuItem.Text = "&Paste";
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.outputPreviewToolStripMenuItem,
+            this.statisticsToolStripMenuItem,
+            this.toolStripMenuItem3,
+            this.zoom100ToolStripMenuItem,
+            this.zoomInToolStripMenuItem,
+            this.zoomOutToolStripMenuItem});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.viewToolStripMenuItem.Text = "&View";
+            // 
+            // outputPreviewToolStripMenuItem
+            // 
+            this.outputPreviewToolStripMenuItem.Name = "outputPreviewToolStripMenuItem";
+            this.outputPreviewToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.outputPreviewToolStripMenuItem.Text = "&Output Preview";
+            this.outputPreviewToolStripMenuItem.Visible = false;
+            // 
+            // statisticsToolStripMenuItem
+            // 
+            this.statisticsToolStripMenuItem.Name = "statisticsToolStripMenuItem";
+            this.statisticsToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.statisticsToolStripMenuItem.Text = "&Statistics";
+            this.statisticsToolStripMenuItem.Visible = false;
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(146, 6);
+            this.toolStripMenuItem3.Visible = false;
+            // 
+            // zoom100ToolStripMenuItem
+            // 
+            this.zoom100ToolStripMenuItem.Name = "zoom100ToolStripMenuItem";
+            this.zoom100ToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.zoom100ToolStripMenuItem.Text = "Zoom 100%";
+            // 
+            // zoomInToolStripMenuItem
+            // 
+            this.zoomInToolStripMenuItem.Name = "zoomInToolStripMenuItem";
+            this.zoomInToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.zoomInToolStripMenuItem.Text = "Zoom in";
+            // 
+            // zoomOutToolStripMenuItem
+            // 
+            this.zoomOutToolStripMenuItem.Name = "zoomOutToolStripMenuItem";
+            this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.zoomOutToolStripMenuItem.Text = "Zoom out";
+            // 
+            // headwordToolStripMenuItem
+            // 
+            this.headwordToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newHeadwordToolStripMenuItem,
+            this.deleteHeadwordToolStripMenuItem,
+            this.toolStripMenuItem4,
+            this.newEntryToolStripMenuItem,
+            this.deleteEntryToolStripMenuItem,
+            this.toolStripMenuItem5,
+            this.newSubentryToolStripMenuItem,
+            this.deleteSubentryToolStripMenuItem,
+            this.toolStripMenuItem6,
+            this.firstToolStripMenuItem,
+            this.previousToolStripMenuItem,
+            this.nextToolStripMenuItem,
+            this.lastToolStripMenuItem});
+            this.headwordToolStripMenuItem.Name = "headwordToolStripMenuItem";
+            this.headwordToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
+            this.headwordToolStripMenuItem.Text = "&Headword";
+            // 
+            // newHeadwordToolStripMenuItem
+            // 
+            this.newHeadwordToolStripMenuItem.Name = "newHeadwordToolStripMenuItem";
+            this.newHeadwordToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.newHeadwordToolStripMenuItem.Text = "&New Headword";
+            // 
+            // deleteHeadwordToolStripMenuItem
+            // 
+            this.deleteHeadwordToolStripMenuItem.Enabled = false;
+            this.deleteHeadwordToolStripMenuItem.Name = "deleteHeadwordToolStripMenuItem";
+            this.deleteHeadwordToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.deleteHeadwordToolStripMenuItem.Text = "Delete Headword";
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(154, 6);
+            // 
+            // newEntryToolStripMenuItem
+            // 
+            this.newEntryToolStripMenuItem.Name = "newEntryToolStripMenuItem";
+            this.newEntryToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.newEntryToolStripMenuItem.Text = "New &Entry";
+            // 
+            // deleteEntryToolStripMenuItem
+            // 
+            this.deleteEntryToolStripMenuItem.Enabled = false;
+            this.deleteEntryToolStripMenuItem.Name = "deleteEntryToolStripMenuItem";
+            this.deleteEntryToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.deleteEntryToolStripMenuItem.Text = "Delete Entry";
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(154, 6);
+            // 
+            // newSubentryToolStripMenuItem
+            // 
+            this.newSubentryToolStripMenuItem.Name = "newSubentryToolStripMenuItem";
+            this.newSubentryToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.newSubentryToolStripMenuItem.Text = "New &Subentry";
+            // 
+            // deleteSubentryToolStripMenuItem
+            // 
+            this.deleteSubentryToolStripMenuItem.Enabled = false;
+            this.deleteSubentryToolStripMenuItem.Name = "deleteSubentryToolStripMenuItem";
+            this.deleteSubentryToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.deleteSubentryToolStripMenuItem.Text = "Delete Subentry";
+            // 
+            // toolStripMenuItem6
+            // 
+            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(154, 6);
+            // 
+            // firstToolStripMenuItem
+            // 
+            this.firstToolStripMenuItem.Name = "firstToolStripMenuItem";
+            this.firstToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.firstToolStripMenuItem.Text = "First";
+            // 
+            // previousToolStripMenuItem
+            // 
+            this.previousToolStripMenuItem.Name = "previousToolStripMenuItem";
+            this.previousToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.previousToolStripMenuItem.Text = "Previous";
+            // 
+            // nextToolStripMenuItem
+            // 
+            this.nextToolStripMenuItem.Name = "nextToolStripMenuItem";
+            this.nextToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.nextToolStripMenuItem.Text = "Next";
+            // 
+            // lastToolStripMenuItem
+            // 
+            this.lastToolStripMenuItem.Name = "lastToolStripMenuItem";
+            this.lastToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.lastToolStripMenuItem.Text = "Last";
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.optionsToolStripMenuItem,
+            this.dictionaryPropertiesToolStripMenuItem,
+            this.statisticsToolStripMenuItem1});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.toolsToolStripMenuItem.Text = "&Tools";
+            // 
+            // optionsToolStripMenuItem
+            // 
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.optionsToolStripMenuItem.Text = "&Options";
+            // 
+            // dictionaryPropertiesToolStripMenuItem
+            // 
+            this.dictionaryPropertiesToolStripMenuItem.Name = "dictionaryPropertiesToolStripMenuItem";
+            this.dictionaryPropertiesToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.dictionaryPropertiesToolStripMenuItem.Text = "&Dictionary Properties";
+            // 
+            // statisticsToolStripMenuItem1
+            // 
+            this.statisticsToolStripMenuItem1.Name = "statisticsToolStripMenuItem1";
+            this.statisticsToolStripMenuItem1.Size = new System.Drawing.Size(174, 22);
+            this.statisticsToolStripMenuItem1.Text = "&Statistics";
+            // 
+            // windowToolStripMenuItem
+            // 
+            this.windowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.maximizeToolStripMenuItem,
+            this.minimizeToolStripMenuItem,
+            this.unmaximizeToolStripMenuItem});
+            this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.windowToolStripMenuItem.Text = "&Window";
+            // 
+            // maximizeToolStripMenuItem
+            // 
+            this.maximizeToolStripMenuItem.Name = "maximizeToolStripMenuItem";
+            this.maximizeToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.maximizeToolStripMenuItem.Text = "&Maximize";
+            // 
+            // minimizeToolStripMenuItem
+            // 
+            this.minimizeToolStripMenuItem.Name = "minimizeToolStripMenuItem";
+            this.minimizeToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.minimizeToolStripMenuItem.Text = "Mi&nimize";
+            // 
+            // unmaximizeToolStripMenuItem
+            // 
+            this.unmaximizeToolStripMenuItem.Name = "unmaximizeToolStripMenuItem";
+            this.unmaximizeToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.unmaximizeToolStripMenuItem.Text = "&Unmaximize";
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.userGuideToolStripMenuItem,
+            this.visitWebsiteToolStripMenuItem,
+            this.aboutFarhang20ToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // userGuideToolStripMenuItem
+            // 
+            this.userGuideToolStripMenuItem.Name = "userGuideToolStripMenuItem";
+            this.userGuideToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.userGuideToolStripMenuItem.Text = "&User Guide";
+            // 
+            // visitWebsiteToolStripMenuItem
+            // 
+            this.visitWebsiteToolStripMenuItem.Name = "visitWebsiteToolStripMenuItem";
+            this.visitWebsiteToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.visitWebsiteToolStripMenuItem.Text = "&Visit Website";
+            // 
+            // aboutFarhang20ToolStripMenuItem
+            // 
+            this.aboutFarhang20ToolStripMenuItem.Name = "aboutFarhang20ToolStripMenuItem";
+            this.aboutFarhang20ToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.aboutFarhang20ToolStripMenuItem.Text = "&About Farhang 2.0";
+            // 
+            // previewGroupBox
+            // 
+            this.previewGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxPreview.Controls.Add(this.webBrowser1);
-            this.groupBoxPreview.Location = new System.Drawing.Point(699, 52);
-            this.groupBoxPreview.Name = "groupBoxPreview";
-            this.groupBoxPreview.Size = new System.Drawing.Size(345, 407);
-            this.groupBoxPreview.TabIndex = 6;
-            this.groupBoxPreview.TabStop = false;
-            this.groupBoxPreview.Text = "Preview";
+            this.previewGroupBox.Controls.Add(this.webBrowser1);
+            this.previewGroupBox.Location = new System.Drawing.Point(699, 52);
+            this.previewGroupBox.Name = "previewGroupBox";
+            this.previewGroupBox.Size = new System.Drawing.Size(345, 407);
+            this.previewGroupBox.TabIndex = 6;
+            this.previewGroupBox.TabStop = false;
+            this.previewGroupBox.Text = "Preview";
+            this.previewGroupBox.Visible = false;
             // 
             // webBrowser1
             // 
@@ -432,25 +848,26 @@ namespace Farhang2
             this.webBrowser1.Size = new System.Drawing.Size(339, 385);
             this.webBrowser1.TabIndex = 0;
             // 
-            // groupBoxStatistics
+            // statisticsGroupBox
             // 
-            this.groupBoxStatistics.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.statisticsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxStatistics.Controls.Add(this.btnViewStatistics);
-            this.groupBoxStatistics.Controls.Add(this.txtSubentriesCount);
-            this.groupBoxStatistics.Controls.Add(this.lblSubentriesCount);
-            this.groupBoxStatistics.Controls.Add(this.txtEntriesCount);
-            this.groupBoxStatistics.Controls.Add(this.txtSelectedAlphabet);
-            this.groupBoxStatistics.Controls.Add(this.txtHeadwordsCount);
-            this.groupBoxStatistics.Controls.Add(this.lblEntriesCount);
-            this.groupBoxStatistics.Controls.Add(this.lblHeadwordsCount);
-            this.groupBoxStatistics.Controls.Add(this.lblSelectedAlphabet);
-            this.groupBoxStatistics.Location = new System.Drawing.Point(699, 465);
-            this.groupBoxStatistics.Name = "groupBoxStatistics";
-            this.groupBoxStatistics.Size = new System.Drawing.Size(345, 176);
-            this.groupBoxStatistics.TabIndex = 7;
-            this.groupBoxStatistics.TabStop = false;
-            this.groupBoxStatistics.Text = "Statistics";
+            this.statisticsGroupBox.Controls.Add(this.btnViewStatistics);
+            this.statisticsGroupBox.Controls.Add(this.txtSubentriesCount);
+            this.statisticsGroupBox.Controls.Add(this.lblSubentriesCount);
+            this.statisticsGroupBox.Controls.Add(this.txtEntriesCount);
+            this.statisticsGroupBox.Controls.Add(this.txtSelectedAlphabet);
+            this.statisticsGroupBox.Controls.Add(this.txtHeadwordsCount);
+            this.statisticsGroupBox.Controls.Add(this.lblEntriesCount);
+            this.statisticsGroupBox.Controls.Add(this.lblHeadwordsCount);
+            this.statisticsGroupBox.Controls.Add(this.lblSelectedAlphabet);
+            this.statisticsGroupBox.Location = new System.Drawing.Point(699, 465);
+            this.statisticsGroupBox.Name = "statisticsGroupBox";
+            this.statisticsGroupBox.Size = new System.Drawing.Size(345, 176);
+            this.statisticsGroupBox.TabIndex = 7;
+            this.statisticsGroupBox.TabStop = false;
+            this.statisticsGroupBox.Text = "Statistics";
+            this.statisticsGroupBox.Visible = false;
             // 
             // btnViewStatistics
             // 
@@ -542,25 +959,15 @@ namespace Farhang2
             this.lblSelectedAlphabet.TabIndex = 0;
             this.lblSelectedAlphabet.Text = "Alphabet:";
             // 
-            // chkIncomplete
-            // 
-            this.chkIncomplete.AutoSize = true;
-            this.chkIncomplete.Location = new System.Drawing.Point(308, 78);
-            this.chkIncomplete.Name = "chkIncomplete";
-            this.chkIncomplete.Size = new System.Drawing.Size(97, 19);
-            this.chkIncomplete.TabIndex = 10;
-            this.chkIncomplete.Text = "Incomplete";
-            this.chkIncomplete.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1056, 653);
-            this.Controls.Add(this.groupBoxStatistics);
-            this.Controls.Add(this.groupBoxPreview);
-            this.Controls.Add(this.attributesGroupBox);
+            this.Controls.Add(this.statisticsGroupBox);
             this.Controls.Add(this.entriesGroupBox);
+            this.Controls.Add(this.previewGroupBox);
+            this.Controls.Add(this.attributesGroupBox);
             this.Controls.Add(this.headwordGroupBox);
             this.Controls.Add(this.headwordsListGroupBox);
             this.Controls.Add(this.toolStrip1);
@@ -580,9 +987,11 @@ namespace Farhang2
             this.attributesGroupBox.ResumeLayout(false);
             this.attributesGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtNumber)).EndInit();
-            this.groupBoxPreview.ResumeLayout(false);
-            this.groupBoxStatistics.ResumeLayout(false);
-            this.groupBoxStatistics.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            this.previewGroupBox.ResumeLayout(false);
+            this.statisticsGroupBox.ResumeLayout(false);
+            this.statisticsGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -613,11 +1022,11 @@ namespace Farhang2
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.NumericUpDown txtNumber;
         private System.Windows.Forms.Label lblNumber;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Label lblSearch;
-        private System.Windows.Forms.GroupBox groupBoxPreview;
+        private System.Windows.Forms.GroupBox previewGroupBox;
         private System.Windows.Forms.WebBrowser webBrowser1;
-        private System.Windows.Forms.GroupBox groupBoxStatistics;
+        private System.Windows.Forms.GroupBox statisticsGroupBox;
         private System.Windows.Forms.Label lblEntriesCount;
         private System.Windows.Forms.Label lblHeadwordsCount;
         private System.Windows.Forms.Label lblSelectedAlphabet;
@@ -628,5 +1037,53 @@ namespace Farhang2
         private System.Windows.Forms.Label lblSubentriesCount;
         private System.Windows.Forms.Button btnViewStatistics;
         private System.Windows.Forms.CheckBox chkIncomplete;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editDictionaryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem saveChangesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportXMLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem finishEditingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem findHeadwordToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator selectAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem outputPreviewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem statisticsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem zoom100ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem zoomInToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem zoomOutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem headwordToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newHeadwordToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteHeadwordToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem newEntryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteEntryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem newSubentryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteSubentryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
+        private System.Windows.Forms.ToolStripMenuItem firstToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem previousToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nextToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lastToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dictionaryPropertiesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem statisticsToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem windowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem maximizeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem minimizeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem unmaximizeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem userGuideToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem visitWebsiteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutFarhang20ToolStripMenuItem;
 	}
 }

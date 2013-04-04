@@ -190,6 +190,12 @@ namespace Farhang2
 		
 		void ListBox1SelectedIndexChanged(object sender, EventArgs e)
 		{
+            cmbBoxType.SelectedIndex = 0;
+            txtNumber.Value = 0;
+            txtSourceText.Text = "";
+            cmbBoxDestinationLanguage.SelectedIndex = 0;
+            txtTranslation.Text = "";
+
             foreach (var item in connectionPool.Keys)
             {
                 try
@@ -303,15 +309,8 @@ namespace Farhang2
                 }
             }
 
-            entriesTreeView.Nodes[0].Expand();
-            if (entriesTreeView.Nodes[0].Nodes.Count > 3)
-            {
-                entriesTreeView.Nodes[0].Nodes[3].Expand();
-                for (int i = 0; i < entriesTreeView.Nodes[0].Nodes[3].Nodes.Count; i++)
-                {
-                    entriesTreeView.Nodes[0].Nodes[3].Nodes[i].Expand();
-                }
-            }
+            entriesTreeView.TopNode.ExpandAll();
+            entriesTreeView.TopNode = entriesTreeView.Nodes[0];
 
             webBrowser1.DocumentText = makeHtmlDocument();
             entriesTreeView.AfterSelect += new TreeViewEventHandler(entriesTreeView_AfterSelect);
@@ -409,6 +408,55 @@ namespace Farhang2
                     }
                 }
             }
+        }
+
+        private void editDictionaryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            headwordsListGroupBox.Visible = true;
+            entriesGroupBox.Visible = true;
+            headwordGroupBox.Visible = true;
+            attributesGroupBox.Visible = true;
+            previewGroupBox.Visible = true;
+            previewGroupBox.Height = entriesGroupBox.Height + headwordGroupBox.Height + attributesGroupBox.Height + 12;
+            //statisticsGroupBox.Visible = true;
+        }
+
+        private void finishEditingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            headwordsListGroupBox.Visible = false;
+            entriesGroupBox.Visible = false;
+            headwordGroupBox.Visible = false;
+            attributesGroupBox.Visible = false;
+            previewGroupBox.Visible = false;
+            //statisticsGroupBox.Visible = false;
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (headwordsListGroupBox.Visible == true)
+            {
+                switch (MessageBox.Show("آیا پیش از خروج از نرم افزار، تغییرات را ذخیره کرده اید؟", "اخطار خروج", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button3, MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading))
+                {
+                    case DialogResult.Cancel:
+                        break;
+                    case DialogResult.No:
+                        break;
+                    case DialogResult.Yes:
+                        Application.Exit();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                Application.Exit();
+            }
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            headwordsListBox.SelectedItem = txtSearch.Text;
         }
 	}
 }

@@ -22,7 +22,8 @@ namespace Farhang2
 	/// </summary>
 	public partial class MainForm : Form
 	{
-        List<String> dbList;
+        Form ipaForm;
+        List<String> dbList = new List<string>();
 		Dictionary<String, NpgsqlConnection> connectionPool = new Dictionary<string,NpgsqlConnection>();
         Dictionary<String, NpgsqlCommand> selectCommandPool = new Dictionary<string, NpgsqlCommand>();
         Dictionary<String, NpgsqlDataAdapter> dataAdapterPool = new Dictionary<string, NpgsqlDataAdapter>();
@@ -135,6 +136,7 @@ namespace Farhang2
         private void MainForm_Load(object sender, EventArgs e)
         {
             webBrowser1.DocumentText = "Output Preview";
+            editDictionaryToolStripMenuItem.PerformClick();
         }
 
         void ComboBox1SelectedIndexChanged(object sender, EventArgs e)
@@ -456,7 +458,42 @@ namespace Farhang2
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            headwordsListBox.SelectedItem = txtSearch.Text;
+            int position = -1;
+
+            position = headwordsListBox.FindString(txtSearch.Text, position);
+
+            if (position != -1)
+            {
+                if (headwordsListBox.SelectedIndices.Count > 0)
+                {
+                    if (position == headwordsListBox.SelectedIndices[0])
+                    {
+                        return;
+                    }
+                }
+
+                headwordsListBox.SetSelected(position, true);
+            }
+            //headwordsListBox.SelectedItem = txtSearch.Text;
+        }
+
+        private void txtSearch_Enter(object sender, EventArgs e)
+        {
+            if (ipaForm != null)
+            {
+                ipaForm.BringToFront();
+            }
+            else
+            {
+                ipaForm = new _0.IPAKeyboard(this);
+                ipaForm.FormClosed += new FormClosedEventHandler(ipa_FormClosed);
+                ipaForm.Show();
+            }
+        }
+
+        void ipa_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ipaForm = null;
         }
 	}
 }

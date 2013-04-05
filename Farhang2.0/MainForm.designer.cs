@@ -35,7 +35,7 @@ namespace Farhang2
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Headword");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Headword");
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.headwordsListBox = new System.Windows.Forms.ListBox();
             this.cmbBoxAlphabet = new System.Windows.Forms.ComboBox();
@@ -230,6 +230,7 @@ namespace Farhang2
             this.txtSearch.Size = new System.Drawing.Size(140, 23);
             this.txtSearch.TabIndex = 1;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+            this.txtSearch.Enter += new System.EventHandler(this.txtSearch_Enter);
             // 
             // lblSearch
             // 
@@ -325,10 +326,10 @@ namespace Farhang2
             this.entriesTreeView.FullRowSelect = true;
             this.entriesTreeView.Location = new System.Drawing.Point(9, 22);
             this.entriesTreeView.Name = "entriesTreeView";
-            treeNode3.Name = "Headword";
-            treeNode3.Text = "Headword";
+            treeNode2.Name = "Headword";
+            treeNode2.Text = "Headword";
             this.entriesTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3});
+            treeNode2});
             this.entriesTreeView.Size = new System.Drawing.Size(442, 277);
             this.entriesTreeView.TabIndex = 0;
             // 
@@ -1022,7 +1023,6 @@ namespace Farhang2
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.NumericUpDown txtNumber;
         private System.Windows.Forms.Label lblNumber;
-        private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Label lblSearch;
         private System.Windows.Forms.GroupBox previewGroupBox;
         private System.Windows.Forms.WebBrowser webBrowser1;
@@ -1085,5 +1085,6 @@ namespace Farhang2
         private System.Windows.Forms.ToolStripMenuItem userGuideToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem visitWebsiteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutFarhang20ToolStripMenuItem;
+        public System.Windows.Forms.TextBox txtSearch;
 	}
 }

@@ -35,15 +35,19 @@ namespace Farhang2
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Headword");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Headword");
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.headwordsListBox = new System.Windows.Forms.ListBox();
             this.cmbBoxAlphabet = new System.Windows.Forms.ComboBox();
             this.lblAlphabet = new System.Windows.Forms.Label();
             this.headwordsListGroupBox = new System.Windows.Forms.GroupBox();
+            this.btnIPAKeyboard4Search = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.lblSearch = new System.Windows.Forms.Label();
             this.headwordGroupBox = new System.Windows.Forms.GroupBox();
+            this.btnIPAKeyboard4Description = new System.Windows.Forms.Button();
+            this.btnIPAKeyboard4Pronunciation = new System.Windows.Forms.Button();
+            this.btnIPAKeyboard4Lemma = new System.Windows.Forms.Button();
             this.chkIncomplete = new System.Windows.Forms.CheckBox();
             this.lblDescription = new System.Windows.Forms.Label();
             this.lblPronunciation = new System.Windows.Forms.Label();
@@ -54,6 +58,8 @@ namespace Farhang2
             this.entriesTreeView = new System.Windows.Forms.TreeView();
             this.entriesGroupBox = new System.Windows.Forms.GroupBox();
             this.attributesGroupBox = new System.Windows.Forms.GroupBox();
+            this.btnIPAKeyboard4Translation = new System.Windows.Forms.Button();
+            this.btnIPAKeyboard4SourceText = new System.Windows.Forms.Button();
             this.txtNumber = new System.Windows.Forms.NumericUpDown();
             this.txtTranslation = new System.Windows.Forms.TextBox();
             this.lblNumber = new System.Windows.Forms.Label();
@@ -154,7 +160,7 @@ namespace Farhang2
             this.headwordsListBox.Location = new System.Drawing.Point(6, 75);
             this.headwordsListBox.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.headwordsListBox.Name = "headwordsListBox";
-            this.headwordsListBox.Size = new System.Drawing.Size(211, 499);
+            this.headwordsListBox.Size = new System.Drawing.Size(247, 514);
             this.headwordsListBox.TabIndex = 2;
             this.headwordsListBox.SelectedIndexChanged += new System.EventHandler(this.ListBox1SelectedIndexChanged);
             // 
@@ -191,7 +197,7 @@ namespace Farhang2
             this.cmbBoxAlphabet.Location = new System.Drawing.Point(75, 20);
             this.cmbBoxAlphabet.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cmbBoxAlphabet.Name = "cmbBoxAlphabet";
-            this.cmbBoxAlphabet.Size = new System.Drawing.Size(140, 23);
+            this.cmbBoxAlphabet.Size = new System.Drawing.Size(177, 23);
             this.cmbBoxAlphabet.TabIndex = 0;
             this.cmbBoxAlphabet.SelectedIndexChanged += new System.EventHandler(this.ComboBox1SelectedIndexChanged);
             // 
@@ -208,6 +214,7 @@ namespace Farhang2
             // 
             this.headwordsListGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.headwordsListGroupBox.Controls.Add(this.btnIPAKeyboard4Search);
             this.headwordsListGroupBox.Controls.Add(this.txtSearch);
             this.headwordsListGroupBox.Controls.Add(this.lblSearch);
             this.headwordsListGroupBox.Controls.Add(this.cmbBoxAlphabet);
@@ -217,20 +224,29 @@ namespace Farhang2
             this.headwordsListGroupBox.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.headwordsListGroupBox.Name = "headwordsListGroupBox";
             this.headwordsListGroupBox.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.headwordsListGroupBox.Size = new System.Drawing.Size(220, 589);
+            this.headwordsListGroupBox.Size = new System.Drawing.Size(256, 589);
             this.headwordsListGroupBox.TabIndex = 2;
             this.headwordsListGroupBox.TabStop = false;
             this.headwordsListGroupBox.Text = "Headwords\' List";
             this.headwordsListGroupBox.Visible = false;
             // 
+            // btnIPAKeyboard4Search
+            // 
+            this.btnIPAKeyboard4Search.Location = new System.Drawing.Point(213, 49);
+            this.btnIPAKeyboard4Search.Name = "btnIPAKeyboard4Search";
+            this.btnIPAKeyboard4Search.Size = new System.Drawing.Size(39, 23);
+            this.btnIPAKeyboard4Search.TabIndex = 5;
+            this.btnIPAKeyboard4Search.Text = "IPA";
+            this.btnIPAKeyboard4Search.UseVisualStyleBackColor = true;
+            this.btnIPAKeyboard4Search.Click += new System.EventHandler(this.btnIPAKeyboard4IPAButtons_Click);
+            // 
             // txtSearch
             // 
             this.txtSearch.Location = new System.Drawing.Point(75, 48);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(140, 23);
+            this.txtSearch.Size = new System.Drawing.Size(132, 23);
             this.txtSearch.TabIndex = 1;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
-            this.txtSearch.Enter += new System.EventHandler(this.txtSearch_Enter);
             // 
             // lblSearch
             // 
@@ -244,6 +260,9 @@ namespace Farhang2
             // headwordGroupBox
             // 
             this.headwordGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.headwordGroupBox.Controls.Add(this.btnIPAKeyboard4Description);
+            this.headwordGroupBox.Controls.Add(this.btnIPAKeyboard4Pronunciation);
+            this.headwordGroupBox.Controls.Add(this.btnIPAKeyboard4Lemma);
             this.headwordGroupBox.Controls.Add(this.chkIncomplete);
             this.headwordGroupBox.Controls.Add(this.lblDescription);
             this.headwordGroupBox.Controls.Add(this.lblPronunciation);
@@ -251,20 +270,50 @@ namespace Farhang2
             this.headwordGroupBox.Controls.Add(this.txtDescription);
             this.headwordGroupBox.Controls.Add(this.txtPronunciation);
             this.headwordGroupBox.Controls.Add(this.txtLemma);
-            this.headwordGroupBox.Location = new System.Drawing.Point(236, 363);
+            this.headwordGroupBox.Location = new System.Drawing.Point(272, 363);
             this.headwordGroupBox.Name = "headwordGroupBox";
-            this.headwordGroupBox.Size = new System.Drawing.Size(457, 137);
+            this.headwordGroupBox.Size = new System.Drawing.Size(421, 137);
             this.headwordGroupBox.TabIndex = 3;
             this.headwordGroupBox.TabStop = false;
             this.headwordGroupBox.Text = "Headword";
             this.headwordGroupBox.Visible = false;
+            // 
+            // btnIPAKeyboard4Description
+            // 
+            this.btnIPAKeyboard4Description.Location = new System.Drawing.Point(376, 78);
+            this.btnIPAKeyboard4Description.Name = "btnIPAKeyboard4Description";
+            this.btnIPAKeyboard4Description.Size = new System.Drawing.Size(39, 23);
+            this.btnIPAKeyboard4Description.TabIndex = 13;
+            this.btnIPAKeyboard4Description.Text = "IPA";
+            this.btnIPAKeyboard4Description.UseVisualStyleBackColor = true;
+            this.btnIPAKeyboard4Description.Click += new System.EventHandler(this.btnIPAKeyboard4IPAButtons_Click);
+            // 
+            // btnIPAKeyboard4Pronunciation
+            // 
+            this.btnIPAKeyboard4Pronunciation.Location = new System.Drawing.Point(376, 48);
+            this.btnIPAKeyboard4Pronunciation.Name = "btnIPAKeyboard4Pronunciation";
+            this.btnIPAKeyboard4Pronunciation.Size = new System.Drawing.Size(39, 23);
+            this.btnIPAKeyboard4Pronunciation.TabIndex = 12;
+            this.btnIPAKeyboard4Pronunciation.Text = "IPA";
+            this.btnIPAKeyboard4Pronunciation.UseVisualStyleBackColor = true;
+            this.btnIPAKeyboard4Pronunciation.Click += new System.EventHandler(this.btnIPAKeyboard4IPAButtons_Click);
+            // 
+            // btnIPAKeyboard4Lemma
+            // 
+            this.btnIPAKeyboard4Lemma.Location = new System.Drawing.Point(376, 20);
+            this.btnIPAKeyboard4Lemma.Name = "btnIPAKeyboard4Lemma";
+            this.btnIPAKeyboard4Lemma.Size = new System.Drawing.Size(39, 23);
+            this.btnIPAKeyboard4Lemma.TabIndex = 11;
+            this.btnIPAKeyboard4Lemma.Text = "IPA";
+            this.btnIPAKeyboard4Lemma.UseVisualStyleBackColor = true;
+            this.btnIPAKeyboard4Lemma.Click += new System.EventHandler(this.btnIPAKeyboard4IPAButtons_Click);
             // 
             // chkIncomplete
             // 
             this.chkIncomplete.AutoSize = true;
             this.chkIncomplete.Location = new System.Drawing.Point(9, 109);
             this.chkIncomplete.Name = "chkIncomplete";
-            this.chkIncomplete.Size = new System.Drawing.Size(78, 17);
+            this.chkIncomplete.Size = new System.Drawing.Size(97, 19);
             this.chkIncomplete.TabIndex = 10;
             this.chkIncomplete.Text = "Incomplete";
             this.chkIncomplete.UseVisualStyleBackColor = true;
@@ -301,21 +350,21 @@ namespace Farhang2
             this.txtDescription.Location = new System.Drawing.Point(110, 78);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(341, 50);
+            this.txtDescription.Size = new System.Drawing.Size(260, 50);
             this.txtDescription.TabIndex = 2;
             // 
             // txtPronunciation
             // 
             this.txtPronunciation.Location = new System.Drawing.Point(110, 48);
             this.txtPronunciation.Name = "txtPronunciation";
-            this.txtPronunciation.Size = new System.Drawing.Size(341, 23);
+            this.txtPronunciation.Size = new System.Drawing.Size(260, 23);
             this.txtPronunciation.TabIndex = 1;
             // 
             // txtLemma
             // 
             this.txtLemma.Location = new System.Drawing.Point(110, 20);
             this.txtLemma.Name = "txtLemma";
-            this.txtLemma.Size = new System.Drawing.Size(341, 23);
+            this.txtLemma.Size = new System.Drawing.Size(260, 23);
             this.txtLemma.TabIndex = 0;
             // 
             // entriesTreeView
@@ -326,11 +375,11 @@ namespace Farhang2
             this.entriesTreeView.FullRowSelect = true;
             this.entriesTreeView.Location = new System.Drawing.Point(9, 22);
             this.entriesTreeView.Name = "entriesTreeView";
-            treeNode2.Name = "Headword";
-            treeNode2.Text = "Headword";
+            treeNode1.Name = "Headword";
+            treeNode1.Text = "Headword";
             this.entriesTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
-            this.entriesTreeView.Size = new System.Drawing.Size(442, 277);
+            treeNode1});
+            this.entriesTreeView.Size = new System.Drawing.Size(406, 277);
             this.entriesTreeView.TabIndex = 0;
             // 
             // entriesGroupBox
@@ -338,9 +387,9 @@ namespace Farhang2
             this.entriesGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.entriesGroupBox.Controls.Add(this.entriesTreeView);
-            this.entriesGroupBox.Location = new System.Drawing.Point(236, 52);
+            this.entriesGroupBox.Location = new System.Drawing.Point(272, 52);
             this.entriesGroupBox.Name = "entriesGroupBox";
-            this.entriesGroupBox.Size = new System.Drawing.Size(457, 305);
+            this.entriesGroupBox.Size = new System.Drawing.Size(421, 305);
             this.entriesGroupBox.TabIndex = 4;
             this.entriesGroupBox.TabStop = false;
             this.entriesGroupBox.Text = "Entries";
@@ -349,6 +398,8 @@ namespace Farhang2
             // attributesGroupBox
             // 
             this.attributesGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.attributesGroupBox.Controls.Add(this.btnIPAKeyboard4Translation);
+            this.attributesGroupBox.Controls.Add(this.btnIPAKeyboard4SourceText);
             this.attributesGroupBox.Controls.Add(this.txtNumber);
             this.attributesGroupBox.Controls.Add(this.txtTranslation);
             this.attributesGroupBox.Controls.Add(this.lblNumber);
@@ -359,13 +410,33 @@ namespace Farhang2
             this.attributesGroupBox.Controls.Add(this.lblDestinationLanguage);
             this.attributesGroupBox.Controls.Add(this.lblSourceText);
             this.attributesGroupBox.Controls.Add(this.lblType);
-            this.attributesGroupBox.Location = new System.Drawing.Point(236, 506);
+            this.attributesGroupBox.Location = new System.Drawing.Point(272, 506);
             this.attributesGroupBox.Name = "attributesGroupBox";
-            this.attributesGroupBox.Size = new System.Drawing.Size(457, 135);
+            this.attributesGroupBox.Size = new System.Drawing.Size(421, 135);
             this.attributesGroupBox.TabIndex = 5;
             this.attributesGroupBox.TabStop = false;
             this.attributesGroupBox.Text = "Attributes";
             this.attributesGroupBox.Visible = false;
+            // 
+            // btnIPAKeyboard4Translation
+            // 
+            this.btnIPAKeyboard4Translation.Location = new System.Drawing.Point(376, 105);
+            this.btnIPAKeyboard4Translation.Name = "btnIPAKeyboard4Translation";
+            this.btnIPAKeyboard4Translation.Size = new System.Drawing.Size(39, 23);
+            this.btnIPAKeyboard4Translation.TabIndex = 13;
+            this.btnIPAKeyboard4Translation.Text = "IPA";
+            this.btnIPAKeyboard4Translation.UseVisualStyleBackColor = true;
+            this.btnIPAKeyboard4Translation.Click += new System.EventHandler(this.btnIPAKeyboard4IPAButtons_Click);
+            // 
+            // btnIPAKeyboard4SourceText
+            // 
+            this.btnIPAKeyboard4SourceText.Location = new System.Drawing.Point(376, 47);
+            this.btnIPAKeyboard4SourceText.Name = "btnIPAKeyboard4SourceText";
+            this.btnIPAKeyboard4SourceText.Size = new System.Drawing.Size(39, 23);
+            this.btnIPAKeyboard4SourceText.TabIndex = 12;
+            this.btnIPAKeyboard4SourceText.Text = "IPA";
+            this.btnIPAKeyboard4SourceText.UseVisualStyleBackColor = true;
+            this.btnIPAKeyboard4SourceText.Click += new System.EventHandler(this.btnIPAKeyboard4IPAButtons_Click);
             // 
             // txtNumber
             // 
@@ -373,7 +444,7 @@ namespace Farhang2
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNumber.Location = new System.Drawing.Point(308, 18);
             this.txtNumber.Name = "txtNumber";
-            this.txtNumber.Size = new System.Drawing.Size(143, 23);
+            this.txtNumber.Size = new System.Drawing.Size(107, 23);
             this.txtNumber.TabIndex = 1;
             // 
             // txtTranslation
@@ -382,7 +453,7 @@ namespace Farhang2
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTranslation.Location = new System.Drawing.Point(96, 105);
             this.txtTranslation.Name = "txtTranslation";
-            this.txtTranslation.Size = new System.Drawing.Size(355, 23);
+            this.txtTranslation.Size = new System.Drawing.Size(274, 23);
             this.txtTranslation.TabIndex = 4;
             // 
             // lblNumber
@@ -404,7 +475,7 @@ namespace Farhang2
             "Deutsch"});
             this.cmbBoxDestinationLanguage.Location = new System.Drawing.Point(96, 76);
             this.cmbBoxDestinationLanguage.Name = "cmbBoxDestinationLanguage";
-            this.cmbBoxDestinationLanguage.Size = new System.Drawing.Size(140, 23);
+            this.cmbBoxDestinationLanguage.Size = new System.Drawing.Size(104, 23);
             this.cmbBoxDestinationLanguage.TabIndex = 3;
             this.cmbBoxDestinationLanguage.Text = "Persisch";
             // 
@@ -418,7 +489,7 @@ namespace Farhang2
             "Subentry"});
             this.cmbBoxType.Location = new System.Drawing.Point(96, 18);
             this.cmbBoxType.Name = "cmbBoxType";
-            this.cmbBoxType.Size = new System.Drawing.Size(140, 23);
+            this.cmbBoxType.Size = new System.Drawing.Size(104, 23);
             this.cmbBoxType.TabIndex = 0;
             this.cmbBoxType.Text = "Entry";
             // 
@@ -428,7 +499,7 @@ namespace Farhang2
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSourceText.Location = new System.Drawing.Point(96, 47);
             this.txtSourceText.Name = "txtSourceText";
-            this.txtSourceText.Size = new System.Drawing.Size(355, 23);
+            this.txtSourceText.Size = new System.Drawing.Size(274, 23);
             this.txtSourceText.TabIndex = 2;
             // 
             // lblTranslation
@@ -1006,20 +1077,15 @@ namespace Farhang2
         private System.Windows.Forms.Label lblDescription;
         private System.Windows.Forms.Label lblPronunciation;
         private System.Windows.Forms.Label lblLemma;
-        private System.Windows.Forms.TextBox txtDescription;
-        private System.Windows.Forms.TextBox txtPronunciation;
-        private System.Windows.Forms.TextBox txtLemma;
         private System.Windows.Forms.TreeView entriesTreeView;
         private System.Windows.Forms.GroupBox entriesGroupBox;
         private System.Windows.Forms.GroupBox attributesGroupBox;
         private System.Windows.Forms.ComboBox cmbBoxDestinationLanguage;
         private System.Windows.Forms.ComboBox cmbBoxType;
-        private System.Windows.Forms.TextBox txtSourceText;
         private System.Windows.Forms.Label lblTranslation;
         private System.Windows.Forms.Label lblDestinationLanguage;
         private System.Windows.Forms.Label lblSourceText;
         private System.Windows.Forms.Label lblType;
-        private System.Windows.Forms.TextBox txtTranslation;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.NumericUpDown txtNumber;
         private System.Windows.Forms.Label lblNumber;
@@ -1086,5 +1152,16 @@ namespace Farhang2
         private System.Windows.Forms.ToolStripMenuItem visitWebsiteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutFarhang20ToolStripMenuItem;
         public System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.Button btnIPAKeyboard4Search;
+        private System.Windows.Forms.Button btnIPAKeyboard4Lemma;
+        private System.Windows.Forms.Button btnIPAKeyboard4Pronunciation;
+        private System.Windows.Forms.Button btnIPAKeyboard4Description;
+        private System.Windows.Forms.Button btnIPAKeyboard4Translation;
+        private System.Windows.Forms.Button btnIPAKeyboard4SourceText;
+        public System.Windows.Forms.TextBox txtDescription;
+        public System.Windows.Forms.TextBox txtPronunciation;
+        public System.Windows.Forms.TextBox txtLemma;
+        public System.Windows.Forms.TextBox txtSourceText;
+        public System.Windows.Forms.TextBox txtTranslation;
 	}
 }

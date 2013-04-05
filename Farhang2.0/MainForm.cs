@@ -477,7 +477,40 @@ namespace Farhang2
             //headwordsListBox.SelectedItem = txtSearch.Text;
         }
 
-        private void txtSearch_Enter(object sender, EventArgs e)
+        void ipa_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ipaForm = null;
+        }
+
+        private void btnIPAKeyboard4IPAButtons_Click(object sender, EventArgs e)
+        {
+            Button ipaBtn = (Button)sender;
+            switch (ipaBtn.Name)
+            {
+                case "btnIPAKeyboard4Search":
+                    runIPAKeyboard(txtSearch);
+                    break;
+                case "btnIPAKeyboard4Lemma":
+                    runIPAKeyboard(txtLemma);
+                    break;
+                case "btnIPAKeyboard4Pronunciation":
+                    runIPAKeyboard(txtPronunciation);
+                    break;
+                case "btnIPAKeyboard4Description":
+                    runIPAKeyboard(txtDescription);
+                    break;
+                case "btnIPAKeyboard4SourceText":
+                    runIPAKeyboard(txtSourceText);
+                    break;
+                case "btnIPAKeyboard4Translation":
+                    runIPAKeyboard(txtTranslation);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void runIPAKeyboard(TextBox textview)
         {
             if (ipaForm != null)
             {
@@ -485,15 +518,10 @@ namespace Farhang2
             }
             else
             {
-                ipaForm = new _0.IPAKeyboard(this);
+                ipaForm = new _0.IPAKeyboard(this, textview);
                 ipaForm.FormClosed += new FormClosedEventHandler(ipa_FormClosed);
                 ipaForm.Show();
             }
-        }
-
-        void ipa_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            ipaForm = null;
         }
 	}
 }

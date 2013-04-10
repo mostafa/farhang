@@ -43,8 +43,11 @@
     <Reference Include="Antlr4.StringTemplate.Visualizer">
       <HintPath>Antlr4\Antlr4.StringTemplate.Visualizer.dll</HintPath>
     </Reference>
-    <Reference Include="Npgsql">
-      <HintPath>Npgsql2.0.12.0-bin-ms.net4.0\Npgsql.dll</HintPath>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>MongoDB-csharp-driver-1.8\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>MongoDB-csharp-driver-1.8\MongoDB.Driver.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -58,7 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Database.cs" />
+    <Compile Include="Headword.cs" />
     <Compile Include="IPAKeyboard.cs">
       <SubType>Form</SubType>
     </Compile>

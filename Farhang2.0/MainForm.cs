@@ -11,7 +11,9 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Data;
 using System.IO;
-using Npgsql;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using MongoDB.Driver.Builders;
 using Antlr.Runtime;
 using Antlr4.StringTemplate;
 
@@ -23,12 +25,13 @@ namespace Farhang2
 	public partial class MainForm : Form
 	{
         Form ipaForm;
-        List<String> dbList = new List<string>();
-		Dictionary<String, NpgsqlConnection> connectionPool = new Dictionary<string,NpgsqlConnection>();
-        Dictionary<String, NpgsqlCommand> selectCommandPool = new Dictionary<string, NpgsqlCommand>();
-        Dictionary<String, NpgsqlDataAdapter> dataAdapterPool = new Dictionary<string, NpgsqlDataAdapter>();
-        Dictionary<String, DataSet> dataSetPool = new Dictionary<string, DataSet>();
-        int currentHeadwordID = 0;
+        MongoClient client;
+        MongoServer server;
+        MongoDatabase farhang_database;
+        MongoCollection<Headword> collection;
+        MongoCursor<Headword> collection_data;
+        Headword currentHeadword;
+        BsonObjectId currentHeadwordObjectID;
         #region HTMLCSS
         string htmlDocString = @"<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01//EN' 'http://www.w3.org/TR/html4/strict.dtd'>
                                  <html>
@@ -137,6 +140,10 @@ namespace Farhang2
         {
             webBrowser1.DocumentText = "Output Preview";
             editDictionaryToolStripMenuItem.PerformClick();
+
+            client = new MongoClient();
+            server = client.GetServer();
+            farhang_database = server.GetDatabase("farhang");
         }
 
         void ComboBox1SelectedIndexChanged(object sender, EventArgs e)
@@ -146,46 +153,19 @@ namespace Farhang2
             txtSelectedAlphabet.Text = cmbBoxAlphabet.SelectedItem.ToString();
             txtHeadwordsCount.Text = "0";
 
-            dbList = Farhang2._0.Database.getDBList(cmbBoxAlphabet.SelectedItem.ToString());
+            headwordsListBox.SuspendLayout();
 
-            String queryAllHeadwords = "select \"Headword\".\"Lemma\" from \"Headword\" ORDER BY \"Headword\".\"ID\" ASC;";
-            foreach (var item in dbList)
+            collection = farhang_database.GetCollection<Headword>(cmbBoxAlphabet.SelectedItem.ToString().ToUpper());
+            collection_data = collection.FindAllAs<Headword>().SetSortOrder("Priority");
+
+            foreach (var item in collection_data)
             {
-                connectionPool[item.ToString()] = new NpgsqlConnection();
-                connectionPool[item.ToString()].ConnectionString = "Server=127.0.0.1;Port=5432;User Id=postgres;Password=dotnet;Database=" + item.ToString() + ";Encoding=UNICODE";
-                try
-                {
-                    connectionPool[item.ToString()].Open();
-                    if (connectionPool[item.ToString()].State == ConnectionState.Open)
-                    {
-                        selectCommandPool[item.ToString()] = new NpgsqlCommand(queryAllHeadwords, connectionPool[item.ToString()]);
-                        dataAdapterPool[item.ToString()] = new NpgsqlDataAdapter(selectCommandPool[item.ToString()]);
-                        dataSetPool[item.ToString()] = new DataSet();
-                        dataAdapterPool[item.ToString()].Fill(dataSetPool[item.ToString()]);
-                    }
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show(item.ToString() + ": Connection Error!!! Make sure you have started your PostgreSQL 8.4 instance!");
-                    return;
-                }
-
-                headwordsListBox.SuspendLayout();
-
-                for (int i = 0; i < dataSetPool[item.ToString()].Tables[0].Rows.Count; i++)
-                {
-                    headwordsListBox.Items.Add(dataSetPool[item.ToString()].Tables[0].Rows[i].ItemArray[0].ToString());
-                    txtHeadwordsCount.Text = (Convert.ToInt32(txtHeadwordsCount.Text) + 1).ToString();
-                }
-
-                //headwordsListBox.Sorted = true;
-                headwordsListBox.ResumeLayout();
-
-                if (connectionPool[item.ToString()].State == ConnectionState.Open)
-                {
-                    connectionPool[item.ToString()].Close();
-                }
+                headwordsListBox.Items.Add(item.Lemma);
+                txtHeadwordsCount.Text = (Convert.ToInt32(txtHeadwordsCount.Text) + 1).ToString();
             }
+
+            //headwordsListBox.Sorted = true;
+            headwordsListBox.ResumeLayout();
 
             this.Enabled = true;
 		}
@@ -193,54 +173,20 @@ namespace Farhang2
 		void ListBox1SelectedIndexChanged(object sender, EventArgs e)
 		{
             cmbBoxType.SelectedIndex = 0;
-            txtNumber.Value = 0;
+            txtNumber.Text = "0";
             txtSourceText.Text = "";
             cmbBoxDestinationLanguage.SelectedIndex = 0;
             txtTranslation.Text = "";
 
-            foreach (var item in connectionPool.Keys)
-            {
-                try
-                {
-                    if (connectionPool[item].State == ConnectionState.Closed)
-                    {
-                        connectionPool[item].Open();
-                    }
+            currentHeadword = collection.FindOneAs<Headword>(Query.EQ("Lemma", headwordsListBox.SelectedItem.ToString()));
 
-                    selectCommandPool[item] = new NpgsqlCommand("select \"ID\", \"Lemma\", \"Pronunciation\", \"Description\", \"Finished\" from \"Headword\" WHERE \"Headword\".\"Lemma\" = '" + headwordsListBox.SelectedItem.ToString().Replace("\'", "\\'") + "' ORDER BY \"Headword\".\"ID\" ASC;", connectionPool[item]);
-                    dataAdapterPool[item] = new NpgsqlDataAdapter(selectCommandPool[item]);
-                    dataSetPool[item] = new DataSet();
-                    dataAdapterPool[item].Fill(dataSetPool[item]);
-                    if ((dataSetPool[item].Tables.Count > 0) & (dataSetPool[item].Tables[0].Rows.Count > 0))
-                    {
-                        currentHeadwordID = Convert.ToInt32(dataSetPool[item].Tables[0].Rows[0].ItemArray[0]);
-                        txtLemma.Text = dataSetPool[item].Tables[0].Rows[0].ItemArray[1].ToString();
-                        txtPronunciation.Text = dataSetPool[item].Tables[0].Rows[0].ItemArray[2].ToString();
-                        txtDescription.Text = dataSetPool[item].Tables[0].Rows[0].ItemArray[3].ToString();
-                        // Finished: TRUE -> Incomplete: FALSE
-                        // Finished: FALSE -> Incomplete: TRUE
-                        chkIncomplete.Checked = Convert.ToBoolean(dataSetPool[item].Tables[0].Rows[0].ItemArray[4]) == false ? true : false;
-                        dataSetPool[item].Dispose();
-                        break;
-                    }
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Connection Error!!! Make sure you have started your PostgreSQL 8.4 instance!");
-                    return;
-                }
-
-                if (connectionPool[item.ToString()].State == ConnectionState.Open)
-                {
-                    connectionPool[item.ToString()].Close();
-                }
-            }
+            currentHeadwordObjectID = currentHeadword._id;
+            txtLemma.Text = currentHeadword.Lemma;
+            txtPronunciation.Text = currentHeadword.Pronunciation;
+            txtDescription.Text = currentHeadword.Description;
+            chkIncomplete.Checked = currentHeadword.Incomplete == true ? true : false;
 
             entriesTreeView.Nodes.Clear();
-            foreach (var item in dataSetPool.Keys)
-            {
-                dataSetPool[item].Clear();
-            }
 
             // construct headword structure
             entriesTreeView.Nodes.Add("Headword");
@@ -251,63 +197,36 @@ namespace Farhang2
             entriesTreeView.Nodes[0].Nodes.Add(String.IsNullOrWhiteSpace(txtDescription.Text) ? "Description: " : "Description: " + txtDescription.Text);
             entriesTreeView.Nodes[0].Nodes[2].NodeFont = new System.Drawing.Font(new FontFamily("DejaVu Sans"), 8, FontStyle.Italic);
 
-            foreach (var item in connectionPool.Keys)
+            if (currentHeadword.Entries != null)
             {
-                try
+                if (currentHeadword.Entries.Count > 0)
                 {
-                    if (connectionPool[item].State == ConnectionState.Closed)
+                    // construct entry structure
+                    entriesTreeView.Nodes[0].Nodes.Add("Entries");
+
+                    for (int i = 0; i < currentHeadword.Entries.Count; i++)
                     {
-                        connectionPool[item].Open();
+                        if (currentHeadword.Entries[i].Number.Contains(".") == false)
+                        {
+                            entriesTreeView.Nodes[0].Nodes[3].Nodes.Add("Entry: " + currentHeadword.Entries[i].Number);
+                        }
+                        else
+                        {
+                            entriesTreeView.Nodes[0].Nodes[3].Nodes.Add("Subentry: " + currentHeadword.Entries[i].Number);
+                        }
+
+                        entriesTreeView.Nodes[0].Nodes[3].Nodes[i].Nodes.Add("Number: " + currentHeadword.Entries[i].Number);
+                        entriesTreeView.Nodes[0].Nodes[3].Nodes[i].Nodes.Add("Source: " + currentHeadword.Entries[i].SourceText);
+                        entriesTreeView.Nodes[0].Nodes[3].Nodes[i].Nodes.Add("Translation: " + currentHeadword.Entries[i].Translation);
                     }
 
-                    selectCommandPool[item] = new NpgsqlCommand("SELECT \"Entry\".\"ID\", \"Entry\".\"PID\", \"Entry\".\"Type\", \"Entry\".\"Data\", \"Entry\".\"Number\", \"Translation\".\"ID\", \"Translation\".\"PID\", \"Translation\".\"LID\", \"Translation\".\"Data\", \"Headword\".\"Lemma\" FROM \"Entry\", \"Translation\", \"Headword\" WHERE \"Translation\".\"PID\" = \"Entry\".\"ID\" AND \"Entry\".\"PID\" = " + currentHeadwordID.ToString() + " AND \"Headword\".\"Lemma\" = '" + txtLemma.Text.ToString().Replace("\'", "\\'") + "' ORDER BY \"Entry\".\"ID\" ASC;", connectionPool[item]);
-                    dataAdapterPool[item] = new NpgsqlDataAdapter(selectCommandPool[item]);
-                    dataSetPool[item] = new DataSet();
-                    dataAdapterPool[item].Fill(dataSetPool[item]);
-
-                    if ((dataSetPool[item].Tables.Count > 0) & (dataSetPool[item].Tables[0].Rows.Count > 0))
+                    for (int j = 0; j < entriesTreeView.Nodes[0].Nodes[3].Nodes.Count; j++)
                     {
-                        // construct entry structure
-                        entriesTreeView.Nodes[0].Nodes.Add("Entries");
-
-                        for (int i = 0; i < dataSetPool[item].Tables[0].Rows.Count; i++)
+                        if (entriesTreeView.Nodes[0].Nodes[3].Nodes[j].Text.Contains("Entry: "))
                         {
-                            int entryNumber = Convert.ToInt32(dataSetPool[item].Tables[0].Rows[i].ItemArray[4]);
-                            if (entryNumber == 0 && i == 0)
-                            {
-                                entriesTreeView.Nodes[0].Nodes[3].Nodes.Add("Entry: " + dataSetPool[item].Tables[0].Rows[i].ItemArray[0].ToString());
-                            }
-                            else if (entryNumber == 0)
-                            {
-                                entriesTreeView.Nodes[0].Nodes[3].Nodes.Add("Subentry: " + dataSetPool[item].Tables[0].Rows[i].ItemArray[0].ToString());
-                            }
-                            else
-                            {
-                                entriesTreeView.Nodes[0].Nodes[3].Nodes.Add("Entry: " + dataSetPool[item].Tables[0].Rows[i].ItemArray[0].ToString());
-                            }
-
-                            for (int j = 0; j < entriesTreeView.Nodes[0].Nodes[3].Nodes.Count; j++)
-                            {
-                                if (entriesTreeView.Nodes[0].Nodes[3].Nodes[j].Text.Contains("Entry: "))
-                                {
-                                    entriesTreeView.Nodes[0].Nodes[3].Nodes[j].NodeFont = new System.Drawing.Font(new FontFamily("DejaVu Sans"), 8, FontStyle.Bold);
-                                }
-                            }
-                            entriesTreeView.Nodes[0].Nodes[3].Nodes[i].Nodes.Add("Number: " + dataSetPool[item].Tables[0].Rows[i].ItemArray[4].ToString());
-                            entriesTreeView.Nodes[0].Nodes[3].Nodes[i].Nodes.Add("Source: " + dataSetPool[item].Tables[0].Rows[i].ItemArray[3].ToString());
-                            entriesTreeView.Nodes[0].Nodes[3].Nodes[i].Nodes.Add("Translation: " + dataSetPool[item].Tables[0].Rows[i].ItemArray[8].ToString());
+                            entriesTreeView.Nodes[0].Nodes[3].Nodes[j].NodeFont = new System.Drawing.Font(new FontFamily("DejaVu Sans"), 8, FontStyle.Bold);
                         }
                     }
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Connection Error!!! Make sure you have started your PostgreSQL 8.4 instance!");
-                    return;
-                }
-
-                if (connectionPool[item.ToString()].State == ConnectionState.Open)
-                {
-                    connectionPool[item.ToString()].Close();
                 }
             }
 
@@ -324,76 +243,57 @@ namespace Farhang2
             String entries = "";
 
             Template headwordTemplate = new Template("<div class='inline'><span id='headword'>$Headword$</span> <span id='pronunciation'>$Pronunciation$</span> <span id='description'>$Description$</span></div><br />", '$', '$');
-            headwordTemplate.Add("Headword", txtLemma.Text.ToString());
-            headwordTemplate.Add("Pronunciation", String.IsNullOrWhiteSpace(txtPronunciation.Text.ToString()) ? "" : "[" + txtPronunciation.Text.ToString() + "]");
-            headwordTemplate.Add("Description", txtDescription.Text.ToString());
+            headwordTemplate.Add("Headword", currentHeadword.Lemma);
+            headwordTemplate.Add("Pronunciation", String.IsNullOrWhiteSpace(currentHeadword.Pronunciation) ? "" : "[" + currentHeadword.Pronunciation + "]");
+            headwordTemplate.Add("Description", currentHeadword.Description);
 
             entries += headwordTemplate.Render();
 
-            foreach (var item in dataSetPool.Keys)
+            if (currentHeadword.Entries != null)
             {
-                if ((dataSetPool[item].Tables.Count > 0) & (dataSetPool[item].Tables[0].Rows.Count > 0))
+                if (currentHeadword.Entries.Count > 0)
                 {
-                    for (int i = 0; i < dataSetPool[item].Tables[0].Rows.Count; i++)
+                    for (int i = 0; i < currentHeadword.Entries.Count; i++)
                     {
                         Template entryTemplate = new Template("<div class='inline'><span><p id='deutschEntry'>$deutschEntry$</p><wbr /><p id='persianEntry'>$persianEntry$</p></span></div><br />", '$', '$');
                         Template subentryTemplate = new Template("<div class='inline'><span><p id='deutschSubentry'>$deutschSubentry$</p><wbr /><p id='persianSubentry'>$persianSubentry$</p></span></div><br />", '$', '$');
 
-                        int entryNumber = Convert.ToInt32(dataSetPool[item].Tables[0].Rows[i].ItemArray[4]);
-                        if (entryNumber == 0 && i == 0)
+                        if (currentHeadword.Entries[i].EntryType == "Entry")
                         {
-                            entryTemplate.Add("deutschEntry", dataSetPool[item].Tables[0].Rows[i].ItemArray[3].ToString());
-                            entryTemplate.Add("persianEntry", dataSetPool[item].Tables[0].Rows[i].ItemArray[8].ToString());
+                            entryTemplate.Add("deutschEntry", currentHeadword.Entries[i].SourceText);
+                            entryTemplate.Add("persianEntry", currentHeadword.Entries[i].Translation);
                             entries += entryTemplate.Render();
-                        }
-                        else if (entryNumber == 0)
-                        {
-                            subentryTemplate.Add("deutschSubentry", dataSetPool[item].Tables[0].Rows[i].ItemArray[3].ToString());
-                            subentryTemplate.Add("persianSubentry", dataSetPool[item].Tables[0].Rows[i].ItemArray[8].ToString());
-                            entries += subentryTemplate.Render();
                         }
                         else
                         {
-                            entryTemplate.Add("deutschEntry", entryNumber + ". " + dataSetPool[item].Tables[0].Rows[i].ItemArray[3].ToString());
-                            entryTemplate.Add("persianEntry", entryNumber + ". " + dataSetPool[item].Tables[0].Rows[i].ItemArray[8].ToString());
-                            entries += entryTemplate.Render();
+                            subentryTemplate.Add("deutschSubentry", currentHeadword.Entries[i].SourceText);
+                            subentryTemplate.Add("persianSubentry", currentHeadword.Entries[i].Translation);
+                            entries += subentryTemplate.Render();
                         }
                     }
                 }
             }
-            
 
             return htmlDocString.Replace("$entries$", entries);
         }
 
         void entriesTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            foreach (var item in dataSetPool.Keys)
+            if (currentHeadword.Entries != null)
             {
-                if ((dataSetPool[item].Tables.Count > 0) & (dataSetPool[item].Tables[0].Rows.Count > 0))
+                if (currentHeadword.Entries.Count > 0)
                 {
-                    for (int i = 0; i < dataSetPool[item].Tables[0].Rows.Count; i++)
+                    foreach (var item in currentHeadword.Entries)
                     {
-                        if (dataSetPool[item].Tables[0].Rows[i].ItemArray[0].ToString() == entriesTreeView.SelectedNode.Text.Replace("Entry: ", "").Replace("Subentry: ", ""))
+                        if ((item.Number == entriesTreeView.SelectedNode.Text.Replace("Entry: ", "").Replace("Subentry: ", "")) | item.Number == entriesTreeView.SelectedNode.Parent.Text.Replace("Entry: ", "").Replace("Subentry: ", ""))
                         {
-                            switch (dataSetPool[item].Tables[0].Rows[i].ItemArray[2].ToString())
-                            {
-                                case "E":
-                                    cmbBoxType.SelectedIndex = 0;
-                                    break;
-                                case "S":
-                                    cmbBoxType.SelectedIndex = 1;
-                                    break;
-                                default:
-                                    cmbBoxType.SelectedIndex = 0;
-                                    break;
-                            }
+                            cmbBoxType.Text = item.EntryType;
 
-                            txtNumber.Value = Convert.ToInt32(dataSetPool[item].Tables[0].Rows[i].ItemArray[4]);
+                            txtNumber.Text = item.Number;
 
-                            txtSourceText.Text = dataSetPool[item].Tables[0].Rows[i].ItemArray[3].ToString();
+                            txtSourceText.Text = item.SourceText;
 
-                            if (dataSetPool[item].Tables[0].Rows[i].ItemArray[7].ToString() == "2")
+                            if (item.TranslationLanguage == "FA")
                             {
                                 //persisch
                                 cmbBoxDestinationLanguage.SelectedIndex = 0;
@@ -404,7 +304,7 @@ namespace Farhang2
                                 cmbBoxDestinationLanguage.SelectedIndex = 1;
                             }
 
-                            txtTranslation.Text = dataSetPool[item].Tables[0].Rows[i].ItemArray[8].ToString();
+                            txtTranslation.Text = item.Translation;
                             break;
                         }
                     }

@@ -60,7 +60,6 @@ namespace Farhang2
             this.attributesGroupBox = new System.Windows.Forms.GroupBox();
             this.btnIPAKeyboard4Translation = new System.Windows.Forms.Button();
             this.btnIPAKeyboard4SourceText = new System.Windows.Forms.Button();
-            this.txtNumber = new System.Windows.Forms.NumericUpDown();
             this.txtTranslation = new System.Windows.Forms.TextBox();
             this.lblNumber = new System.Windows.Forms.Label();
             this.cmbBoxDestinationLanguage = new System.Windows.Forms.ComboBox();
@@ -131,11 +130,11 @@ namespace Farhang2
             this.lblEntriesCount = new System.Windows.Forms.Label();
             this.lblHeadwordsCount = new System.Windows.Forms.Label();
             this.lblSelectedAlphabet = new System.Windows.Forms.Label();
+            this.txtNumber = new System.Windows.Forms.TextBox();
             this.headwordsListGroupBox.SuspendLayout();
             this.headwordGroupBox.SuspendLayout();
             this.entriesGroupBox.SuspendLayout();
             this.attributesGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtNumber)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.previewGroupBox.SuspendLayout();
             this.statisticsGroupBox.SuspendLayout();
@@ -398,9 +397,9 @@ namespace Farhang2
             // attributesGroupBox
             // 
             this.attributesGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.attributesGroupBox.Controls.Add(this.txtNumber);
             this.attributesGroupBox.Controls.Add(this.btnIPAKeyboard4Translation);
             this.attributesGroupBox.Controls.Add(this.btnIPAKeyboard4SourceText);
-            this.attributesGroupBox.Controls.Add(this.txtNumber);
             this.attributesGroupBox.Controls.Add(this.txtTranslation);
             this.attributesGroupBox.Controls.Add(this.lblNumber);
             this.attributesGroupBox.Controls.Add(this.cmbBoxDestinationLanguage);
@@ -437,15 +436,6 @@ namespace Farhang2
             this.btnIPAKeyboard4SourceText.Text = "IPA";
             this.btnIPAKeyboard4SourceText.UseVisualStyleBackColor = true;
             this.btnIPAKeyboard4SourceText.Click += new System.EventHandler(this.btnIPAKeyboard4IPAButtons_Click);
-            // 
-            // txtNumber
-            // 
-            this.txtNumber.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNumber.Location = new System.Drawing.Point(308, 18);
-            this.txtNumber.Name = "txtNumber";
-            this.txtNumber.Size = new System.Drawing.Size(107, 23);
-            this.txtNumber.TabIndex = 1;
             // 
             // txtTranslation
             // 
@@ -486,7 +476,9 @@ namespace Farhang2
             this.cmbBoxType.FormattingEnabled = true;
             this.cmbBoxType.Items.AddRange(new object[] {
             "Entry",
-            "Subentry"});
+            "Subentry",
+            "Combination",
+            "Reference"});
             this.cmbBoxType.Location = new System.Drawing.Point(96, 18);
             this.cmbBoxType.Name = "cmbBoxType";
             this.cmbBoxType.Size = new System.Drawing.Size(104, 23);
@@ -1031,6 +1023,13 @@ namespace Farhang2
             this.lblSelectedAlphabet.TabIndex = 0;
             this.lblSelectedAlphabet.Text = "Alphabet:";
             // 
+            // txtNumber
+            // 
+            this.txtNumber.Location = new System.Drawing.Point(308, 18);
+            this.txtNumber.Name = "txtNumber";
+            this.txtNumber.Size = new System.Drawing.Size(104, 23);
+            this.txtNumber.TabIndex = 14;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -1058,7 +1057,6 @@ namespace Farhang2
             this.entriesGroupBox.ResumeLayout(false);
             this.attributesGroupBox.ResumeLayout(false);
             this.attributesGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtNumber)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.previewGroupBox.ResumeLayout(false);
@@ -1087,7 +1085,6 @@ namespace Farhang2
         private System.Windows.Forms.Label lblSourceText;
         private System.Windows.Forms.Label lblType;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.NumericUpDown txtNumber;
         private System.Windows.Forms.Label lblNumber;
         private System.Windows.Forms.Label lblSearch;
         private System.Windows.Forms.GroupBox previewGroupBox;
@@ -1163,5 +1160,6 @@ namespace Farhang2
         public System.Windows.Forms.TextBox txtLemma;
         public System.Windows.Forms.TextBox txtSourceText;
         public System.Windows.Forms.TextBox txtTranslation;
+        private System.Windows.Forms.TextBox txtNumber;
 	}
 }

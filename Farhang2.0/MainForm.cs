@@ -257,11 +257,28 @@ namespace Farhang2
                     {
                         Template entryTemplate = new Template("<div class='inline'><span><p id='deutschEntry'>$deutschEntry$</p><wbr /><p id='persianEntry'>$persianEntry$</p></span></div><br />", '$', '$');
                         Template subentryTemplate = new Template("<div class='inline'><span><p id='deutschSubentry'>$deutschSubentry$</p><wbr /><p id='persianSubentry'>$persianSubentry$</p></span></div><br />", '$', '$');
+                        int entryCount = 0;
+
+                        foreach (var entry in currentHeadword.Entries)
+                        {
+                            if (entry.EntryType == "Entry")
+                            {
+                                entryCount++;
+                            }
+                        }
 
                         if (currentHeadword.Entries[i].EntryType == "Entry")
                         {
-                            entryTemplate.Add("deutschEntry", currentHeadword.Entries[i].SourceText);
-                            entryTemplate.Add("persianEntry", currentHeadword.Entries[i].Translation);
+                            if (entryCount == 1)
+                            {
+                                entryTemplate.Add("deutschEntry", currentHeadword.Entries[i].SourceText);
+                                entryTemplate.Add("persianEntry", currentHeadword.Entries[i].Translation);
+                            }
+                            else
+                            {
+                                entryTemplate.Add("deutschEntry", currentHeadword.Entries[i].Number + ". " + currentHeadword.Entries[i].SourceText);
+                                entryTemplate.Add("persianEntry", currentHeadword.Entries[i].Number + ". " + currentHeadword.Entries[i].Translation);
+                            }
                             entries += entryTemplate.Render();
                         }
                         else

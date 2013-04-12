@@ -323,6 +323,10 @@ namespace Farhang2
                                 cmbBoxDestinationLanguage.SelectedIndex = 1;
                             }
 
+                            if (item.TranslationLanguage == "FA")
+                            {
+                                txtTranslation.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+                            }
                             txtTranslation.Text = item.Translation;
                             break;
                         }

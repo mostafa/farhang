@@ -35,7 +35,7 @@ namespace Farhang2
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Headword");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Headword");
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.headwordsListBox = new System.Windows.Forms.ListBox();
             this.cmbBoxAlphabet = new System.Windows.Forms.ComboBox();
@@ -383,10 +383,10 @@ namespace Farhang2
             this.entriesTreeView.FullRowSelect = true;
             this.entriesTreeView.Location = new System.Drawing.Point(9, 22);
             this.entriesTreeView.Name = "entriesTreeView";
-            treeNode2.Name = "Headword";
-            treeNode2.Text = "Headword";
+            treeNode1.Name = "Headword";
+            treeNode1.Text = "Headword";
             this.entriesTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
+            treeNode1});
             this.entriesTreeView.Size = new System.Drawing.Size(406, 277);
             this.entriesTreeView.TabIndex = 0;
             // 

@@ -429,6 +429,9 @@ namespace Farhang2
                 case "btnIPAKeyboard4Translation":
                     runIPAKeyboard(txtTranslation);
                     break;
+                case "btnIPAKeyboard4MHSSearch":
+                    runIPAKeyboard(txtMHSSearch);
+                    break;
                 default:
                     break;
             }
@@ -457,9 +460,6 @@ namespace Farhang2
         private void cmbBoxAlphabet4Sort_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.Enabled = false;
-            //dataGridView4Sort.Rows.Clear();
-
-            headwordsListBox.SuspendLayout();
 
             collection = farhang_database.GetCollection<Headword>(cmbBoxAlphabet4Sort.SelectedItem.ToString().ToUpper());
             collection_data = collection.FindAllAs<Headword>().SetSortOrder("Priority");
@@ -478,9 +478,13 @@ namespace Farhang2
             dataGridView4Sort.DataMember = priorityDataSet.Tables[0].TableName;
             dataGridView4Sort.Sort(dataGridView4Sort.Columns[1], System.ComponentModel.ListSortDirection.Ascending);
 
-            lblTotal.Text = "Total: " + collection_data.Count().ToString();
-            lblTotal.Visible = true;
-            headwordsListBox.ResumeLayout();
+            DataSet OriginalDataSet = priorityDataSet.Copy();
+
+            dataGridViewOriginal.DataSource = OriginalDataSet;
+            dataGridViewOriginal.DataMember = OriginalDataSet.Tables[0].TableName;
+            dataGridViewOriginal.Sort(dataGridViewOriginal.Columns[1], System.ComponentModel.ListSortDirection.Ascending);
+
+            txtTotal4MHS.Text = collection_data.Count().ToString();
 
             this.Enabled = true;
         }
@@ -502,6 +506,21 @@ namespace Farhang2
 			{
                 collection.Update(Query.EQ("Lemma", newTableForUpdatingPriorities.Rows[i].ItemArray[0].ToString()), MongoDB.Driver.Builders.Update.Set("Priority", (i + 1)));
 			}
+        }
+
+        private void txtMHSSearch_TextChanged(object sender, EventArgs e)
+        {
+            int position = -1;
+
+            foreach (DataGridViewRow item in dataGridView4Sort.Rows)
+            {
+                if (item.Cells[0].Value.ToString().StartsWith(txtMHSSearch.Text))
+                {
+                    position = item.Index;
+                    dataGridView4Sort.CurrentCell = dataGridView4Sort.Rows[position].Cells[0];
+                    break;
+                }
+            }
         }
 	}
 }

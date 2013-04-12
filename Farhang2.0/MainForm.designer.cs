@@ -35,7 +35,7 @@ namespace Farhang2
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Headword");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Headword");
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.headwordsListBox = new System.Windows.Forms.ListBox();
             this.cmbBoxAlphabet = new System.Windows.Forms.ComboBox();
@@ -132,12 +132,22 @@ namespace Farhang2
             this.lblEntriesCount = new System.Windows.Forms.Label();
             this.lblHeadwordsCount = new System.Windows.Forms.Label();
             this.lblSelectedAlphabet = new System.Windows.Forms.Label();
-            this.btnSavePriorityList = new System.Windows.Forms.Button();
-            this.dataGridView4Sort = new System.Windows.Forms.DataGridView();
             this.manualHeadwordSorterGrpBox = new System.Windows.Forms.GroupBox();
-            this.lblTotal = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.grpBoxOriginal = new System.Windows.Forms.GroupBox();
+            this.dataGridViewOriginal = new System.Windows.Forms.DataGridView();
+            this.grpBoxSorted = new System.Windows.Forms.GroupBox();
+            this.dataGridView4Sort = new System.Windows.Forms.DataGridView();
+            this.btnSavePriorityList = new System.Windows.Forms.Button();
+            this.btnIPAKeyboard4MHSSearch = new System.Windows.Forms.Button();
+            this.txtMHSSearch = new System.Windows.Forms.TextBox();
+            this.lblMHSSearch = new System.Windows.Forms.Label();
+            this.lblScratchPad = new System.Windows.Forms.Label();
+            this.txtScratch = new System.Windows.Forms.TextBox();
+            this.lblTotalCount = new System.Windows.Forms.Label();
             this.cmbBoxAlphabet4Sort = new System.Windows.Forms.ComboBox();
             this.lblAlphabet4Sort = new System.Windows.Forms.Label();
+            this.txtTotal4MHS = new System.Windows.Forms.TextBox();
             this.headwordsListGroupBox.SuspendLayout();
             this.headwordGroupBox.SuspendLayout();
             this.entriesGroupBox.SuspendLayout();
@@ -145,8 +155,12 @@ namespace Farhang2
             this.menuStrip1.SuspendLayout();
             this.previewGroupBox.SuspendLayout();
             this.statisticsGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4Sort)).BeginInit();
             this.manualHeadwordSorterGrpBox.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.grpBoxOriginal.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOriginal)).BeginInit();
+            this.grpBoxSorted.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4Sort)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -383,10 +397,10 @@ namespace Farhang2
             this.entriesTreeView.FullRowSelect = true;
             this.entriesTreeView.Location = new System.Drawing.Point(9, 22);
             this.entriesTreeView.Name = "entriesTreeView";
-            treeNode1.Name = "Headword";
-            treeNode1.Text = "Headword";
+            treeNode2.Name = "Headword";
+            treeNode2.Text = "Headword";
             this.entriesTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode2});
             this.entriesTreeView.Size = new System.Drawing.Size(406, 277);
             this.entriesTreeView.TabIndex = 0;
             // 
@@ -1047,41 +1061,22 @@ namespace Farhang2
             this.lblSelectedAlphabet.TabIndex = 0;
             this.lblSelectedAlphabet.Text = "Alphabet:";
             // 
-            // btnSavePriorityList
-            // 
-            this.btnSavePriorityList.Enabled = false;
-            this.btnSavePriorityList.Location = new System.Drawing.Point(952, 560);
-            this.btnSavePriorityList.Name = "btnSavePriorityList";
-            this.btnSavePriorityList.Size = new System.Drawing.Size(75, 23);
-            this.btnSavePriorityList.TabIndex = 0;
-            this.btnSavePriorityList.Text = "Save";
-            this.btnSavePriorityList.UseVisualStyleBackColor = true;
-            this.btnSavePriorityList.Click += new System.EventHandler(this.btnSavePriorityList_Click);
-            // 
-            // dataGridView4Sort
-            // 
-            this.dataGridView4Sort.AllowUserToAddRows = false;
-            this.dataGridView4Sort.AllowUserToDeleteRows = false;
-            this.dataGridView4Sort.AllowUserToOrderColumns = true;
-            this.dataGridView4Sort.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridView4Sort.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView4Sort.Location = new System.Drawing.Point(8, 52);
-            this.dataGridView4Sort.Name = "dataGridView4Sort";
-            this.dataGridView4Sort.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView4Sort.Size = new System.Drawing.Size(1019, 502);
-            this.dataGridView4Sort.TabIndex = 1;
-            this.dataGridView4Sort.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView4Sort_CellValueChanged);
-            // 
             // manualHeadwordSorterGrpBox
             // 
             this.manualHeadwordSorterGrpBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.manualHeadwordSorterGrpBox.Controls.Add(this.lblTotal);
+            this.manualHeadwordSorterGrpBox.Controls.Add(this.txtTotal4MHS);
+            this.manualHeadwordSorterGrpBox.Controls.Add(this.tableLayoutPanel1);
+            this.manualHeadwordSorterGrpBox.Controls.Add(this.btnSavePriorityList);
+            this.manualHeadwordSorterGrpBox.Controls.Add(this.btnIPAKeyboard4MHSSearch);
+            this.manualHeadwordSorterGrpBox.Controls.Add(this.txtMHSSearch);
+            this.manualHeadwordSorterGrpBox.Controls.Add(this.lblMHSSearch);
+            this.manualHeadwordSorterGrpBox.Controls.Add(this.lblScratchPad);
+            this.manualHeadwordSorterGrpBox.Controls.Add(this.txtScratch);
+            this.manualHeadwordSorterGrpBox.Controls.Add(this.lblTotalCount);
             this.manualHeadwordSorterGrpBox.Controls.Add(this.cmbBoxAlphabet4Sort);
             this.manualHeadwordSorterGrpBox.Controls.Add(this.lblAlphabet4Sort);
-            this.manualHeadwordSorterGrpBox.Controls.Add(this.dataGridView4Sort);
-            this.manualHeadwordSorterGrpBox.Controls.Add(this.btnSavePriorityList);
             this.manualHeadwordSorterGrpBox.Location = new System.Drawing.Point(11, 52);
             this.manualHeadwordSorterGrpBox.Name = "manualHeadwordSorterGrpBox";
             this.manualHeadwordSorterGrpBox.Size = new System.Drawing.Size(1033, 589);
@@ -1090,15 +1085,140 @@ namespace Farhang2
             this.manualHeadwordSorterGrpBox.Text = "Manual Headword Sorter";
             this.manualHeadwordSorterGrpBox.Visible = false;
             // 
-            // lblTotal
+            // tableLayoutPanel1
             // 
-            this.lblTotal.AutoSize = true;
-            this.lblTotal.Location = new System.Drawing.Point(257, 26);
-            this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(40, 15);
-            this.lblTotal.TabIndex = 6;
-            this.lblTotal.Text = "Total:";
-            this.lblTotal.Visible = false;
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.grpBoxOriginal, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.grpBoxSorted, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(5, 77);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1022, 506);
+            this.tableLayoutPanel1.TabIndex = 16;
+            // 
+            // grpBoxOriginal
+            // 
+            this.grpBoxOriginal.Controls.Add(this.dataGridViewOriginal);
+            this.grpBoxOriginal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpBoxOriginal.Location = new System.Drawing.Point(514, 3);
+            this.grpBoxOriginal.Name = "grpBoxOriginal";
+            this.grpBoxOriginal.Size = new System.Drawing.Size(505, 500);
+            this.grpBoxOriginal.TabIndex = 19;
+            this.grpBoxOriginal.TabStop = false;
+            this.grpBoxOriginal.Text = "Original";
+            // 
+            // dataGridViewOriginal
+            // 
+            this.dataGridViewOriginal.AllowUserToAddRows = false;
+            this.dataGridViewOriginal.AllowUserToDeleteRows = false;
+            this.dataGridViewOriginal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewOriginal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewOriginal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewOriginal.Location = new System.Drawing.Point(3, 19);
+            this.dataGridViewOriginal.MultiSelect = false;
+            this.dataGridViewOriginal.Name = "dataGridViewOriginal";
+            this.dataGridViewOriginal.ReadOnly = true;
+            this.dataGridViewOriginal.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewOriginal.Size = new System.Drawing.Size(499, 478);
+            this.dataGridViewOriginal.TabIndex = 13;
+            // 
+            // grpBoxSorted
+            // 
+            this.grpBoxSorted.Controls.Add(this.dataGridView4Sort);
+            this.grpBoxSorted.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpBoxSorted.Location = new System.Drawing.Point(3, 3);
+            this.grpBoxSorted.Name = "grpBoxSorted";
+            this.grpBoxSorted.Size = new System.Drawing.Size(505, 500);
+            this.grpBoxSorted.TabIndex = 18;
+            this.grpBoxSorted.TabStop = false;
+            this.grpBoxSorted.Text = "Sorted";
+            // 
+            // dataGridView4Sort
+            // 
+            this.dataGridView4Sort.AllowUserToAddRows = false;
+            this.dataGridView4Sort.AllowUserToDeleteRows = false;
+            this.dataGridView4Sort.AllowUserToOrderColumns = true;
+            this.dataGridView4Sort.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridView4Sort.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView4Sort.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView4Sort.Location = new System.Drawing.Point(3, 19);
+            this.dataGridView4Sort.MultiSelect = false;
+            this.dataGridView4Sort.Name = "dataGridView4Sort";
+            this.dataGridView4Sort.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView4Sort.Size = new System.Drawing.Size(499, 478);
+            this.dataGridView4Sort.TabIndex = 2;
+            this.dataGridView4Sort.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView4Sort_CellValueChanged);
+            // 
+            // btnSavePriorityList
+            // 
+            this.btnSavePriorityList.Enabled = false;
+            this.btnSavePriorityList.Location = new System.Drawing.Point(952, 51);
+            this.btnSavePriorityList.Name = "btnSavePriorityList";
+            this.btnSavePriorityList.Size = new System.Drawing.Size(75, 23);
+            this.btnSavePriorityList.TabIndex = 15;
+            this.btnSavePriorityList.Text = "Save";
+            this.btnSavePriorityList.UseVisualStyleBackColor = true;
+            this.btnSavePriorityList.Click += new System.EventHandler(this.btnSavePriorityList_Click);
+            // 
+            // btnIPAKeyboard4MHSSearch
+            // 
+            this.btnIPAKeyboard4MHSSearch.Location = new System.Drawing.Point(214, 51);
+            this.btnIPAKeyboard4MHSSearch.Name = "btnIPAKeyboard4MHSSearch";
+            this.btnIPAKeyboard4MHSSearch.Size = new System.Drawing.Size(39, 23);
+            this.btnIPAKeyboard4MHSSearch.TabIndex = 11;
+            this.btnIPAKeyboard4MHSSearch.Text = "IPA";
+            this.btnIPAKeyboard4MHSSearch.UseVisualStyleBackColor = true;
+            this.btnIPAKeyboard4MHSSearch.Click += new System.EventHandler(this.btnIPAKeyboard4IPAButtons_Click);
+            // 
+            // txtMHSSearch
+            // 
+            this.txtMHSSearch.Location = new System.Drawing.Point(76, 51);
+            this.txtMHSSearch.Name = "txtMHSSearch";
+            this.txtMHSSearch.Size = new System.Drawing.Size(132, 23);
+            this.txtMHSSearch.TabIndex = 9;
+            this.txtMHSSearch.TextChanged += new System.EventHandler(this.txtMHSSearch_TextChanged);
+            // 
+            // lblMHSSearch
+            // 
+            this.lblMHSSearch.AutoSize = true;
+            this.lblMHSSearch.Location = new System.Drawing.Point(6, 55);
+            this.lblMHSSearch.Name = "lblMHSSearch";
+            this.lblMHSSearch.Size = new System.Drawing.Size(56, 15);
+            this.lblMHSSearch.TabIndex = 10;
+            this.lblMHSSearch.Text = "Search:";
+            // 
+            // lblScratchPad
+            // 
+            this.lblScratchPad.AutoSize = true;
+            this.lblScratchPad.Location = new System.Drawing.Point(258, 26);
+            this.lblScratchPad.Name = "lblScratchPad";
+            this.lblScratchPad.Size = new System.Drawing.Size(87, 15);
+            this.lblScratchPad.TabIndex = 8;
+            this.lblScratchPad.Text = "Scratch Pad:";
+            // 
+            // txtScratch
+            // 
+            this.txtScratch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtScratch.Location = new System.Drawing.Point(351, 22);
+            this.txtScratch.Name = "txtScratch";
+            this.txtScratch.Size = new System.Drawing.Size(676, 23);
+            this.txtScratch.TabIndex = 7;
+            // 
+            // lblTotalCount
+            // 
+            this.lblTotalCount.AutoSize = true;
+            this.lblTotalCount.Location = new System.Drawing.Point(258, 55);
+            this.lblTotalCount.Name = "lblTotalCount";
+            this.lblTotalCount.Size = new System.Drawing.Size(82, 15);
+            this.lblTotalCount.TabIndex = 6;
+            this.lblTotalCount.Text = "Total Count:";
             // 
             // cmbBoxAlphabet4Sort
             // 
@@ -1130,7 +1250,7 @@ namespace Farhang2
             "X",
             "Y",
             "Z"});
-            this.cmbBoxAlphabet4Sort.Location = new System.Drawing.Point(75, 23);
+            this.cmbBoxAlphabet4Sort.Location = new System.Drawing.Point(76, 23);
             this.cmbBoxAlphabet4Sort.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cmbBoxAlphabet4Sort.Name = "cmbBoxAlphabet4Sort";
             this.cmbBoxAlphabet4Sort.Size = new System.Drawing.Size(177, 23);
@@ -1139,12 +1259,21 @@ namespace Farhang2
             // 
             // lblAlphabet4Sort
             // 
-            this.lblAlphabet4Sort.Location = new System.Drawing.Point(5, 26);
-            this.lblAlphabet4Sort.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblAlphabet4Sort.Location = new System.Drawing.Point(6, 26);
             this.lblAlphabet4Sort.Name = "lblAlphabet4Sort";
             this.lblAlphabet4Sort.Size = new System.Drawing.Size(69, 17);
             this.lblAlphabet4Sort.TabIndex = 5;
             this.lblAlphabet4Sort.Text = "Alphabet:";
+            // 
+            // txtTotal4MHS
+            // 
+            this.txtTotal4MHS.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTotal4MHS.Location = new System.Drawing.Point(351, 51);
+            this.txtTotal4MHS.Name = "txtTotal4MHS";
+            this.txtTotal4MHS.ReadOnly = true;
+            this.txtTotal4MHS.Size = new System.Drawing.Size(110, 23);
+            this.txtTotal4MHS.TabIndex = 17;
             // 
             // MainForm
             // 
@@ -1179,9 +1308,13 @@ namespace Farhang2
             this.previewGroupBox.ResumeLayout(false);
             this.statisticsGroupBox.ResumeLayout(false);
             this.statisticsGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4Sort)).EndInit();
             this.manualHeadwordSorterGrpBox.ResumeLayout(false);
             this.manualHeadwordSorterGrpBox.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.grpBoxOriginal.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOriginal)).EndInit();
+            this.grpBoxSorted.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4Sort)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1282,11 +1415,21 @@ namespace Farhang2
         public System.Windows.Forms.TextBox txtTranslation;
         private System.Windows.Forms.TextBox txtNumber;
         private System.Windows.Forms.ToolStripMenuItem manualHeadwordSorterToolStripMenuItem;
-        private System.Windows.Forms.Button btnSavePriorityList;
-        private System.Windows.Forms.DataGridView dataGridView4Sort;
         private System.Windows.Forms.GroupBox manualHeadwordSorterGrpBox;
         private System.Windows.Forms.ComboBox cmbBoxAlphabet4Sort;
         private System.Windows.Forms.Label lblAlphabet4Sort;
-        private System.Windows.Forms.Label lblTotal;
+        private System.Windows.Forms.Label lblTotalCount;
+        private System.Windows.Forms.TextBox txtScratch;
+        private System.Windows.Forms.Label lblScratchPad;
+        private System.Windows.Forms.Button btnIPAKeyboard4MHSSearch;
+        public System.Windows.Forms.TextBox txtMHSSearch;
+        private System.Windows.Forms.Label lblMHSSearch;
+        private System.Windows.Forms.Button btnSavePriorityList;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.GroupBox grpBoxOriginal;
+        private System.Windows.Forms.DataGridView dataGridViewOriginal;
+        private System.Windows.Forms.GroupBox grpBoxSorted;
+        private System.Windows.Forms.DataGridView dataGridView4Sort;
+        private System.Windows.Forms.TextBox txtTotal4MHS;
 	}
 }

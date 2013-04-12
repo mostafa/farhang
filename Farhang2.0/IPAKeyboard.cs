@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Farhang2._0
+namespace Farhang2
 {
     public partial class IPAKeyboard : Form
     {

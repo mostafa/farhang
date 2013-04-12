@@ -1,4 +1,4 @@
-﻿namespace Farhang2._0
+﻿namespace Farhang2
 {
     partial class IPAKeyboard
     {

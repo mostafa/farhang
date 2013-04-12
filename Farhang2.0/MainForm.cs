@@ -438,7 +438,7 @@ namespace Farhang2
             }
             else
             {
-                ipaForm = new _0.IPAKeyboard(this, textview);
+                ipaForm = new IPAKeyboard(this, textview);
                 ipaForm.FormClosed += new FormClosedEventHandler(ipa_FormClosed);
                 ipaForm.Show();
             }

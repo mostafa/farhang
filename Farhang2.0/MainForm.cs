@@ -32,6 +32,8 @@ namespace Farhang2
         MongoCursor<Headword> collection_data;
         Headword currentHeadword;
         BsonObjectId currentHeadwordObjectID;
+        DataSet priorityDataSet;
+        DataTable newTableForUpdatingPriorities;
         #region HTMLCSS
         string htmlDocString = @"<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01//EN' 'http://www.w3.org/TR/html4/strict.dtd'>
                                  <html>
@@ -338,6 +340,7 @@ namespace Farhang2
             previewGroupBox.Visible = true;
             previewGroupBox.Height = entriesGroupBox.Height + headwordGroupBox.Height + attributesGroupBox.Height + 12;
             //statisticsGroupBox.Visible = true;
+            manualHeadwordSorterGrpBox.Visible = false;
         }
 
         private void finishEditingToolStripMenuItem_Click(object sender, EventArgs e)
@@ -439,6 +442,62 @@ namespace Farhang2
                 ipaForm.FormClosed += new FormClosedEventHandler(ipa_FormClosed);
                 ipaForm.Show();
             }
+        }
+
+        private void manualHeadwordSorterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            finishEditingToolStripMenuItem.PerformClick();
+            manualHeadwordSorterGrpBox.Show();
+        }
+
+        private void cmbBoxAlphabet4Sort_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.Enabled = false;
+            //dataGridView4Sort.Rows.Clear();
+
+            headwordsListBox.SuspendLayout();
+
+            collection = farhang_database.GetCollection<Headword>(cmbBoxAlphabet4Sort.SelectedItem.ToString().ToUpper());
+            collection_data = collection.FindAllAs<Headword>().SetSortOrder("Priority");
+
+            priorityDataSet = new DataSet();
+            priorityDataSet.Tables.Add("Headwords");
+            priorityDataSet.Tables[0].Columns.Add("Lemma");
+            priorityDataSet.Tables[0].Columns.Add("Priority", typeof(int));
+
+            foreach (var item in collection_data)
+            {
+                priorityDataSet.Tables[0].Rows.Add(item.Lemma, item.Priority);
+            }
+
+            dataGridView4Sort.DataSource = priorityDataSet;
+            dataGridView4Sort.DataMember = priorityDataSet.Tables[0].TableName;
+            dataGridView4Sort.Sort(dataGridView4Sort.Columns[1], System.ComponentModel.ListSortDirection.Ascending);
+
+            lblTotal.Text = "Total: " + collection_data.Count().ToString();
+            lblTotal.Visible = true;
+            headwordsListBox.ResumeLayout();
+
+            this.Enabled = true;
+        }
+
+        private void dataGridView4Sort_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            priorityDataSet.Tables[0].AcceptChanges();
+            priorityDataSet.Tables[0].DefaultView.Sort = "Priority ASC";
+
+            var newTableForUpdatingPriorities = priorityDataSet.Tables[0].DefaultView.ToTable("Headwords");
+
+            btnSavePriorityList.Enabled = true;
+        }
+
+        private void btnSavePriorityList_Click(object sender, EventArgs e)
+        {
+            collection = farhang_database.GetCollection<Headword>(cmbBoxAlphabet4Sort.SelectedItem.ToString());
+            for (int i = 0; i < newTableForUpdatingPriorities.Rows.Count; i++)
+			{
+                collection.Update(Query.EQ("Lemma", newTableForUpdatingPriorities.Rows[i].ItemArray[0].ToString()), MongoDB.Driver.Builders.Update.Set("Priority", (i + 1)));
+			}
         }
 	}
 }

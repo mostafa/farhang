@@ -35,7 +35,7 @@ namespace Farhang2
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Headword");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Headword");
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.headwordsListBox = new System.Windows.Forms.ListBox();
             this.cmbBoxAlphabet = new System.Windows.Forms.ComboBox();
@@ -58,6 +58,7 @@ namespace Farhang2
             this.entriesTreeView = new System.Windows.Forms.TreeView();
             this.entriesGroupBox = new System.Windows.Forms.GroupBox();
             this.attributesGroupBox = new System.Windows.Forms.GroupBox();
+            this.txtNumber = new System.Windows.Forms.TextBox();
             this.btnIPAKeyboard4Translation = new System.Windows.Forms.Button();
             this.btnIPAKeyboard4SourceText = new System.Windows.Forms.Button();
             this.txtTranslation = new System.Windows.Forms.TextBox();
@@ -110,6 +111,7 @@ namespace Farhang2
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dictionaryPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statisticsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.manualHeadwordSorterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.maximizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.minimizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -130,7 +132,12 @@ namespace Farhang2
             this.lblEntriesCount = new System.Windows.Forms.Label();
             this.lblHeadwordsCount = new System.Windows.Forms.Label();
             this.lblSelectedAlphabet = new System.Windows.Forms.Label();
-            this.txtNumber = new System.Windows.Forms.TextBox();
+            this.btnSavePriorityList = new System.Windows.Forms.Button();
+            this.dataGridView4Sort = new System.Windows.Forms.DataGridView();
+            this.manualHeadwordSorterGrpBox = new System.Windows.Forms.GroupBox();
+            this.lblTotal = new System.Windows.Forms.Label();
+            this.cmbBoxAlphabet4Sort = new System.Windows.Forms.ComboBox();
+            this.lblAlphabet4Sort = new System.Windows.Forms.Label();
             this.headwordsListGroupBox.SuspendLayout();
             this.headwordGroupBox.SuspendLayout();
             this.entriesGroupBox.SuspendLayout();
@@ -138,6 +145,8 @@ namespace Farhang2
             this.menuStrip1.SuspendLayout();
             this.previewGroupBox.SuspendLayout();
             this.statisticsGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4Sort)).BeginInit();
+            this.manualHeadwordSorterGrpBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -312,7 +321,7 @@ namespace Farhang2
             this.chkIncomplete.AutoSize = true;
             this.chkIncomplete.Location = new System.Drawing.Point(9, 109);
             this.chkIncomplete.Name = "chkIncomplete";
-            this.chkIncomplete.Size = new System.Drawing.Size(97, 19);
+            this.chkIncomplete.Size = new System.Drawing.Size(78, 17);
             this.chkIncomplete.TabIndex = 10;
             this.chkIncomplete.Text = "Incomplete";
             this.chkIncomplete.UseVisualStyleBackColor = true;
@@ -374,10 +383,10 @@ namespace Farhang2
             this.entriesTreeView.FullRowSelect = true;
             this.entriesTreeView.Location = new System.Drawing.Point(9, 22);
             this.entriesTreeView.Name = "entriesTreeView";
-            treeNode1.Name = "Headword";
-            treeNode1.Text = "Headword";
+            treeNode2.Name = "Headword";
+            treeNode2.Text = "Headword";
             this.entriesTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode2});
             this.entriesTreeView.Size = new System.Drawing.Size(406, 277);
             this.entriesTreeView.TabIndex = 0;
             // 
@@ -416,6 +425,13 @@ namespace Farhang2
             this.attributesGroupBox.TabStop = false;
             this.attributesGroupBox.Text = "Attributes";
             this.attributesGroupBox.Visible = false;
+            // 
+            // txtNumber
+            // 
+            this.txtNumber.Location = new System.Drawing.Point(308, 18);
+            this.txtNumber.Name = "txtNumber";
+            this.txtNumber.Size = new System.Drawing.Size(104, 23);
+            this.txtNumber.TabIndex = 14;
             // 
             // btnIPAKeyboard4Translation
             // 
@@ -806,7 +822,8 @@ namespace Farhang2
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.optionsToolStripMenuItem,
             this.dictionaryPropertiesToolStripMenuItem,
-            this.statisticsToolStripMenuItem1});
+            this.statisticsToolStripMenuItem1,
+            this.manualHeadwordSorterToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
@@ -814,20 +831,27 @@ namespace Farhang2
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.optionsToolStripMenuItem.Text = "&Options";
             // 
             // dictionaryPropertiesToolStripMenuItem
             // 
             this.dictionaryPropertiesToolStripMenuItem.Name = "dictionaryPropertiesToolStripMenuItem";
-            this.dictionaryPropertiesToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.dictionaryPropertiesToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.dictionaryPropertiesToolStripMenuItem.Text = "&Dictionary Properties";
             // 
             // statisticsToolStripMenuItem1
             // 
             this.statisticsToolStripMenuItem1.Name = "statisticsToolStripMenuItem1";
-            this.statisticsToolStripMenuItem1.Size = new System.Drawing.Size(174, 22);
+            this.statisticsToolStripMenuItem1.Size = new System.Drawing.Size(193, 22);
             this.statisticsToolStripMenuItem1.Text = "&Statistics";
+            // 
+            // manualHeadwordSorterToolStripMenuItem
+            // 
+            this.manualHeadwordSorterToolStripMenuItem.Name = "manualHeadwordSorterToolStripMenuItem";
+            this.manualHeadwordSorterToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.manualHeadwordSorterToolStripMenuItem.Text = "&Manual Headword Sorter";
+            this.manualHeadwordSorterToolStripMenuItem.Click += new System.EventHandler(this.manualHeadwordSorterToolStripMenuItem_Click);
             // 
             // windowToolStripMenuItem
             // 
@@ -1023,18 +1047,111 @@ namespace Farhang2
             this.lblSelectedAlphabet.TabIndex = 0;
             this.lblSelectedAlphabet.Text = "Alphabet:";
             // 
-            // txtNumber
+            // btnSavePriorityList
             // 
-            this.txtNumber.Location = new System.Drawing.Point(308, 18);
-            this.txtNumber.Name = "txtNumber";
-            this.txtNumber.Size = new System.Drawing.Size(104, 23);
-            this.txtNumber.TabIndex = 14;
+            this.btnSavePriorityList.Enabled = false;
+            this.btnSavePriorityList.Location = new System.Drawing.Point(952, 560);
+            this.btnSavePriorityList.Name = "btnSavePriorityList";
+            this.btnSavePriorityList.Size = new System.Drawing.Size(75, 23);
+            this.btnSavePriorityList.TabIndex = 0;
+            this.btnSavePriorityList.Text = "Save";
+            this.btnSavePriorityList.UseVisualStyleBackColor = true;
+            this.btnSavePriorityList.Click += new System.EventHandler(this.btnSavePriorityList_Click);
+            // 
+            // dataGridView4Sort
+            // 
+            this.dataGridView4Sort.AllowUserToAddRows = false;
+            this.dataGridView4Sort.AllowUserToDeleteRows = false;
+            this.dataGridView4Sort.AllowUserToOrderColumns = true;
+            this.dataGridView4Sort.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridView4Sort.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView4Sort.Location = new System.Drawing.Point(8, 52);
+            this.dataGridView4Sort.Name = "dataGridView4Sort";
+            this.dataGridView4Sort.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView4Sort.Size = new System.Drawing.Size(1019, 502);
+            this.dataGridView4Sort.TabIndex = 1;
+            this.dataGridView4Sort.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView4Sort_CellValueChanged);
+            // 
+            // manualHeadwordSorterGrpBox
+            // 
+            this.manualHeadwordSorterGrpBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.manualHeadwordSorterGrpBox.Controls.Add(this.lblTotal);
+            this.manualHeadwordSorterGrpBox.Controls.Add(this.cmbBoxAlphabet4Sort);
+            this.manualHeadwordSorterGrpBox.Controls.Add(this.lblAlphabet4Sort);
+            this.manualHeadwordSorterGrpBox.Controls.Add(this.dataGridView4Sort);
+            this.manualHeadwordSorterGrpBox.Controls.Add(this.btnSavePriorityList);
+            this.manualHeadwordSorterGrpBox.Location = new System.Drawing.Point(11, 52);
+            this.manualHeadwordSorterGrpBox.Name = "manualHeadwordSorterGrpBox";
+            this.manualHeadwordSorterGrpBox.Size = new System.Drawing.Size(1033, 589);
+            this.manualHeadwordSorterGrpBox.TabIndex = 8;
+            this.manualHeadwordSorterGrpBox.TabStop = false;
+            this.manualHeadwordSorterGrpBox.Text = "Manual Headword Sorter";
+            this.manualHeadwordSorterGrpBox.Visible = false;
+            // 
+            // lblTotal
+            // 
+            this.lblTotal.AutoSize = true;
+            this.lblTotal.Location = new System.Drawing.Point(257, 26);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(40, 15);
+            this.lblTotal.TabIndex = 6;
+            this.lblTotal.Text = "Total:";
+            this.lblTotal.Visible = false;
+            // 
+            // cmbBoxAlphabet4Sort
+            // 
+            this.cmbBoxAlphabet4Sort.ItemHeight = 15;
+            this.cmbBoxAlphabet4Sort.Items.AddRange(new object[] {
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H",
+            "I",
+            "J",
+            "K",
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+            "Q",
+            "R",
+            "S",
+            "T",
+            "U",
+            "V",
+            "W",
+            "X",
+            "Y",
+            "Z"});
+            this.cmbBoxAlphabet4Sort.Location = new System.Drawing.Point(75, 23);
+            this.cmbBoxAlphabet4Sort.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.cmbBoxAlphabet4Sort.Name = "cmbBoxAlphabet4Sort";
+            this.cmbBoxAlphabet4Sort.Size = new System.Drawing.Size(177, 23);
+            this.cmbBoxAlphabet4Sort.TabIndex = 4;
+            this.cmbBoxAlphabet4Sort.SelectedIndexChanged += new System.EventHandler(this.cmbBoxAlphabet4Sort_SelectedIndexChanged);
+            // 
+            // lblAlphabet4Sort
+            // 
+            this.lblAlphabet4Sort.Location = new System.Drawing.Point(5, 26);
+            this.lblAlphabet4Sort.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblAlphabet4Sort.Name = "lblAlphabet4Sort";
+            this.lblAlphabet4Sort.Size = new System.Drawing.Size(69, 17);
+            this.lblAlphabet4Sort.TabIndex = 5;
+            this.lblAlphabet4Sort.Text = "Alphabet:";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1056, 653);
+            this.Controls.Add(this.manualHeadwordSorterGrpBox);
             this.Controls.Add(this.statisticsGroupBox);
             this.Controls.Add(this.entriesGroupBox);
             this.Controls.Add(this.previewGroupBox);
@@ -1062,6 +1179,9 @@ namespace Farhang2
             this.previewGroupBox.ResumeLayout(false);
             this.statisticsGroupBox.ResumeLayout(false);
             this.statisticsGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4Sort)).EndInit();
+            this.manualHeadwordSorterGrpBox.ResumeLayout(false);
+            this.manualHeadwordSorterGrpBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1161,5 +1281,12 @@ namespace Farhang2
         public System.Windows.Forms.TextBox txtSourceText;
         public System.Windows.Forms.TextBox txtTranslation;
         private System.Windows.Forms.TextBox txtNumber;
+        private System.Windows.Forms.ToolStripMenuItem manualHeadwordSorterToolStripMenuItem;
+        private System.Windows.Forms.Button btnSavePriorityList;
+        private System.Windows.Forms.DataGridView dataGridView4Sort;
+        private System.Windows.Forms.GroupBox manualHeadwordSorterGrpBox;
+        private System.Windows.Forms.ComboBox cmbBoxAlphabet4Sort;
+        private System.Windows.Forms.Label lblAlphabet4Sort;
+        private System.Windows.Forms.Label lblTotal;
 	}
 }

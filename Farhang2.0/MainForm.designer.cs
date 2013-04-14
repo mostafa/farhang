@@ -39,10 +39,11 @@ namespace Farhang2
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripResult = new System.Windows.Forms.ToolStripLabel();
             this.headwordsListBox = new System.Windows.Forms.ListBox();
-            this.cmbBoxAlphabet = new System.Windows.Forms.ComboBox();
-            this.lblAlphabet = new System.Windows.Forms.Label();
+            this.cmbBoxLetter = new System.Windows.Forms.ComboBox();
             this.headwordsListGroupBox = new System.Windows.Forms.GroupBox();
+            this.lblLetter = new System.Windows.Forms.Label();
             this.btnDeleteHeadword = new System.Windows.Forms.Button();
             this.btnNewHeadword = new System.Windows.Forms.Button();
             this.btnIPAKeyboard4Search = new System.Windows.Forms.Button();
@@ -57,7 +58,7 @@ namespace Farhang2
             this.btnIPAKeyboard4SourceText = new System.Windows.Forms.Button();
             this.txtTranslation = new System.Windows.Forms.TextBox();
             this.lblNumber = new System.Windows.Forms.Label();
-            this.cmbBoxDestinationLanguage = new System.Windows.Forms.ComboBox();
+            this.cmbBoxTranslationLanguage = new System.Windows.Forms.ComboBox();
             this.cmbBoxType = new System.Windows.Forms.ComboBox();
             this.txtSourceText = new System.Windows.Forms.TextBox();
             this.lblTranslation = new System.Windows.Forms.Label();
@@ -121,12 +122,13 @@ namespace Farhang2
             this.txtSubentriesCount = new System.Windows.Forms.TextBox();
             this.lblSubentriesCount = new System.Windows.Forms.Label();
             this.txtEntriesCount = new System.Windows.Forms.TextBox();
-            this.txtSelectedAlphabet = new System.Windows.Forms.TextBox();
+            this.txtSelectedLetter = new System.Windows.Forms.TextBox();
             this.txtHeadwordsCount = new System.Windows.Forms.TextBox();
             this.lblEntriesCount = new System.Windows.Forms.Label();
             this.lblHeadwordsCount = new System.Windows.Forms.Label();
-            this.lblSelectedAlphabet = new System.Windows.Forms.Label();
+            this.lblSelectedLetter = new System.Windows.Forms.Label();
             this.manualHeadwordSorterGrpBox = new System.Windows.Forms.GroupBox();
+            this.lblLetter4Sort = new System.Windows.Forms.Label();
             this.txtStatus = new System.Windows.Forms.TextBox();
             this.lblStatus = new System.Windows.Forms.Label();
             this.txtTotal4MHS = new System.Windows.Forms.TextBox();
@@ -137,8 +139,7 @@ namespace Farhang2
             this.lblScratchPad = new System.Windows.Forms.Label();
             this.txtScratch = new System.Windows.Forms.TextBox();
             this.lblTotalCount = new System.Windows.Forms.Label();
-            this.cmbBoxAlphabet4Sort = new System.Windows.Forms.ComboBox();
-            this.lblAlphabet4Sort = new System.Windows.Forms.Label();
+            this.cmbBoxLetter4Sort = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.grpBoxOriginal = new System.Windows.Forms.GroupBox();
             this.dataGridViewOriginal = new System.Windows.Forms.DataGridView();
@@ -156,7 +157,6 @@ namespace Farhang2
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.txtPronunciation = new System.Windows.Forms.TextBox();
             this.txtLemma = new System.Windows.Forms.TextBox();
-            this.toolStripResult = new System.Windows.Forms.ToolStripLabel();
             this.toolStrip1.SuspendLayout();
             this.headwordsListGroupBox.SuspendLayout();
             this.entriesGroupBox.SuspendLayout();
@@ -175,7 +175,6 @@ namespace Farhang2
             // 
             // toolStrip1
             // 
-            this.toolStrip1.Enabled = false;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripResult});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
@@ -183,6 +182,12 @@ namespace Farhang2
             this.toolStrip1.Size = new System.Drawing.Size(1056, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripResult
+            // 
+            this.toolStripResult.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripResult.Name = "toolStripResult";
+            this.toolStripResult.Size = new System.Drawing.Size(0, 22);
             // 
             // headwordsListBox
             // 
@@ -198,10 +203,10 @@ namespace Farhang2
             this.headwordsListBox.TabIndex = 2;
             this.headwordsListBox.SelectedIndexChanged += new System.EventHandler(this.headwordsListBoxSelectedIndexChanged);
             // 
-            // cmbBoxAlphabet
+            // cmbBoxLetter
             // 
-            this.cmbBoxAlphabet.ItemHeight = 15;
-            this.cmbBoxAlphabet.Items.AddRange(new object[] {
+            this.cmbBoxLetter.ItemHeight = 15;
+            this.cmbBoxLetter.Items.AddRange(new object[] {
             "A",
             "B",
             "C",
@@ -228,33 +233,24 @@ namespace Farhang2
             "X",
             "Y",
             "Z"});
-            this.cmbBoxAlphabet.Location = new System.Drawing.Point(75, 20);
-            this.cmbBoxAlphabet.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.cmbBoxAlphabet.Name = "cmbBoxAlphabet";
-            this.cmbBoxAlphabet.Size = new System.Drawing.Size(177, 23);
-            this.cmbBoxAlphabet.TabIndex = 0;
-            this.cmbBoxAlphabet.SelectedIndexChanged += new System.EventHandler(this.cmbBoxAlphabetSelectedIndexChanged);
-            // 
-            // lblAlphabet
-            // 
-            this.lblAlphabet.Location = new System.Drawing.Point(5, 21);
-            this.lblAlphabet.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblAlphabet.Name = "lblAlphabet";
-            this.lblAlphabet.Size = new System.Drawing.Size(69, 20);
-            this.lblAlphabet.TabIndex = 3;
-            this.lblAlphabet.Text = "Alphabet:";
+            this.cmbBoxLetter.Location = new System.Drawing.Point(67, 20);
+            this.cmbBoxLetter.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.cmbBoxLetter.Name = "cmbBoxLetter";
+            this.cmbBoxLetter.Size = new System.Drawing.Size(185, 23);
+            this.cmbBoxLetter.TabIndex = 0;
+            this.cmbBoxLetter.SelectedIndexChanged += new System.EventHandler(this.cmbBoxLetterSelectedIndexChanged);
             // 
             // headwordsListGroupBox
             // 
             this.headwordsListGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.headwordsListGroupBox.Controls.Add(this.lblLetter);
             this.headwordsListGroupBox.Controls.Add(this.btnDeleteHeadword);
             this.headwordsListGroupBox.Controls.Add(this.btnNewHeadword);
             this.headwordsListGroupBox.Controls.Add(this.btnIPAKeyboard4Search);
             this.headwordsListGroupBox.Controls.Add(this.txtSearch);
             this.headwordsListGroupBox.Controls.Add(this.lblSearch);
-            this.headwordsListGroupBox.Controls.Add(this.cmbBoxAlphabet);
-            this.headwordsListGroupBox.Controls.Add(this.lblAlphabet);
+            this.headwordsListGroupBox.Controls.Add(this.cmbBoxLetter);
             this.headwordsListGroupBox.Controls.Add(this.headwordsListBox);
             this.headwordsListGroupBox.Location = new System.Drawing.Point(11, 52);
             this.headwordsListGroupBox.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -265,6 +261,15 @@ namespace Farhang2
             this.headwordsListGroupBox.TabStop = false;
             this.headwordsListGroupBox.Text = "Headwords\' List";
             this.headwordsListGroupBox.Visible = false;
+            // 
+            // lblLetter
+            // 
+            this.lblLetter.AutoSize = true;
+            this.lblLetter.Location = new System.Drawing.Point(5, 24);
+            this.lblLetter.Name = "lblLetter";
+            this.lblLetter.Size = new System.Drawing.Size(49, 15);
+            this.lblLetter.TabIndex = 8;
+            this.lblLetter.Text = "Letter:";
             // 
             // btnDeleteHeadword
             // 
@@ -298,9 +303,9 @@ namespace Farhang2
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(75, 48);
+            this.txtSearch.Location = new System.Drawing.Point(67, 48);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(132, 23);
+            this.txtSearch.Size = new System.Drawing.Size(140, 23);
             this.txtSearch.TabIndex = 1;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
@@ -350,7 +355,7 @@ namespace Farhang2
             this.attributesGroupBox.Controls.Add(this.btnIPAKeyboard4SourceText);
             this.attributesGroupBox.Controls.Add(this.txtTranslation);
             this.attributesGroupBox.Controls.Add(this.lblNumber);
-            this.attributesGroupBox.Controls.Add(this.cmbBoxDestinationLanguage);
+            this.attributesGroupBox.Controls.Add(this.cmbBoxTranslationLanguage);
             this.attributesGroupBox.Controls.Add(this.cmbBoxType);
             this.attributesGroupBox.Controls.Add(this.txtSourceText);
             this.attributesGroupBox.Controls.Add(this.lblTranslation);
@@ -375,6 +380,7 @@ namespace Farhang2
             this.btnSaveEntry.TabIndex = 5;
             this.btnSaveEntry.Text = "Save";
             this.btnSaveEntry.UseVisualStyleBackColor = true;
+            this.btnSaveEntry.Click += new System.EventHandler(this.btnSaveEntry_Click);
             // 
             // txtNumber
             // 
@@ -423,20 +429,20 @@ namespace Farhang2
             this.lblNumber.TabIndex = 9;
             this.lblNumber.Text = "Number:";
             // 
-            // cmbBoxDestinationLanguage
+            // cmbBoxTranslationLanguage
             // 
-            this.cmbBoxDestinationLanguage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cmbBoxTranslationLanguage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbBoxDestinationLanguage.FormattingEnabled = true;
-            this.cmbBoxDestinationLanguage.Items.AddRange(new object[] {
+            this.cmbBoxTranslationLanguage.FormattingEnabled = true;
+            this.cmbBoxTranslationLanguage.Items.AddRange(new object[] {
             "Persisch",
             "Deutsch"});
-            this.cmbBoxDestinationLanguage.Location = new System.Drawing.Point(96, 76);
-            this.cmbBoxDestinationLanguage.Name = "cmbBoxDestinationLanguage";
-            this.cmbBoxDestinationLanguage.Size = new System.Drawing.Size(104, 23);
-            this.cmbBoxDestinationLanguage.TabIndex = 3;
-            this.cmbBoxDestinationLanguage.Text = "Persisch";
-            this.cmbBoxDestinationLanguage.TextChanged += new System.EventHandler(this.cmbBoxField_TextChanged);
+            this.cmbBoxTranslationLanguage.Location = new System.Drawing.Point(96, 76);
+            this.cmbBoxTranslationLanguage.Name = "cmbBoxTranslationLanguage";
+            this.cmbBoxTranslationLanguage.Size = new System.Drawing.Size(104, 23);
+            this.cmbBoxTranslationLanguage.TabIndex = 3;
+            this.cmbBoxTranslationLanguage.Text = "Persisch";
+            this.cmbBoxTranslationLanguage.TextChanged += new System.EventHandler(this.cmbBoxField_TextChanged);
             // 
             // cmbBoxType
             // 
@@ -899,11 +905,11 @@ namespace Farhang2
             this.statisticsGroupBox.Controls.Add(this.txtSubentriesCount);
             this.statisticsGroupBox.Controls.Add(this.lblSubentriesCount);
             this.statisticsGroupBox.Controls.Add(this.txtEntriesCount);
-            this.statisticsGroupBox.Controls.Add(this.txtSelectedAlphabet);
+            this.statisticsGroupBox.Controls.Add(this.txtSelectedLetter);
             this.statisticsGroupBox.Controls.Add(this.txtHeadwordsCount);
             this.statisticsGroupBox.Controls.Add(this.lblEntriesCount);
             this.statisticsGroupBox.Controls.Add(this.lblHeadwordsCount);
-            this.statisticsGroupBox.Controls.Add(this.lblSelectedAlphabet);
+            this.statisticsGroupBox.Controls.Add(this.lblSelectedLetter);
             this.statisticsGroupBox.Location = new System.Drawing.Point(699, 465);
             this.statisticsGroupBox.Name = "statisticsGroupBox";
             this.statisticsGroupBox.Size = new System.Drawing.Size(345, 176);
@@ -954,15 +960,15 @@ namespace Farhang2
             this.txtEntriesCount.TabIndex = 2;
             this.txtEntriesCount.Text = "0";
             // 
-            // txtSelectedAlphabet
+            // txtSelectedLetter
             // 
-            this.txtSelectedAlphabet.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtSelectedLetter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSelectedAlphabet.Location = new System.Drawing.Point(139, 18);
-            this.txtSelectedAlphabet.Name = "txtSelectedAlphabet";
-            this.txtSelectedAlphabet.ReadOnly = true;
-            this.txtSelectedAlphabet.Size = new System.Drawing.Size(200, 23);
-            this.txtSelectedAlphabet.TabIndex = 0;
+            this.txtSelectedLetter.Location = new System.Drawing.Point(139, 18);
+            this.txtSelectedLetter.Name = "txtSelectedLetter";
+            this.txtSelectedLetter.ReadOnly = true;
+            this.txtSelectedLetter.Size = new System.Drawing.Size(200, 23);
+            this.txtSelectedLetter.TabIndex = 0;
             // 
             // txtHeadwordsCount
             // 
@@ -993,20 +999,21 @@ namespace Farhang2
             this.lblHeadwordsCount.TabIndex = 1;
             this.lblHeadwordsCount.Text = "Headwords\' Count:";
             // 
-            // lblSelectedAlphabet
+            // lblSelectedLetter
             // 
-            this.lblSelectedAlphabet.AutoSize = true;
-            this.lblSelectedAlphabet.Location = new System.Drawing.Point(6, 22);
-            this.lblSelectedAlphabet.Name = "lblSelectedAlphabet";
-            this.lblSelectedAlphabet.Size = new System.Drawing.Size(68, 15);
-            this.lblSelectedAlphabet.TabIndex = 0;
-            this.lblSelectedAlphabet.Text = "Alphabet:";
+            this.lblSelectedLetter.AutoSize = true;
+            this.lblSelectedLetter.Location = new System.Drawing.Point(6, 22);
+            this.lblSelectedLetter.Name = "lblSelectedLetter";
+            this.lblSelectedLetter.Size = new System.Drawing.Size(49, 15);
+            this.lblSelectedLetter.TabIndex = 0;
+            this.lblSelectedLetter.Text = "Letter:";
             // 
             // manualHeadwordSorterGrpBox
             // 
             this.manualHeadwordSorterGrpBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.manualHeadwordSorterGrpBox.Controls.Add(this.lblLetter4Sort);
             this.manualHeadwordSorterGrpBox.Controls.Add(this.txtStatus);
             this.manualHeadwordSorterGrpBox.Controls.Add(this.lblStatus);
             this.manualHeadwordSorterGrpBox.Controls.Add(this.txtTotal4MHS);
@@ -1017,8 +1024,7 @@ namespace Farhang2
             this.manualHeadwordSorterGrpBox.Controls.Add(this.lblScratchPad);
             this.manualHeadwordSorterGrpBox.Controls.Add(this.txtScratch);
             this.manualHeadwordSorterGrpBox.Controls.Add(this.lblTotalCount);
-            this.manualHeadwordSorterGrpBox.Controls.Add(this.cmbBoxAlphabet4Sort);
-            this.manualHeadwordSorterGrpBox.Controls.Add(this.lblAlphabet4Sort);
+            this.manualHeadwordSorterGrpBox.Controls.Add(this.cmbBoxLetter4Sort);
             this.manualHeadwordSorterGrpBox.Controls.Add(this.tableLayoutPanel1);
             this.manualHeadwordSorterGrpBox.Location = new System.Drawing.Point(11, 52);
             this.manualHeadwordSorterGrpBox.Name = "manualHeadwordSorterGrpBox";
@@ -1027,6 +1033,15 @@ namespace Farhang2
             this.manualHeadwordSorterGrpBox.TabStop = false;
             this.manualHeadwordSorterGrpBox.Text = "Manual Headword Sorter";
             this.manualHeadwordSorterGrpBox.Visible = false;
+            // 
+            // lblLetter4Sort
+            // 
+            this.lblLetter4Sort.AutoSize = true;
+            this.lblLetter4Sort.Location = new System.Drawing.Point(6, 27);
+            this.lblLetter4Sort.Name = "lblLetter4Sort";
+            this.lblLetter4Sort.Size = new System.Drawing.Size(49, 15);
+            this.lblLetter4Sort.TabIndex = 19;
+            this.lblLetter4Sort.Text = "Letter:";
             // 
             // txtStatus
             // 
@@ -1079,9 +1094,9 @@ namespace Farhang2
             // 
             // txtMHSSearch
             // 
-            this.txtMHSSearch.Location = new System.Drawing.Point(76, 52);
+            this.txtMHSSearch.Location = new System.Drawing.Point(67, 52);
             this.txtMHSSearch.Name = "txtMHSSearch";
-            this.txtMHSSearch.Size = new System.Drawing.Size(132, 23);
+            this.txtMHSSearch.Size = new System.Drawing.Size(141, 23);
             this.txtMHSSearch.TabIndex = 1;
             this.txtMHSSearch.TextChanged += new System.EventHandler(this.txtMHSSearch_TextChanged);
             // 
@@ -1121,10 +1136,10 @@ namespace Farhang2
             this.lblTotalCount.TabIndex = 6;
             this.lblTotalCount.Text = "Total Count:";
             // 
-            // cmbBoxAlphabet4Sort
+            // cmbBoxLetter4Sort
             // 
-            this.cmbBoxAlphabet4Sort.ItemHeight = 15;
-            this.cmbBoxAlphabet4Sort.Items.AddRange(new object[] {
+            this.cmbBoxLetter4Sort.ItemHeight = 15;
+            this.cmbBoxLetter4Sort.Items.AddRange(new object[] {
             "A",
             "B",
             "C",
@@ -1151,20 +1166,12 @@ namespace Farhang2
             "X",
             "Y",
             "Z"});
-            this.cmbBoxAlphabet4Sort.Location = new System.Drawing.Point(76, 23);
-            this.cmbBoxAlphabet4Sort.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.cmbBoxAlphabet4Sort.Name = "cmbBoxAlphabet4Sort";
-            this.cmbBoxAlphabet4Sort.Size = new System.Drawing.Size(177, 23);
-            this.cmbBoxAlphabet4Sort.TabIndex = 0;
-            this.cmbBoxAlphabet4Sort.SelectedIndexChanged += new System.EventHandler(this.cmbBoxAlphabet4Sort_SelectedIndexChanged);
-            // 
-            // lblAlphabet4Sort
-            // 
-            this.lblAlphabet4Sort.Location = new System.Drawing.Point(6, 26);
-            this.lblAlphabet4Sort.Name = "lblAlphabet4Sort";
-            this.lblAlphabet4Sort.Size = new System.Drawing.Size(69, 17);
-            this.lblAlphabet4Sort.TabIndex = 5;
-            this.lblAlphabet4Sort.Text = "Alphabet:";
+            this.cmbBoxLetter4Sort.Location = new System.Drawing.Point(67, 23);
+            this.cmbBoxLetter4Sort.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.cmbBoxLetter4Sort.Name = "cmbBoxLetter4Sort";
+            this.cmbBoxLetter4Sort.Size = new System.Drawing.Size(186, 23);
+            this.cmbBoxLetter4Sort.TabIndex = 0;
+            this.cmbBoxLetter4Sort.SelectedIndexChanged += new System.EventHandler(this.cmbBoxLetter4Sort_SelectedIndexChanged);
             // 
             // tableLayoutPanel1
             // 
@@ -1368,12 +1375,6 @@ namespace Farhang2
             this.txtLemma.TabIndex = 0;
             this.txtLemma.TextChanged += new System.EventHandler(this.txtField_TextChanged);
             // 
-            // toolStripResult
-            // 
-            this.toolStripResult.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripResult.Name = "toolStripResult";
-            this.toolStripResult.Size = new System.Drawing.Size(0, 22);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -1420,15 +1421,14 @@ namespace Farhang2
             this.PerformLayout();
 
         }
-		private System.Windows.Forms.GroupBox headwordsListGroupBox;
-		private System.Windows.Forms.Label lblAlphabet;
-		private System.Windows.Forms.ComboBox cmbBoxAlphabet;
+        private System.Windows.Forms.GroupBox headwordsListGroupBox;
+		private System.Windows.Forms.ComboBox cmbBoxLetter;
 		private System.Windows.Forms.ListBox headwordsListBox;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.TreeView entriesTreeView;
         private System.Windows.Forms.GroupBox entriesGroupBox;
         private System.Windows.Forms.GroupBox attributesGroupBox;
-        private System.Windows.Forms.ComboBox cmbBoxDestinationLanguage;
+        private System.Windows.Forms.ComboBox cmbBoxTranslationLanguage;
         private System.Windows.Forms.ComboBox cmbBoxType;
         private System.Windows.Forms.Label lblTranslation;
         private System.Windows.Forms.Label lblDestinationLanguage;
@@ -1442,9 +1442,9 @@ namespace Farhang2
         private System.Windows.Forms.GroupBox statisticsGroupBox;
         private System.Windows.Forms.Label lblEntriesCount;
         private System.Windows.Forms.Label lblHeadwordsCount;
-        private System.Windows.Forms.Label lblSelectedAlphabet;
+        private System.Windows.Forms.Label lblSelectedLetter;
         private System.Windows.Forms.TextBox txtHeadwordsCount;
-        private System.Windows.Forms.TextBox txtSelectedAlphabet;
+        private System.Windows.Forms.TextBox txtSelectedLetter;
         private System.Windows.Forms.TextBox txtEntriesCount;
         private System.Windows.Forms.TextBox txtSubentriesCount;
         private System.Windows.Forms.Label lblSubentriesCount;
@@ -1506,8 +1506,7 @@ namespace Farhang2
         private System.Windows.Forms.TextBox txtNumber;
         private System.Windows.Forms.ToolStripMenuItem manualHeadwordSorterToolStripMenuItem;
         private System.Windows.Forms.GroupBox manualHeadwordSorterGrpBox;
-        private System.Windows.Forms.ComboBox cmbBoxAlphabet4Sort;
-        private System.Windows.Forms.Label lblAlphabet4Sort;
+        private System.Windows.Forms.ComboBox cmbBoxLetter4Sort;
         private System.Windows.Forms.Label lblTotalCount;
         private System.Windows.Forms.TextBox txtScratch;
         private System.Windows.Forms.Label lblScratchPad;
@@ -1539,5 +1538,7 @@ namespace Farhang2
         public System.Windows.Forms.TextBox txtPronunciation;
         public System.Windows.Forms.TextBox txtLemma;
         private System.Windows.Forms.ToolStripLabel toolStripResult;
+        private System.Windows.Forms.Label lblLetter;
+        private System.Windows.Forms.Label lblLetter4Sort;
 	}
 }

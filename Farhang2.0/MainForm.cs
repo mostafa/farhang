@@ -166,18 +166,18 @@ namespace Farhang2
             }
         }
 
-        void cmbBoxAlphabetSelectedIndexChanged(object sender, EventArgs e)
+        void cmbBoxLetterSelectedIndexChanged(object sender, EventArgs e)
 		{
             Initialize();
 
             this.Enabled = false;
             headwordsListBox.Items.Clear();
-            txtSelectedAlphabet.Text = cmbBoxAlphabet.SelectedItem.ToString();
+            txtSelectedLetter.Text = cmbBoxLetter.SelectedItem.ToString();
             txtHeadwordsCount.Text = "0";
 
             headwordsListBox.SuspendLayout();
 
-            collection = farhang_database.GetCollection<Headword>(cmbBoxAlphabet.SelectedItem.ToString().ToUpper());
+            collection = farhang_database.GetCollection<Headword>(cmbBoxLetter.SelectedItem.ToString().ToUpper());
             collection_data = collection.FindAllAs<Headword>().SetSortOrder("Priority");
 
             foreach (var item in collection_data)
@@ -198,8 +198,10 @@ namespace Farhang2
             cmbBoxType.SelectedIndex = 0;
             txtNumber.Text = "0";
             txtSourceText.Text = null;
-            cmbBoxDestinationLanguage.SelectedIndex = 0;
+            cmbBoxTranslationLanguage.SelectedIndex = 0;
             txtTranslation.Text = null;
+
+            toolStripResult.Text = "Letter " + cmbBoxLetter.SelectedItem.ToString() + "'s Headword Count = " + collection.Count().ToString();
 
             this.Enabled = true;
 		}
@@ -209,7 +211,7 @@ namespace Farhang2
             cmbBoxType.SelectedIndex = 0;
             txtNumber.Text = "0";
             txtSourceText.Text = "";
-            cmbBoxDestinationLanguage.SelectedIndex = 0;
+            cmbBoxTranslationLanguage.SelectedIndex = 0;
             txtTranslation.Text = "";
 
             currentHeadword = collection.FindOneAs<Headword>(Query.EQ("Lemma", headwordsListBox.SelectedItem.ToString()));
@@ -272,6 +274,8 @@ namespace Farhang2
             btnDeleteHeadword.Enabled = true;
             btnSaveHeadword.Enabled = false;
             btnSaveEntry.Enabled = false;
+
+            toolStripResult.Text = "Selected Headword " + currentHeadword.Lemma;
 
             webBrowser1.DocumentText = makeHtmlDocument();
             entriesTreeView.AfterSelect += new TreeViewEventHandler(entriesTreeView_AfterSelect);
@@ -353,12 +357,12 @@ namespace Farhang2
                             if (item.TranslationLanguage == "FA")
                             {
                                 //persisch
-                                cmbBoxDestinationLanguage.SelectedIndex = 0;
+                                cmbBoxTranslationLanguage.SelectedIndex = 0;
                             }
                             else
                             {
                                 //deutsch
-                                cmbBoxDestinationLanguage.SelectedIndex = 1;
+                                cmbBoxTranslationLanguage.SelectedIndex = 1;
                             }
 
                             if (item.TranslationLanguage == "FA")
@@ -369,6 +373,8 @@ namespace Farhang2
 
                             currentEntry = item;
                             btnSaveEntry.Enabled = false;
+                            toolStripResult.Text = "Selected entry " + currentEntry.Number.ToString();
+
                             break;
                         }
                     }
@@ -498,13 +504,13 @@ namespace Farhang2
             manualHeadwordSorterGrpBox.Show();
         }
 
-        private void cmbBoxAlphabet4Sort_SelectedIndexChanged(object sender, EventArgs e)
+        private void cmbBoxLetter4Sort_SelectedIndexChanged(object sender, EventArgs e)
         {
             Initialize();
 
             this.Enabled = false;
 
-            collection = farhang_database.GetCollection<Headword>(cmbBoxAlphabet4Sort.SelectedItem.ToString().ToUpper());
+            collection = farhang_database.GetCollection<Headword>(cmbBoxLetter4Sort.SelectedItem.ToString().ToUpper());
             collection_data = collection.FindAllAs<Headword>().SetSortOrder("Priority");
 
             priorityDataSet = new DataSet();
@@ -529,6 +535,8 @@ namespace Farhang2
 
             txtTotal4MHS.Text = collection_data.Count().ToString();
 
+            toolStripResult.Text = "Letter " + cmbBoxLetter.SelectedItem.ToString() + "'s Headword Count = " + collection.Count().ToString();
+
             this.Enabled = true;
         }
 
@@ -544,7 +552,7 @@ namespace Farhang2
 
         private void btnSavePriorityList_Click(object sender, EventArgs e)
         {
-            collection = farhang_database.GetCollection<Headword>(cmbBoxAlphabet4Sort.SelectedItem.ToString());
+            collection = farhang_database.GetCollection<Headword>(cmbBoxLetter4Sort.SelectedItem.ToString());
             for (int i = 0; i < newTableForUpdatingPriorities.Rows.Count; i++)
 			{
                 WriteConcernResult result = collection.Update(Query.EQ("Lemma", newTableForUpdatingPriorities.Rows[i].ItemArray[0].ToString()), MongoDB.Driver.Builders.Update.Set("Priority", (i + 1)));
@@ -646,7 +654,7 @@ namespace Farhang2
                     case "cmbBoxType":
                         btnSaveEntry.Enabled = (obj.Text != currentEntry.EntryType) ? true : false;
                         break;
-                    case "cmbBoxDestinationLanguage":
+                    case "cmbBoxTranslationLanguage":
                         String Language = (obj.Text == "Persisch") ? "FA" : "DE";
                         btnSaveEntry.Enabled = (Language != currentEntry.TranslationLanguage) ? true : false;
                         break;
@@ -658,9 +666,10 @@ namespace Farhang2
 
         private void btnSaveHeadword_Click(object sender, EventArgs e)
         {
-            collection = farhang_database.GetCollection<Headword>(cmbBoxAlphabet.SelectedItem.ToString());
+            collection = farhang_database.GetCollection<Headword>(cmbBoxLetter.SelectedItem.ToString());
 
             List<UpdateBuilder> updateHeadword = new List<UpdateBuilder>();
+
             if (!String.IsNullOrWhiteSpace(txtLemma.Text))
             {
                 if (txtLemma.Text != currentHeadword.Lemma)
@@ -719,10 +728,89 @@ namespace Farhang2
             {
                 toolStripResult.Text = "Result: Headword saved successfully!";
                 btnSaveHeadword.Enabled = false;
+                headwordsListBox.SelectedItem = txtLemma.Text;
             }
             else
             {
                 toolStripResult.Text = "Result: Error saving headword!";
+                btnSaveHeadword.Enabled = false;
+            }
+        }
+
+        private void btnSaveEntry_Click(object sender, EventArgs e)
+        {
+            collection = farhang_database.GetCollection<Headword>(cmbBoxLetter.SelectedItem.ToString());
+
+            List<UpdateBuilder> updateEntry = new List<UpdateBuilder>();
+
+            if (!String.IsNullOrWhiteSpace(cmbBoxType.SelectedItem.ToString()))
+            {
+                if (cmbBoxType.Items.Contains(cmbBoxType.SelectedItem.ToString()))
+                {
+                    if (cmbBoxType.SelectedItem.ToString() != currentEntry.EntryType)
+                    {
+                        updateEntry.Add(MongoDB.Driver.Builders.Update.Set("Entries.$.EntryType", cmbBoxType.SelectedItem.ToString()));
+                    }
+                }
+            }
+
+            if (!String.IsNullOrWhiteSpace(txtNumber.Text))
+            {
+                if (txtNumber.Text != currentEntry.Number)
+                {
+                    updateEntry.Add(MongoDB.Driver.Builders.Update.Set("Entries.$.Number", txtNumber.Text.Trim()));
+                }
+            }
+
+            if (!String.IsNullOrWhiteSpace(txtSourceText.Text))
+            {
+                if (txtSourceText.Text != currentEntry.SourceText)
+                {
+                    updateEntry.Add(MongoDB.Driver.Builders.Update.Set("Entries.$.SourceText", txtSourceText.Text.Trim()));
+                }
+            }
+            else
+            {
+                updateEntry.Add(MongoDB.Driver.Builders.Update.Set("Entries.$.SourceText", BsonNull.Value));
+            }
+
+            if (!String.IsNullOrWhiteSpace(cmbBoxTranslationLanguage.SelectedItem.ToString()))
+            {
+                if (cmbBoxTranslationLanguage.Items.Contains(cmbBoxTranslationLanguage.SelectedItem.ToString()))
+                {
+                    string translang = (cmbBoxTranslationLanguage.SelectedItem.ToString() == "Persisch") ? "FA" : "DE";
+                    if (translang != currentEntry.TranslationLanguage)
+                    {
+                        updateEntry.Add(MongoDB.Driver.Builders.Update.Set("Entries.$.TranslationLanguage", translang));
+                    }
+                }
+            }
+
+            if (!String.IsNullOrWhiteSpace(txtTranslation.Text))
+            {
+                if (txtTranslation.Text != currentEntry.Translation)
+                {
+                    updateEntry.Add(MongoDB.Driver.Builders.Update.Set("Entries.$.Translation", txtTranslation.Text.Trim()));
+                }
+            }
+            else
+            {
+                updateEntry.Add(MongoDB.Driver.Builders.Update.Set("Translation", BsonNull.Value));
+            }
+
+            UpdateBuilder update = MongoDB.Driver.Builders.Update.Combine(updateEntry);
+
+            WriteConcernResult result = collection.Update(Query.And(Query.EQ("_id", currentHeadwordObjectID), Query.EQ("Entries.Number", currentEntry.Number)), update);
+            if (result.DocumentsAffected == 1)
+            {
+                toolStripResult.Text = "Result: Entry saved successfully!";
+                btnSaveHeadword.Enabled = false;
+                headwordsListBox.SelectedItem = txtLemma.Text;
+                headwordsListBoxSelectedIndexChanged(sender, e);
+            }
+            else
+            {
+                toolStripResult.Text = "Result: Error saving entry!";
                 btnSaveHeadword.Enabled = false;
             }
         }

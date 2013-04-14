@@ -153,7 +153,7 @@ namespace Farhang2
             }
             catch (Exception)
             {
-                //MessageBox.Show("Server is not available or is not responding!", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                //MessageBox.Show("Server is not available or not responding!", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                 return;
             }
         }
@@ -166,7 +166,7 @@ namespace Farhang2
             }
             catch (Exception)
             {
-                MessageBox.Show("Server is not available or is not responding!", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                MessageBox.Show("Server is not available or not responding!", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                 return;
             }
 
@@ -485,7 +485,7 @@ namespace Farhang2
             }
             catch (Exception)
             {
-                MessageBox.Show("Server is not available or is not responding!", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                MessageBox.Show("Server is not available or not responding!", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                 return;
             }
 
@@ -534,7 +534,15 @@ namespace Farhang2
             collection = farhang_database.GetCollection<Headword>(cmbBoxAlphabet4Sort.SelectedItem.ToString());
             for (int i = 0; i < newTableForUpdatingPriorities.Rows.Count; i++)
 			{
-                collection.Update(Query.EQ("Lemma", newTableForUpdatingPriorities.Rows[i].ItemArray[0].ToString()), MongoDB.Driver.Builders.Update.Set("Priority", (i + 1)));
+                WriteConcernResult result = collection.Update(Query.EQ("Lemma", newTableForUpdatingPriorities.Rows[i].ItemArray[0].ToString()), MongoDB.Driver.Builders.Update.Set("Priority", (i + 1)));
+                if (result.DocumentsAffected > 0)
+                {
+                    txtStatus.Text = "Saved " + result.DocumentsAffected.ToString() + " records successfully!";
+                }
+                else
+                {
+                    txtStatus.Text = "No record has been saved!";
+                }
 			}
         }
 
@@ -550,6 +558,14 @@ namespace Farhang2
                     dataGridView4Sort.CurrentCell = dataGridView4Sort.Rows[position].Cells[0];
                     break;
                 }
+            }
+        }
+
+        private void dataGridView4Sort_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridView4Sort.SelectedRows.Count > 0)
+            {
+                txtStatus.Text = "[" + dataGridView4Sort.SelectedRows[0].Cells[1].Value.ToString() + "]: " + dataGridView4Sort.SelectedRows[0].Cells[0].Value.ToString();
             }
         }
 	}

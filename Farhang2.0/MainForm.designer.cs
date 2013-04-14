@@ -35,7 +35,9 @@ namespace Farhang2
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Headword");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Headword");
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.headwordsListBox = new System.Windows.Forms.ListBox();
             this.cmbBoxAlphabet = new System.Windows.Forms.ComboBox();
@@ -133,6 +135,9 @@ namespace Farhang2
             this.lblHeadwordsCount = new System.Windows.Forms.Label();
             this.lblSelectedAlphabet = new System.Windows.Forms.Label();
             this.manualHeadwordSorterGrpBox = new System.Windows.Forms.GroupBox();
+            this.txtStatus = new System.Windows.Forms.TextBox();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.txtTotal4MHS = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.grpBoxOriginal = new System.Windows.Forms.GroupBox();
             this.dataGridViewOriginal = new System.Windows.Forms.DataGridView();
@@ -147,7 +152,6 @@ namespace Farhang2
             this.lblTotalCount = new System.Windows.Forms.Label();
             this.cmbBoxAlphabet4Sort = new System.Windows.Forms.ComboBox();
             this.lblAlphabet4Sort = new System.Windows.Forms.Label();
-            this.txtTotal4MHS = new System.Windows.Forms.TextBox();
             this.headwordsListGroupBox.SuspendLayout();
             this.headwordGroupBox.SuspendLayout();
             this.entriesGroupBox.SuspendLayout();
@@ -397,10 +401,10 @@ namespace Farhang2
             this.entriesTreeView.FullRowSelect = true;
             this.entriesTreeView.Location = new System.Drawing.Point(9, 22);
             this.entriesTreeView.Name = "entriesTreeView";
-            treeNode2.Name = "Headword";
-            treeNode2.Text = "Headword";
+            treeNode1.Name = "Headword";
+            treeNode1.Text = "Headword";
             this.entriesTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
+            treeNode1});
             this.entriesTreeView.Size = new System.Drawing.Size(406, 277);
             this.entriesTreeView.TabIndex = 0;
             // 
@@ -1066,6 +1070,8 @@ namespace Farhang2
             this.manualHeadwordSorterGrpBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.manualHeadwordSorterGrpBox.Controls.Add(this.txtStatus);
+            this.manualHeadwordSorterGrpBox.Controls.Add(this.lblStatus);
             this.manualHeadwordSorterGrpBox.Controls.Add(this.txtTotal4MHS);
             this.manualHeadwordSorterGrpBox.Controls.Add(this.tableLayoutPanel1);
             this.manualHeadwordSorterGrpBox.Controls.Add(this.btnSavePriorityList);
@@ -1084,6 +1090,33 @@ namespace Farhang2
             this.manualHeadwordSorterGrpBox.TabStop = false;
             this.manualHeadwordSorterGrpBox.Text = "Manual Headword Sorter";
             this.manualHeadwordSorterGrpBox.Visible = false;
+            // 
+            // txtStatus
+            // 
+            this.txtStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtStatus.Location = new System.Drawing.Point(526, 52);
+            this.txtStatus.Name = "txtStatus";
+            this.txtStatus.ReadOnly = true;
+            this.txtStatus.Size = new System.Drawing.Size(415, 23);
+            this.txtStatus.TabIndex = 19;
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Location = new System.Drawing.Point(467, 56);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(53, 15);
+            this.lblStatus.TabIndex = 18;
+            this.lblStatus.Text = "Status:";
+            // 
+            // txtTotal4MHS
+            // 
+            this.txtTotal4MHS.Location = new System.Drawing.Point(351, 52);
+            this.txtTotal4MHS.Name = "txtTotal4MHS";
+            this.txtTotal4MHS.ReadOnly = true;
+            this.txtTotal4MHS.Size = new System.Drawing.Size(110, 23);
+            this.txtTotal4MHS.TabIndex = 17;
             // 
             // tableLayoutPanel1
             // 
@@ -1117,6 +1150,8 @@ namespace Farhang2
             // 
             this.dataGridViewOriginal.AllowUserToAddRows = false;
             this.dataGridViewOriginal.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridViewOriginal.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewOriginal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewOriginal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewOriginal.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1144,6 +1179,8 @@ namespace Farhang2
             this.dataGridView4Sort.AllowUserToAddRows = false;
             this.dataGridView4Sort.AllowUserToDeleteRows = false;
             this.dataGridView4Sort.AllowUserToOrderColumns = true;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridView4Sort.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView4Sort.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView4Sort.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView4Sort.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1154,11 +1191,13 @@ namespace Farhang2
             this.dataGridView4Sort.Size = new System.Drawing.Size(499, 478);
             this.dataGridView4Sort.TabIndex = 2;
             this.dataGridView4Sort.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView4Sort_CellValueChanged);
+            this.dataGridView4Sort.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView4Sort_RowEnter);
             // 
             // btnSavePriorityList
             // 
+            this.btnSavePriorityList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSavePriorityList.Enabled = false;
-            this.btnSavePriorityList.Location = new System.Drawing.Point(952, 51);
+            this.btnSavePriorityList.Location = new System.Drawing.Point(952, 52);
             this.btnSavePriorityList.Name = "btnSavePriorityList";
             this.btnSavePriorityList.Size = new System.Drawing.Size(75, 23);
             this.btnSavePriorityList.TabIndex = 15;
@@ -1168,7 +1207,7 @@ namespace Farhang2
             // 
             // btnIPAKeyboard4MHSSearch
             // 
-            this.btnIPAKeyboard4MHSSearch.Location = new System.Drawing.Point(214, 51);
+            this.btnIPAKeyboard4MHSSearch.Location = new System.Drawing.Point(214, 52);
             this.btnIPAKeyboard4MHSSearch.Name = "btnIPAKeyboard4MHSSearch";
             this.btnIPAKeyboard4MHSSearch.Size = new System.Drawing.Size(39, 23);
             this.btnIPAKeyboard4MHSSearch.TabIndex = 11;
@@ -1178,7 +1217,7 @@ namespace Farhang2
             // 
             // txtMHSSearch
             // 
-            this.txtMHSSearch.Location = new System.Drawing.Point(76, 51);
+            this.txtMHSSearch.Location = new System.Drawing.Point(76, 52);
             this.txtMHSSearch.Name = "txtMHSSearch";
             this.txtMHSSearch.Size = new System.Drawing.Size(132, 23);
             this.txtMHSSearch.TabIndex = 9;
@@ -1187,7 +1226,7 @@ namespace Farhang2
             // lblMHSSearch
             // 
             this.lblMHSSearch.AutoSize = true;
-            this.lblMHSSearch.Location = new System.Drawing.Point(6, 55);
+            this.lblMHSSearch.Location = new System.Drawing.Point(6, 56);
             this.lblMHSSearch.Name = "lblMHSSearch";
             this.lblMHSSearch.Size = new System.Drawing.Size(56, 15);
             this.lblMHSSearch.TabIndex = 10;
@@ -1214,7 +1253,7 @@ namespace Farhang2
             // lblTotalCount
             // 
             this.lblTotalCount.AutoSize = true;
-            this.lblTotalCount.Location = new System.Drawing.Point(258, 55);
+            this.lblTotalCount.Location = new System.Drawing.Point(258, 56);
             this.lblTotalCount.Name = "lblTotalCount";
             this.lblTotalCount.Size = new System.Drawing.Size(82, 15);
             this.lblTotalCount.TabIndex = 6;
@@ -1264,16 +1303,6 @@ namespace Farhang2
             this.lblAlphabet4Sort.Size = new System.Drawing.Size(69, 17);
             this.lblAlphabet4Sort.TabIndex = 5;
             this.lblAlphabet4Sort.Text = "Alphabet:";
-            // 
-            // txtTotal4MHS
-            // 
-            this.txtTotal4MHS.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTotal4MHS.Location = new System.Drawing.Point(351, 51);
-            this.txtTotal4MHS.Name = "txtTotal4MHS";
-            this.txtTotal4MHS.ReadOnly = true;
-            this.txtTotal4MHS.Size = new System.Drawing.Size(110, 23);
-            this.txtTotal4MHS.TabIndex = 17;
             // 
             // MainForm
             // 
@@ -1431,5 +1460,7 @@ namespace Farhang2
         private System.Windows.Forms.GroupBox grpBoxSorted;
         private System.Windows.Forms.DataGridView dataGridView4Sort;
         private System.Windows.Forms.TextBox txtTotal4MHS;
+        private System.Windows.Forms.TextBox txtStatus;
+        private System.Windows.Forms.Label lblStatus;
 	}
 }

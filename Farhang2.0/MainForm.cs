@@ -24,6 +24,7 @@ namespace Farhang2
 	/// </summary>
 	public partial class MainForm : Form
 	{
+        // FIXME: improve Init functions to initialize attributes/properties.
         Form ipaForm;
         MongoClient client;
         MongoServer server;
@@ -35,6 +36,7 @@ namespace Farhang2
         Entry currentEntry;
         DataSet priorityDataSet;
         DataTable newTableForUpdatingPriorities;
+        List<String> special_characters;
         #region HTMLCSS
         string htmlDocString = @"<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01//EN' 'http://www.w3.org/TR/html4/strict.dtd'>
                                  <html>
@@ -143,24 +145,16 @@ namespace Farhang2
         {
             webBrowser1.DocumentText = "Output Preview";
             editDictionaryToolStripMenuItem.PerformClick();
+        }
 
+        private void Initialize()
+        {
             client = new MongoClient();
             server = client.GetServer();
             farhang_database = server.GetDatabase("farhang");
 
-            try
-            {
-                server.Instance.Ping();
-            }
-            catch (Exception)
-            {
-                //MessageBox.Show("Server is not available or not responding!", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-                return;
-            }
-        }
+            special_characters = new List<string>() { "·", "̣", "|", "'", "ˌ", "̲", "͠" };
 
-        void cmbBoxAlphabetSelectedIndexChanged(object sender, EventArgs e)
-		{
             try
             {
                 server.Instance.Ping();
@@ -170,6 +164,11 @@ namespace Farhang2
                 MessageBox.Show("Server is not available or not responding!", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                 return;
             }
+        }
+
+        void cmbBoxAlphabetSelectedIndexChanged(object sender, EventArgs e)
+		{
+            Initialize();
 
             this.Enabled = false;
             headwordsListBox.Items.Clear();
@@ -501,15 +500,7 @@ namespace Farhang2
 
         private void cmbBoxAlphabet4Sort_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try
-            {
-                server.Instance.Ping();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Server is not available or not responding!", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-                return;
-            }
+            Initialize();
 
             this.Enabled = false;
 
@@ -662,6 +653,77 @@ namespace Farhang2
                     default:
                         break;
                 }
+            }
+        }
+
+        private void btnSaveHeadword_Click(object sender, EventArgs e)
+        {
+            collection = farhang_database.GetCollection<Headword>(cmbBoxAlphabet.SelectedItem.ToString());
+
+            List<UpdateBuilder> updateHeadword = new List<UpdateBuilder>();
+            if (!String.IsNullOrWhiteSpace(txtLemma.Text))
+            {
+                if (txtLemma.Text != currentHeadword.Lemma)
+                {
+                    updateHeadword.Add(MongoDB.Driver.Builders.Update.Set("Lemma", txtLemma.Text.ToString()));
+
+                    string word = txtLemma.Text;
+
+                    foreach (var item in special_characters)
+                    {
+                        word = word.Replace(item, "");
+                    }
+
+                    updateHeadword.Add(MongoDB.Driver.Builders.Update.Set("Word", word));
+                }
+            }
+
+            if (!String.IsNullOrWhiteSpace(txtPronunciation.Text))
+            {
+                if (txtPronunciation.Text != currentHeadword.Pronunciation)
+                {
+                    updateHeadword.Add(MongoDB.Driver.Builders.Update.Set("Pronunciation", txtPronunciation.Text.ToString()));
+                }
+            }
+            else
+            {
+                updateHeadword.Add(MongoDB.Driver.Builders.Update.Set("Pronunciation", BsonNull.Value));
+            }
+
+            if (!String.IsNullOrWhiteSpace(txtDescription.Text))
+            {
+                if (txtDescription.Text != currentHeadword.Description)
+                {
+                    updateHeadword.Add(MongoDB.Driver.Builders.Update.Set("Description", txtDescription.Text.ToString()));
+                }
+            }
+            else
+            {
+                updateHeadword.Add(MongoDB.Driver.Builders.Update.Set("Description", BsonNull.Value));
+            }
+
+            if (chkIncomplete.Checked != currentHeadword.Incomplete)
+            {
+                updateHeadword.Add(MongoDB.Driver.Builders.Update.Set("Incomplete", txtLemma.Text.ToString()));
+            }
+
+            if (DateTime.Now != currentHeadword.ModificationDateTime)
+            {
+                updateHeadword.Add(MongoDB.Driver.Builders.Update.Set("ModificationDateTime", new BsonDateTime(DateTime.Now)));
+            }
+
+            UpdateBuilder update = MongoDB.Driver.Builders.Update.Combine(updateHeadword);
+
+            WriteConcernResult result = collection.Update(Query.EQ("_id", currentHeadwordObjectID), update);
+            if (result.DocumentsAffected == 1)
+            {
+                toolStripResult.Text = "Result: Headword saved successfully!";
+                btnSaveHeadword.Enabled = false;
+            }
+            else
+            {
+                toolStripResult.Text = "Result: Error saving headword!";
+                btnSaveHeadword.Enabled = false;
             }
         }
 	}

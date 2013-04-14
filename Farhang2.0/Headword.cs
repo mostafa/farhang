@@ -11,7 +11,9 @@ namespace Farhang2
 {
     class Headword
     {
+        [BsonId]
         public BsonObjectId _id { get; set; }
+
         public String Lemma { get; set; }
         public String Word { get; set; }
 

@@ -35,9 +35,9 @@ namespace Farhang2
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Headword");
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Headword");
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.headwordsListBox = new System.Windows.Forms.ListBox();
             this.cmbBoxAlphabet = new System.Windows.Forms.ComboBox();
@@ -156,6 +156,8 @@ namespace Farhang2
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.txtPronunciation = new System.Windows.Forms.TextBox();
             this.txtLemma = new System.Windows.Forms.TextBox();
+            this.toolStripResult = new System.Windows.Forms.ToolStripLabel();
+            this.toolStrip1.SuspendLayout();
             this.headwordsListGroupBox.SuspendLayout();
             this.entriesGroupBox.SuspendLayout();
             this.attributesGroupBox.SuspendLayout();
@@ -174,6 +176,8 @@ namespace Farhang2
             // toolStrip1
             // 
             this.toolStrip1.Enabled = false;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripResult});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1056, 25);
@@ -317,10 +321,10 @@ namespace Farhang2
             this.entriesTreeView.FullRowSelect = true;
             this.entriesTreeView.Location = new System.Drawing.Point(9, 22);
             this.entriesTreeView.Name = "entriesTreeView";
-            treeNode3.Name = "Headword";
-            treeNode3.Text = "Headword";
+            treeNode1.Name = "Headword";
+            treeNode1.Text = "Headword";
             this.entriesTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3});
+            treeNode1});
             this.entriesTreeView.Size = new System.Drawing.Size(406, 226);
             this.entriesTreeView.TabIndex = 0;
             // 
@@ -1194,8 +1198,8 @@ namespace Farhang2
             // 
             this.dataGridViewOriginal.AllowUserToAddRows = false;
             this.dataGridViewOriginal.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridViewOriginal.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridViewOriginal.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewOriginal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewOriginal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewOriginal.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1223,8 +1227,8 @@ namespace Farhang2
             this.dataGridView4Sort.AllowUserToAddRows = false;
             this.dataGridView4Sort.AllowUserToDeleteRows = false;
             this.dataGridView4Sort.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridView4Sort.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridView4Sort.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView4Sort.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView4Sort.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView4Sort.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1269,6 +1273,7 @@ namespace Farhang2
             this.btnSaveHeadword.TabIndex = 3;
             this.btnSaveHeadword.Text = "Save";
             this.btnSaveHeadword.UseVisualStyleBackColor = true;
+            this.btnSaveHeadword.Click += new System.EventHandler(this.btnSaveHeadword_Click);
             // 
             // btnIPAKeyboard4Description
             // 
@@ -1363,6 +1368,12 @@ namespace Farhang2
             this.txtLemma.TabIndex = 0;
             this.txtLemma.TextChanged += new System.EventHandler(this.txtField_TextChanged);
             // 
+            // toolStripResult
+            // 
+            this.toolStripResult.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripResult.Name = "toolStripResult";
+            this.toolStripResult.Size = new System.Drawing.Size(0, 22);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -1384,6 +1395,8 @@ namespace Farhang2
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Farhang 2.0";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.headwordsListGroupBox.ResumeLayout(false);
             this.headwordsListGroupBox.PerformLayout();
             this.entriesGroupBox.ResumeLayout(false);
@@ -1525,5 +1538,6 @@ namespace Farhang2
         public System.Windows.Forms.TextBox txtDescription;
         public System.Windows.Forms.TextBox txtPronunciation;
         public System.Windows.Forms.TextBox txtLemma;
+        private System.Windows.Forms.ToolStripLabel toolStripResult;
 	}
 }

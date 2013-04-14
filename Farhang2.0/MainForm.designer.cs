@@ -157,6 +157,7 @@ namespace Farhang2
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.txtPronunciation = new System.Windows.Forms.TextBox();
             this.txtLemma = new System.Windows.Forms.TextBox();
+            this.btnDeleteEntry = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.headwordsListGroupBox.SuspendLayout();
             this.entriesGroupBox.SuspendLayout();
@@ -281,6 +282,7 @@ namespace Farhang2
             this.btnDeleteHeadword.TabIndex = 7;
             this.btnDeleteHeadword.Text = "Delete";
             this.btnDeleteHeadword.UseVisualStyleBackColor = true;
+            this.btnDeleteHeadword.Click += new System.EventHandler(this.btnDeleteHeadword_Click);
             // 
             // btnNewHeadword
             // 
@@ -350,6 +352,7 @@ namespace Farhang2
             // attributesGroupBox
             // 
             this.attributesGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.attributesGroupBox.Controls.Add(this.btnDeleteEntry);
             this.attributesGroupBox.Controls.Add(this.btnSaveEntry);
             this.attributesGroupBox.Controls.Add(this.txtNumber);
             this.attributesGroupBox.Controls.Add(this.btnIPAKeyboard4Translation);
@@ -828,19 +831,19 @@ namespace Farhang2
             // maximizeToolStripMenuItem
             // 
             this.maximizeToolStripMenuItem.Name = "maximizeToolStripMenuItem";
-            this.maximizeToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.maximizeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.maximizeToolStripMenuItem.Text = "&Maximize";
             // 
             // minimizeToolStripMenuItem
             // 
             this.minimizeToolStripMenuItem.Name = "minimizeToolStripMenuItem";
-            this.minimizeToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.minimizeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.minimizeToolStripMenuItem.Text = "Mi&nimize";
             // 
             // unmaximizeToolStripMenuItem
             // 
             this.unmaximizeToolStripMenuItem.Name = "unmaximizeToolStripMenuItem";
-            this.unmaximizeToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.unmaximizeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.unmaximizeToolStripMenuItem.Text = "&Unmaximize";
             // 
             // helpToolStripMenuItem
@@ -1376,6 +1379,18 @@ namespace Farhang2
             this.txtLemma.TabIndex = 0;
             this.txtLemma.TextChanged += new System.EventHandler(this.txtField_TextChanged);
             // 
+            // btnDeleteEntry
+            // 
+            this.btnDeleteEntry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteEntry.Enabled = false;
+            this.btnDeleteEntry.Location = new System.Drawing.Point(6, 134);
+            this.btnDeleteEntry.Name = "btnDeleteEntry";
+            this.btnDeleteEntry.Size = new System.Drawing.Size(75, 23);
+            this.btnDeleteEntry.TabIndex = 14;
+            this.btnDeleteEntry.Text = "Delete";
+            this.btnDeleteEntry.UseVisualStyleBackColor = true;
+            this.btnDeleteEntry.Click += new System.EventHandler(this.btnDeleteEntry_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -1541,5 +1556,6 @@ namespace Farhang2
         private System.Windows.Forms.ToolStripLabel toolStripResult;
         private System.Windows.Forms.Label lblLetter;
         private System.Windows.Forms.Label lblLetter4Sort;
+        private System.Windows.Forms.Button btnDeleteEntry;
 	}
 }

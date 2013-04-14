@@ -2,8 +2,6 @@
  * Developer: Mostafa Moradian
  * Date: 2/12/2013
  * Time: 2:29 PM
- * 
- * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
 using System.Collections.Generic;
@@ -271,7 +269,8 @@ namespace Farhang2
             entriesTreeView.TopNode = entriesTreeView.Nodes[0];
 
             btnNewHeadword.Enabled = true;
-            btnDeleteHeadword.Enabled = true;
+            //btnDeleteHeadword.Enabled = true;
+            btnDeleteEntry.Enabled = false;
             btnSaveHeadword.Enabled = false;
             btnSaveEntry.Enabled = false;
 
@@ -373,6 +372,7 @@ namespace Farhang2
 
                             currentEntry = item;
                             btnSaveEntry.Enabled = false;
+                            btnDeleteEntry.Enabled = true;
                             toolStripResult.Text = "Selected entry " + currentEntry.Number.ToString();
 
                             break;
@@ -804,14 +804,56 @@ namespace Farhang2
             if (result.DocumentsAffected == 1)
             {
                 toolStripResult.Text = "Result: Entry saved successfully!";
-                btnSaveHeadword.Enabled = false;
+                btnSaveEntry.Enabled = false;
                 headwordsListBox.SelectedItem = txtLemma.Text;
                 headwordsListBoxSelectedIndexChanged(sender, e);
             }
             else
             {
                 toolStripResult.Text = "Result: Error saving entry!";
-                btnSaveHeadword.Enabled = false;
+                btnSaveEntry.Enabled = false;
+            }
+        }
+
+        private void btnDeleteHeadword_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to remove headword '" + currentHeadword.Lemma + "' and its entries?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == System.Windows.Forms.DialogResult.Yes)
+            {
+                collection = farhang_database.GetCollection<Headword>(cmbBoxLetter.SelectedItem.ToString());
+
+                WriteConcernResult result = collection.Remove(Query.EQ("_id", currentHeadwordObjectID), RemoveFlags.Single);
+                if (result.DocumentsAffected == 1)
+                {
+                    toolStripResult.Text = "Result: Headword removed permenantly!";
+                    cmbBoxLetterSelectedIndexChanged(sender, e);
+                }
+                else
+                {
+                    toolStripResult.Text = "Result: Error removing headword!";
+                }
+            }
+        }
+
+        private void btnDeleteEntry_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to remove entry '" + currentEntry.Number + "' and its contents?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == System.Windows.Forms.DialogResult.Yes)
+            {
+                collection = farhang_database.GetCollection<Headword>(cmbBoxLetter.SelectedItem.ToString());
+
+                UpdateBuilder update = MongoDB.Driver.Builders.Update.Pull("Entries", currentEntry.ToBsonDocument());
+
+                WriteConcernResult result = collection.Update(Query.And(Query.EQ("_id", currentHeadwordObjectID), Query.EQ("Entries.Number", currentEntry.Number)), update);
+                if (result.DocumentsAffected == 1)
+                {
+                    toolStripResult.Text = "Result: Entry removed permenantly!";
+                    headwordsListBoxSelectedIndexChanged(sender, e);
+                    btnDeleteHeadword.Enabled = false;
+                }
+                else
+                {
+                    toolStripResult.Text = "Result: Error removing entry!";
+                    btnDeleteHeadword.Enabled = false;
+                }
             }
         }
 	}

@@ -205,6 +205,7 @@ namespace Farhang2
             txtTranslation.Text = "";
 
             currentHeadword = collection.FindOneAs<Headword>(Query.EQ("Lemma", headwordsListBox.SelectedItem.ToString()));
+            currentEntry = null;
 
             currentHeadwordObjectID = currentHeadword._id;
             txtLemma.Text = currentHeadword.Lemma;
@@ -261,6 +262,8 @@ namespace Farhang2
 
             btnNewHeadword.Enabled = true;
             btnDeleteHeadword.Enabled = true;
+            btnSaveHeadword.Enabled = false;
+            btnSaveEntry.Enabled = false;
 
             webBrowser1.DocumentText = makeHtmlDocument();
             entriesTreeView.AfterSelect += new TreeViewEventHandler(entriesTreeView_AfterSelect);

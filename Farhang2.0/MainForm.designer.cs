@@ -35,9 +35,9 @@ namespace Farhang2
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Headword");
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Headword");
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.headwordsListBox = new System.Windows.Forms.ListBox();
             this.cmbBoxAlphabet = new System.Windows.Forms.ComboBox();
@@ -317,10 +317,10 @@ namespace Farhang2
             this.entriesTreeView.FullRowSelect = true;
             this.entriesTreeView.Location = new System.Drawing.Point(9, 22);
             this.entriesTreeView.Name = "entriesTreeView";
-            treeNode1.Name = "Headword";
-            treeNode1.Text = "Headword";
+            treeNode3.Name = "Headword";
+            treeNode3.Text = "Headword";
             this.entriesTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode3});
             this.entriesTreeView.Size = new System.Drawing.Size(406, 226);
             this.entriesTreeView.TabIndex = 0;
             // 
@@ -356,7 +356,7 @@ namespace Farhang2
             this.attributesGroupBox.Location = new System.Drawing.Point(272, 479);
             this.attributesGroupBox.Name = "attributesGroupBox";
             this.attributesGroupBox.Size = new System.Drawing.Size(421, 162);
-            this.attributesGroupBox.TabIndex = 5;
+            this.attributesGroupBox.TabIndex = 3;
             this.attributesGroupBox.TabStop = false;
             this.attributesGroupBox.Text = "Attributes";
             this.attributesGroupBox.Visible = false;
@@ -368,7 +368,7 @@ namespace Farhang2
             this.btnSaveEntry.Location = new System.Drawing.Point(340, 134);
             this.btnSaveEntry.Name = "btnSaveEntry";
             this.btnSaveEntry.Size = new System.Drawing.Size(75, 23);
-            this.btnSaveEntry.TabIndex = 16;
+            this.btnSaveEntry.TabIndex = 5;
             this.btnSaveEntry.Text = "Save";
             this.btnSaveEntry.UseVisualStyleBackColor = true;
             // 
@@ -377,7 +377,7 @@ namespace Farhang2
             this.txtNumber.Location = new System.Drawing.Point(308, 18);
             this.txtNumber.Name = "txtNumber";
             this.txtNumber.Size = new System.Drawing.Size(104, 23);
-            this.txtNumber.TabIndex = 14;
+            this.txtNumber.TabIndex = 1;
             this.txtNumber.TextChanged += new System.EventHandler(this.txtField_TextChanged);
             // 
             // btnIPAKeyboard4Translation
@@ -869,7 +869,7 @@ namespace Farhang2
             this.previewGroupBox.Location = new System.Drawing.Point(699, 52);
             this.previewGroupBox.Name = "previewGroupBox";
             this.previewGroupBox.Size = new System.Drawing.Size(345, 407);
-            this.previewGroupBox.TabIndex = 6;
+            this.previewGroupBox.TabIndex = 4;
             this.previewGroupBox.TabStop = false;
             this.previewGroupBox.Text = "Preview";
             this.previewGroupBox.Visible = false;
@@ -903,7 +903,7 @@ namespace Farhang2
             this.statisticsGroupBox.Location = new System.Drawing.Point(699, 465);
             this.statisticsGroupBox.Name = "statisticsGroupBox";
             this.statisticsGroupBox.Size = new System.Drawing.Size(345, 176);
-            this.statisticsGroupBox.TabIndex = 7;
+            this.statisticsGroupBox.TabIndex = 5;
             this.statisticsGroupBox.TabStop = false;
             this.statisticsGroupBox.Text = "Statistics";
             this.statisticsGroupBox.Visible = false;
@@ -915,7 +915,7 @@ namespace Farhang2
             this.btnViewStatistics.Location = new System.Drawing.Point(139, 134);
             this.btnViewStatistics.Name = "btnViewStatistics";
             this.btnViewStatistics.Size = new System.Drawing.Size(200, 36);
-            this.btnViewStatistics.TabIndex = 8;
+            this.btnViewStatistics.TabIndex = 4;
             this.btnViewStatistics.Text = "View Full Statistics";
             this.btnViewStatistics.UseVisualStyleBackColor = true;
             // 
@@ -927,7 +927,7 @@ namespace Farhang2
             this.txtSubentriesCount.Name = "txtSubentriesCount";
             this.txtSubentriesCount.ReadOnly = true;
             this.txtSubentriesCount.Size = new System.Drawing.Size(200, 23);
-            this.txtSubentriesCount.TabIndex = 7;
+            this.txtSubentriesCount.TabIndex = 3;
             this.txtSubentriesCount.Text = "0";
             // 
             // lblSubentriesCount
@@ -947,7 +947,7 @@ namespace Farhang2
             this.txtEntriesCount.Name = "txtEntriesCount";
             this.txtEntriesCount.ReadOnly = true;
             this.txtEntriesCount.Size = new System.Drawing.Size(200, 23);
-            this.txtEntriesCount.TabIndex = 5;
+            this.txtEntriesCount.TabIndex = 2;
             this.txtEntriesCount.Text = "0";
             // 
             // txtSelectedAlphabet
@@ -958,7 +958,7 @@ namespace Farhang2
             this.txtSelectedAlphabet.Name = "txtSelectedAlphabet";
             this.txtSelectedAlphabet.ReadOnly = true;
             this.txtSelectedAlphabet.Size = new System.Drawing.Size(200, 23);
-            this.txtSelectedAlphabet.TabIndex = 4;
+            this.txtSelectedAlphabet.TabIndex = 0;
             // 
             // txtHeadwordsCount
             // 
@@ -968,7 +968,7 @@ namespace Farhang2
             this.txtHeadwordsCount.Name = "txtHeadwordsCount";
             this.txtHeadwordsCount.ReadOnly = true;
             this.txtHeadwordsCount.Size = new System.Drawing.Size(200, 23);
-            this.txtHeadwordsCount.TabIndex = 3;
+            this.txtHeadwordsCount.TabIndex = 1;
             this.txtHeadwordsCount.Text = "0";
             // 
             // lblEntriesCount
@@ -1019,7 +1019,7 @@ namespace Farhang2
             this.manualHeadwordSorterGrpBox.Location = new System.Drawing.Point(11, 52);
             this.manualHeadwordSorterGrpBox.Name = "manualHeadwordSorterGrpBox";
             this.manualHeadwordSorterGrpBox.Size = new System.Drawing.Size(1033, 589);
-            this.manualHeadwordSorterGrpBox.TabIndex = 8;
+            this.manualHeadwordSorterGrpBox.TabIndex = 0;
             this.manualHeadwordSorterGrpBox.TabStop = false;
             this.manualHeadwordSorterGrpBox.Text = "Manual Headword Sorter";
             this.manualHeadwordSorterGrpBox.Visible = false;
@@ -1032,7 +1032,7 @@ namespace Farhang2
             this.txtStatus.Name = "txtStatus";
             this.txtStatus.ReadOnly = true;
             this.txtStatus.Size = new System.Drawing.Size(415, 23);
-            this.txtStatus.TabIndex = 19;
+            this.txtStatus.TabIndex = 8;
             // 
             // lblStatus
             // 
@@ -1049,7 +1049,7 @@ namespace Farhang2
             this.txtTotal4MHS.Name = "txtTotal4MHS";
             this.txtTotal4MHS.ReadOnly = true;
             this.txtTotal4MHS.Size = new System.Drawing.Size(110, 23);
-            this.txtTotal4MHS.TabIndex = 17;
+            this.txtTotal4MHS.TabIndex = 7;
             // 
             // btnSavePriorityList
             // 
@@ -1058,7 +1058,7 @@ namespace Farhang2
             this.btnSavePriorityList.Location = new System.Drawing.Point(952, 52);
             this.btnSavePriorityList.Name = "btnSavePriorityList";
             this.btnSavePriorityList.Size = new System.Drawing.Size(75, 23);
-            this.btnSavePriorityList.TabIndex = 15;
+            this.btnSavePriorityList.TabIndex = 2;
             this.btnSavePriorityList.Text = "Save";
             this.btnSavePriorityList.UseVisualStyleBackColor = true;
             this.btnSavePriorityList.Click += new System.EventHandler(this.btnSavePriorityList_Click);
@@ -1068,7 +1068,7 @@ namespace Farhang2
             this.btnIPAKeyboard4MHSSearch.Location = new System.Drawing.Point(214, 52);
             this.btnIPAKeyboard4MHSSearch.Name = "btnIPAKeyboard4MHSSearch";
             this.btnIPAKeyboard4MHSSearch.Size = new System.Drawing.Size(39, 23);
-            this.btnIPAKeyboard4MHSSearch.TabIndex = 11;
+            this.btnIPAKeyboard4MHSSearch.TabIndex = 3;
             this.btnIPAKeyboard4MHSSearch.Text = "IPA";
             this.btnIPAKeyboard4MHSSearch.UseVisualStyleBackColor = true;
             this.btnIPAKeyboard4MHSSearch.Click += new System.EventHandler(this.btnIPAKeyboard4IPAButtons_Click);
@@ -1078,7 +1078,7 @@ namespace Farhang2
             this.txtMHSSearch.Location = new System.Drawing.Point(76, 52);
             this.txtMHSSearch.Name = "txtMHSSearch";
             this.txtMHSSearch.Size = new System.Drawing.Size(132, 23);
-            this.txtMHSSearch.TabIndex = 9;
+            this.txtMHSSearch.TabIndex = 1;
             this.txtMHSSearch.TextChanged += new System.EventHandler(this.txtMHSSearch_TextChanged);
             // 
             // lblMHSSearch
@@ -1106,7 +1106,7 @@ namespace Farhang2
             this.txtScratch.Location = new System.Drawing.Point(351, 22);
             this.txtScratch.Name = "txtScratch";
             this.txtScratch.Size = new System.Drawing.Size(676, 23);
-            this.txtScratch.TabIndex = 7;
+            this.txtScratch.TabIndex = 1;
             // 
             // lblTotalCount
             // 
@@ -1151,7 +1151,7 @@ namespace Farhang2
             this.cmbBoxAlphabet4Sort.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cmbBoxAlphabet4Sort.Name = "cmbBoxAlphabet4Sort";
             this.cmbBoxAlphabet4Sort.Size = new System.Drawing.Size(177, 23);
-            this.cmbBoxAlphabet4Sort.TabIndex = 4;
+            this.cmbBoxAlphabet4Sort.TabIndex = 0;
             this.cmbBoxAlphabet4Sort.SelectedIndexChanged += new System.EventHandler(this.cmbBoxAlphabet4Sort_SelectedIndexChanged);
             // 
             // lblAlphabet4Sort
@@ -1194,8 +1194,8 @@ namespace Farhang2
             // 
             this.dataGridViewOriginal.AllowUserToAddRows = false;
             this.dataGridViewOriginal.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridViewOriginal.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridViewOriginal.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridViewOriginal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewOriginal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewOriginal.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1205,7 +1205,7 @@ namespace Farhang2
             this.dataGridViewOriginal.ReadOnly = true;
             this.dataGridViewOriginal.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewOriginal.Size = new System.Drawing.Size(499, 478);
-            this.dataGridViewOriginal.TabIndex = 13;
+            this.dataGridViewOriginal.TabIndex = 0;
             // 
             // grpBoxSorted
             // 
@@ -1223,8 +1223,8 @@ namespace Farhang2
             this.dataGridView4Sort.AllowUserToAddRows = false;
             this.dataGridView4Sort.AllowUserToDeleteRows = false;
             this.dataGridView4Sort.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridView4Sort.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridView4Sort.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView4Sort.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView4Sort.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView4Sort.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1233,7 +1233,7 @@ namespace Farhang2
             this.dataGridView4Sort.Name = "dataGridView4Sort";
             this.dataGridView4Sort.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView4Sort.Size = new System.Drawing.Size(499, 478);
-            this.dataGridView4Sort.TabIndex = 2;
+            this.dataGridView4Sort.TabIndex = 0;
             this.dataGridView4Sort.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView4Sort_CellValueChanged);
             this.dataGridView4Sort.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView4Sort_RowEnter);
             // 
@@ -1254,7 +1254,7 @@ namespace Farhang2
             this.headwordGroupBox.Location = new System.Drawing.Point(272, 312);
             this.headwordGroupBox.Name = "headwordGroupBox";
             this.headwordGroupBox.Size = new System.Drawing.Size(421, 161);
-            this.headwordGroupBox.TabIndex = 10;
+            this.headwordGroupBox.TabIndex = 2;
             this.headwordGroupBox.TabStop = false;
             this.headwordGroupBox.Text = "Headword";
             this.headwordGroupBox.Visible = false;
@@ -1266,7 +1266,7 @@ namespace Farhang2
             this.btnSaveHeadword.Location = new System.Drawing.Point(340, 132);
             this.btnSaveHeadword.Name = "btnSaveHeadword";
             this.btnSaveHeadword.Size = new System.Drawing.Size(75, 23);
-            this.btnSaveHeadword.TabIndex = 16;
+            this.btnSaveHeadword.TabIndex = 3;
             this.btnSaveHeadword.Text = "Save";
             this.btnSaveHeadword.UseVisualStyleBackColor = true;
             // 

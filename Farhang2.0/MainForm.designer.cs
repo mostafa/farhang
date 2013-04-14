@@ -35,9 +35,9 @@ namespace Farhang2
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Headword");
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Headword");
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripResult = new System.Windows.Forms.ToolStripLabel();
             this.headwordsListBox = new System.Windows.Forms.ListBox();
@@ -52,6 +52,8 @@ namespace Farhang2
             this.entriesTreeView = new System.Windows.Forms.TreeView();
             this.entriesGroupBox = new System.Windows.Forms.GroupBox();
             this.attributesGroupBox = new System.Windows.Forms.GroupBox();
+            this.btnAddEntry = new System.Windows.Forms.Button();
+            this.btnDeleteEntry = new System.Windows.Forms.Button();
             this.btnSaveEntry = new System.Windows.Forms.Button();
             this.txtNumber = new System.Windows.Forms.TextBox();
             this.btnIPAKeyboard4Translation = new System.Windows.Forms.Button();
@@ -59,7 +61,7 @@ namespace Farhang2
             this.txtTranslation = new System.Windows.Forms.TextBox();
             this.lblNumber = new System.Windows.Forms.Label();
             this.cmbBoxTranslationLanguage = new System.Windows.Forms.ComboBox();
-            this.cmbBoxType = new System.Windows.Forms.ComboBox();
+            this.cmbBoxEntryType = new System.Windows.Forms.ComboBox();
             this.txtSourceText = new System.Windows.Forms.TextBox();
             this.lblTranslation = new System.Windows.Forms.Label();
             this.lblDestinationLanguage = new System.Windows.Forms.Label();
@@ -157,7 +159,6 @@ namespace Farhang2
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.txtPronunciation = new System.Windows.Forms.TextBox();
             this.txtLemma = new System.Windows.Forms.TextBox();
-            this.btnDeleteEntry = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.headwordsListGroupBox.SuspendLayout();
             this.entriesGroupBox.SuspendLayout();
@@ -329,10 +330,10 @@ namespace Farhang2
             this.entriesTreeView.FullRowSelect = true;
             this.entriesTreeView.Location = new System.Drawing.Point(9, 22);
             this.entriesTreeView.Name = "entriesTreeView";
-            treeNode2.Name = "Headword";
-            treeNode2.Text = "Headword";
+            treeNode3.Name = "Headword";
+            treeNode3.Text = "Headword";
             this.entriesTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
+            treeNode3});
             this.entriesTreeView.Size = new System.Drawing.Size(406, 226);
             this.entriesTreeView.TabIndex = 0;
             // 
@@ -352,6 +353,7 @@ namespace Farhang2
             // attributesGroupBox
             // 
             this.attributesGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.attributesGroupBox.Controls.Add(this.btnAddEntry);
             this.attributesGroupBox.Controls.Add(this.btnDeleteEntry);
             this.attributesGroupBox.Controls.Add(this.btnSaveEntry);
             this.attributesGroupBox.Controls.Add(this.txtNumber);
@@ -360,7 +362,7 @@ namespace Farhang2
             this.attributesGroupBox.Controls.Add(this.txtTranslation);
             this.attributesGroupBox.Controls.Add(this.lblNumber);
             this.attributesGroupBox.Controls.Add(this.cmbBoxTranslationLanguage);
-            this.attributesGroupBox.Controls.Add(this.cmbBoxType);
+            this.attributesGroupBox.Controls.Add(this.cmbBoxEntryType);
             this.attributesGroupBox.Controls.Add(this.txtSourceText);
             this.attributesGroupBox.Controls.Add(this.lblTranslation);
             this.attributesGroupBox.Controls.Add(this.lblDestinationLanguage);
@@ -373,6 +375,30 @@ namespace Farhang2
             this.attributesGroupBox.TabStop = false;
             this.attributesGroupBox.Text = "Attributes";
             this.attributesGroupBox.Visible = false;
+            // 
+            // btnAddEntry
+            // 
+            this.btnAddEntry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddEntry.Enabled = false;
+            this.btnAddEntry.Location = new System.Drawing.Point(242, 133);
+            this.btnAddEntry.Name = "btnAddEntry";
+            this.btnAddEntry.Size = new System.Drawing.Size(92, 23);
+            this.btnAddEntry.TabIndex = 15;
+            this.btnAddEntry.Text = "Add Entry";
+            this.btnAddEntry.UseVisualStyleBackColor = true;
+            this.btnAddEntry.Click += new System.EventHandler(this.btnAddEntry_Click);
+            // 
+            // btnDeleteEntry
+            // 
+            this.btnDeleteEntry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteEntry.Enabled = false;
+            this.btnDeleteEntry.Location = new System.Drawing.Point(6, 134);
+            this.btnDeleteEntry.Name = "btnDeleteEntry";
+            this.btnDeleteEntry.Size = new System.Drawing.Size(75, 23);
+            this.btnDeleteEntry.TabIndex = 14;
+            this.btnDeleteEntry.Text = "Delete";
+            this.btnDeleteEntry.UseVisualStyleBackColor = true;
+            this.btnDeleteEntry.Click += new System.EventHandler(this.btnDeleteEntry_Click);
             // 
             // btnSaveEntry
             // 
@@ -448,22 +474,22 @@ namespace Farhang2
             this.cmbBoxTranslationLanguage.Text = "Persisch";
             this.cmbBoxTranslationLanguage.TextChanged += new System.EventHandler(this.cmbBoxField_TextChanged);
             // 
-            // cmbBoxType
+            // cmbBoxEntryType
             // 
-            this.cmbBoxType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cmbBoxEntryType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbBoxType.FormattingEnabled = true;
-            this.cmbBoxType.Items.AddRange(new object[] {
+            this.cmbBoxEntryType.FormattingEnabled = true;
+            this.cmbBoxEntryType.Items.AddRange(new object[] {
             "Entry",
             "Subentry",
             "Combination",
             "Reference"});
-            this.cmbBoxType.Location = new System.Drawing.Point(96, 18);
-            this.cmbBoxType.Name = "cmbBoxType";
-            this.cmbBoxType.Size = new System.Drawing.Size(104, 23);
-            this.cmbBoxType.TabIndex = 0;
-            this.cmbBoxType.Text = "Entry";
-            this.cmbBoxType.TextChanged += new System.EventHandler(this.cmbBoxField_TextChanged);
+            this.cmbBoxEntryType.Location = new System.Drawing.Point(96, 18);
+            this.cmbBoxEntryType.Name = "cmbBoxEntryType";
+            this.cmbBoxEntryType.Size = new System.Drawing.Size(104, 23);
+            this.cmbBoxEntryType.TabIndex = 0;
+            this.cmbBoxEntryType.Text = "Entry";
+            this.cmbBoxEntryType.TextChanged += new System.EventHandler(this.cmbBoxField_TextChanged);
             // 
             // txtSourceText
             // 
@@ -831,19 +857,19 @@ namespace Farhang2
             // maximizeToolStripMenuItem
             // 
             this.maximizeToolStripMenuItem.Name = "maximizeToolStripMenuItem";
-            this.maximizeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.maximizeToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.maximizeToolStripMenuItem.Text = "&Maximize";
             // 
             // minimizeToolStripMenuItem
             // 
             this.minimizeToolStripMenuItem.Name = "minimizeToolStripMenuItem";
-            this.minimizeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.minimizeToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.minimizeToolStripMenuItem.Text = "Mi&nimize";
             // 
             // unmaximizeToolStripMenuItem
             // 
             this.unmaximizeToolStripMenuItem.Name = "unmaximizeToolStripMenuItem";
-            this.unmaximizeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.unmaximizeToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.unmaximizeToolStripMenuItem.Text = "&Unmaximize";
             // 
             // helpToolStripMenuItem
@@ -1209,8 +1235,8 @@ namespace Farhang2
             // 
             this.dataGridViewOriginal.AllowUserToAddRows = false;
             this.dataGridViewOriginal.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridViewOriginal.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridViewOriginal.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridViewOriginal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewOriginal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewOriginal.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1238,8 +1264,8 @@ namespace Farhang2
             this.dataGridView4Sort.AllowUserToAddRows = false;
             this.dataGridView4Sort.AllowUserToDeleteRows = false;
             this.dataGridView4Sort.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridView4Sort.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridView4Sort.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView4Sort.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView4Sort.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView4Sort.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1321,7 +1347,7 @@ namespace Farhang2
             this.chkIncomplete.AutoSize = true;
             this.chkIncomplete.Location = new System.Drawing.Point(9, 109);
             this.chkIncomplete.Name = "chkIncomplete";
-            this.chkIncomplete.Size = new System.Drawing.Size(78, 17);
+            this.chkIncomplete.Size = new System.Drawing.Size(97, 19);
             this.chkIncomplete.TabIndex = 10;
             this.chkIncomplete.Text = "Incomplete";
             this.chkIncomplete.UseVisualStyleBackColor = true;
@@ -1379,18 +1405,6 @@ namespace Farhang2
             this.txtLemma.TabIndex = 0;
             this.txtLemma.TextChanged += new System.EventHandler(this.txtField_TextChanged);
             // 
-            // btnDeleteEntry
-            // 
-            this.btnDeleteEntry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeleteEntry.Enabled = false;
-            this.btnDeleteEntry.Location = new System.Drawing.Point(6, 134);
-            this.btnDeleteEntry.Name = "btnDeleteEntry";
-            this.btnDeleteEntry.Size = new System.Drawing.Size(75, 23);
-            this.btnDeleteEntry.TabIndex = 14;
-            this.btnDeleteEntry.Text = "Delete";
-            this.btnDeleteEntry.UseVisualStyleBackColor = true;
-            this.btnDeleteEntry.Click += new System.EventHandler(this.btnDeleteEntry_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -1445,7 +1459,7 @@ namespace Farhang2
         private System.Windows.Forms.GroupBox entriesGroupBox;
         private System.Windows.Forms.GroupBox attributesGroupBox;
         private System.Windows.Forms.ComboBox cmbBoxTranslationLanguage;
-        private System.Windows.Forms.ComboBox cmbBoxType;
+        private System.Windows.Forms.ComboBox cmbBoxEntryType;
         private System.Windows.Forms.Label lblTranslation;
         private System.Windows.Forms.Label lblDestinationLanguage;
         private System.Windows.Forms.Label lblSourceText;
@@ -1557,5 +1571,6 @@ namespace Farhang2
         private System.Windows.Forms.Label lblLetter;
         private System.Windows.Forms.Label lblLetter4Sort;
         private System.Windows.Forms.Button btnDeleteEntry;
+        private System.Windows.Forms.Button btnAddEntry;
 	}
 }

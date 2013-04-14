@@ -193,7 +193,7 @@ namespace Farhang2
             btnSaveEntry.Enabled = false;
 
             headwordsListBox.SelectedIndex = 0;
-            cmbBoxType.SelectedIndex = 0;
+            cmbBoxEntryType.SelectedIndex = 0;
             txtNumber.Text = "0";
             txtSourceText.Text = null;
             cmbBoxTranslationLanguage.SelectedIndex = 0;
@@ -206,7 +206,7 @@ namespace Farhang2
 
         void headwordsListBoxSelectedIndexChanged(object sender, EventArgs e)
 		{
-            cmbBoxType.SelectedIndex = 0;
+            cmbBoxEntryType.SelectedIndex = 0;
             txtNumber.Text = "0";
             txtSourceText.Text = "";
             cmbBoxTranslationLanguage.SelectedIndex = 0;
@@ -273,6 +273,7 @@ namespace Farhang2
             btnDeleteEntry.Enabled = false;
             btnSaveHeadword.Enabled = false;
             btnSaveEntry.Enabled = false;
+            btnAddEntry.Enabled = false;
 
             toolStripResult.Text = "Selected Headword " + currentHeadword.Lemma;
 
@@ -347,7 +348,7 @@ namespace Farhang2
                     {
                         if ((item.Number == entriesTreeView.SelectedNode.Text.Replace("Entry: ", "").Replace("Subentry: ", "")) | item.Number == entriesTreeView.SelectedNode.Parent.Text.Replace("Entry: ", "").Replace("Subentry: ", ""))
                         {
-                            cmbBoxType.Text = item.EntryType;
+                            cmbBoxEntryType.Text = item.EntryType;
 
                             txtNumber.Text = item.Number;
 
@@ -373,6 +374,7 @@ namespace Farhang2
                             currentEntry = item;
                             btnSaveEntry.Enabled = false;
                             btnDeleteEntry.Enabled = true;
+                            btnAddEntry.Enabled = true;
                             toolStripResult.Text = "Selected entry " + currentEntry.Number.ToString();
 
                             break;
@@ -651,7 +653,7 @@ namespace Farhang2
             {
                 switch (obj.Name)
                 {
-                    case "cmbBoxType":
+                    case "cmbBoxEntryType":
                         btnSaveEntry.Enabled = (obj.Text != currentEntry.EntryType) ? true : false;
                         break;
                     case "cmbBoxTranslationLanguage":
@@ -743,13 +745,13 @@ namespace Farhang2
 
             List<UpdateBuilder> updateEntry = new List<UpdateBuilder>();
 
-            if (!String.IsNullOrWhiteSpace(cmbBoxType.SelectedItem.ToString()))
+            if (!String.IsNullOrWhiteSpace(cmbBoxEntryType.SelectedItem.ToString()))
             {
-                if (cmbBoxType.Items.Contains(cmbBoxType.SelectedItem.ToString()))
+                if (cmbBoxEntryType.Items.Contains(cmbBoxEntryType.SelectedItem.ToString()))
                 {
-                    if (cmbBoxType.SelectedItem.ToString() != currentEntry.EntryType)
+                    if (cmbBoxEntryType.SelectedItem.ToString() != currentEntry.EntryType)
                     {
-                        updateEntry.Add(MongoDB.Driver.Builders.Update.Set("Entries.$.EntryType", cmbBoxType.SelectedItem.ToString()));
+                        updateEntry.Add(MongoDB.Driver.Builders.Update.Set("Entries.$.EntryType", cmbBoxEntryType.SelectedItem.ToString()));
                     }
                 }
             }
@@ -854,6 +856,35 @@ namespace Farhang2
                     toolStripResult.Text = "Result: Error removing entry!";
                     btnDeleteHeadword.Enabled = false;
                 }
+            }
+        }
+
+        private void btnAddEntry_Click(object sender, EventArgs e)
+        {
+            collection = farhang_database.GetCollection<Headword>(cmbBoxLetter.SelectedItem.ToString());
+
+            string sourcelang = String.IsNullOrWhiteSpace(txtSourceText.Text) ? null : "DE";
+
+            string source = String.IsNullOrWhiteSpace(txtSourceText.Text) ? null : txtSourceText.Text;
+
+            string lang = cmbBoxTranslationLanguage.SelectedItem.ToString() == "Persisch" ? "FA" : "DE";
+            string translang = String.IsNullOrWhiteSpace(txtTranslation.Text) ? null : lang;
+
+            string trans = String.IsNullOrWhiteSpace(txtTranslation.Text) ? null : txtTranslation.Text;
+
+            var entry = new Entry(cmbBoxEntryType.SelectedItem.ToString(), txtNumber.Text, sourcelang, source, translang, trans);
+
+            var update = MongoDB.Driver.Builders.Update.Push("Entries", entry.ToBsonDocument());
+
+            WriteConcernResult result = collection.Update(Query.EQ("_id", currentHeadwordObjectID), update, UpdateFlags.Upsert);
+            if (result.DocumentsAffected == 1)
+            {
+                toolStripResult.Text = "Result: Entry created successfully!";
+                headwordsListBoxSelectedIndexChanged(sender, e);
+            }
+            else
+            {
+                toolStripResult.Text = "Result: Error creating entry!";
             }
         }
 	}

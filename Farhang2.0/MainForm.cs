@@ -146,10 +146,30 @@ namespace Farhang2
             client = new MongoClient();
             server = client.GetServer();
             farhang_database = server.GetDatabase("farhang");
+
+            try
+            {
+                server.Instance.Ping();
+            }
+            catch (Exception)
+            {
+                //MessageBox.Show("Server is not available or is not responding!", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                return;
+            }
         }
 
         void ComboBox1SelectedIndexChanged(object sender, EventArgs e)
 		{
+            try
+            {
+                server.Instance.Ping();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Server is not available or is not responding!", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                return;
+            }
+
             this.Enabled = false;
             headwordsListBox.Items.Clear();
             txtSelectedAlphabet.Text = cmbBoxAlphabet.SelectedItem.ToString();
@@ -459,6 +479,16 @@ namespace Farhang2
 
         private void cmbBoxAlphabet4Sort_SelectedIndexChanged(object sender, EventArgs e)
         {
+            try
+            {
+                server.Instance.Ping();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Server is not available or is not responding!", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                return;
+            }
+
             this.Enabled = false;
 
             collection = farhang_database.GetCollection<Headword>(cmbBoxAlphabet4Sort.SelectedItem.ToString().ToUpper());
@@ -494,7 +524,7 @@ namespace Farhang2
             priorityDataSet.Tables[0].AcceptChanges();
             priorityDataSet.Tables[0].DefaultView.Sort = "Priority ASC";
 
-            var newTableForUpdatingPriorities = priorityDataSet.Tables[0].DefaultView.ToTable("Headwords");
+            newTableForUpdatingPriorities = priorityDataSet.Tables[0].DefaultView.ToTable("Headwords");
 
             btnSavePriorityList.Enabled = true;
         }

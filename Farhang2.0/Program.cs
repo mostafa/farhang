@@ -13,6 +13,7 @@ namespace Farhang2
         [STAThread]
         static void Main()
         {
+            UnmanagedCode.disableSound();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());

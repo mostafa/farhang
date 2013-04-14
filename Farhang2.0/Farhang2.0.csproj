@@ -8,7 +8,7 @@
     <ProjectGuid>{3BC40415-084E-4398-AC68-B22B7CD4A76F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Farhang2._0</RootNamespace>
+    <RootNamespace>Farhang2</RootNamespace>
     <AssemblyName>Farhang2.0</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
@@ -32,6 +32,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Farhang2.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Antlr3.Runtime">
@@ -76,6 +79,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnmanagedCode.cs" />
     <EmbeddedResource Include="IPAKeyboard.resx">
       <DependentUpon>IPAKeyboard.cs</DependentUpon>
     </EmbeddedResource>
@@ -90,6 +94,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

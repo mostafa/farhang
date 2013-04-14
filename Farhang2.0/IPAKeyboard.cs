@@ -14,16 +14,16 @@ namespace Farhang2
         MainForm parentForm;
         TextBox callingControl;
         //private List<Button> buttonList = new List<Button>();
-        private static String[,] mainipa = new String[,] {  {"aː", "ɐ", "ɐ̯", "ã", "ãː", "a͜i", "aɪ", "a͜u", "aʊ", "ç"},
+        public static String[,] mainipa = new String[,] {  {"aː", "ɐ", "ɐ̯", "ã", "ãː", "a͜i", "aɪ", "a͜u", "aʊ", "ç"},
                                                         {"d͜ʒ", "eː", "ɛ", "ɛː", "ɛ̃", "ɛ̃ː", "ɛǝ", "eɪ", "ǝ", "iː"},
                                                         {"i̯", "ɪ", "l̩", "m̩", "n̩", "ŋ", "oː", "o̯", "õ", "õː"},
                                                         {"ɔ", "ø", "øː", "œ", "œ̃ː", "o͜u", "oʊ", "ɔ͜y", "ɔɪ", "ʃ"},
                                                         {"t͜s", "t͜ʃ", "θ", "uː", "u̯", "ʊ", "yː", "y̆", "ʏ", "ʒ"},
                                                         {"ʌ", "ӕ", "ð", "Ä", "ä", "Ö", "ö", "Ü", "ü", "ß"} };
-        private static String[] combinations = new String[] { "∥ K-: ", "∥ -K: ", "∥ NB: ", "∥ ID ", "∥ zu ", "∥ hierzu " };
-        private static String[] helpers1 = new String[] { "·", "̣", "|", "∥", "'", "ˌ", "↑", "®", "©", "‣" };
-        private static String[] helpers2 = new String[] { "̲", "͟", "≈", "⌘", "↔", "à", "é", "¹", "²", "³" };
-        TextBox textView = new TextBox();
+        public static String[] combinations = new String[] { "∥ K-: ", "∥ -K: ", "∥ NB: ", "∥ ID ", "∥ zu ", "∥ hierzu " };
+        public static String[] helpers1 = new String[] { "·", "̣", "|", "∥", "'", "ˌ", "↑", "®", "©", "‣" };
+        public static String[] helpers2 = new String[] { "̲", "͟", "≈", "⌘", "↔", "à", "é", "¹", "²", "³" };
+        public TextBox textView = new TextBox();
 
         public IPAKeyboard()
         {
@@ -114,6 +114,7 @@ namespace Farhang2
             textView.Width = 320;
             textView.Location = new Point(10, 373);
             textView.TextChanged += new EventHandler(textView_TextChanged);
+            textView.Text += callingControl.Text;
             textView.Show();
 
             // construct copy button

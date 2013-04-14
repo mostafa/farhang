@@ -32,6 +32,7 @@ namespace Farhang2
         MongoCursor<Headword> collection_data;
         Headword currentHeadword;
         BsonObjectId currentHeadwordObjectID;
+        Entry currentEntry;
         DataSet priorityDataSet;
         DataTable newTableForUpdatingPriorities;
         #region HTMLCSS
@@ -158,7 +159,7 @@ namespace Farhang2
             }
         }
 
-        void ComboBox1SelectedIndexChanged(object sender, EventArgs e)
+        void cmbBoxAlphabetSelectedIndexChanged(object sender, EventArgs e)
 		{
             try
             {
@@ -189,10 +190,13 @@ namespace Farhang2
             //headwordsListBox.Sorted = true;
             headwordsListBox.ResumeLayout();
 
+            btnNewHeadword.Enabled = false;
+            btnDeleteHeadword.Enabled = false;
+
             this.Enabled = true;
 		}
-		
-		void ListBox1SelectedIndexChanged(object sender, EventArgs e)
+
+        void headwordsListBoxSelectedIndexChanged(object sender, EventArgs e)
 		{
             cmbBoxType.SelectedIndex = 0;
             txtNumber.Text = "0";
@@ -254,6 +258,9 @@ namespace Farhang2
 
             entriesTreeView.TopNode.ExpandAll();
             entriesTreeView.TopNode = entriesTreeView.Nodes[0];
+
+            btnNewHeadword.Enabled = true;
+            btnDeleteHeadword.Enabled = true;
 
             webBrowser1.DocumentText = makeHtmlDocument();
             entriesTreeView.AfterSelect += new TreeViewEventHandler(entriesTreeView_AfterSelect);
@@ -348,6 +355,9 @@ namespace Farhang2
                                 txtTranslation.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
                             }
                             txtTranslation.Text = item.Translation;
+
+                            currentEntry = item;
+                            btnSaveEntry.Enabled = false;
                             break;
                         }
                     }
@@ -566,6 +576,80 @@ namespace Farhang2
             if (dataGridView4Sort.SelectedRows.Count > 0)
             {
                 txtStatus.Text = "[" + dataGridView4Sort.SelectedRows[0].Cells[1].Value.ToString() + "]: " + dataGridView4Sort.SelectedRows[0].Cells[0].Value.ToString();
+            }
+        }
+
+        private void txtField_TextChanged(object sender, EventArgs e)
+        {
+            var obj = (TextBox)sender;
+
+            if (currentHeadword != null)
+            {
+                switch (obj.Name)
+                {
+                    case "txtLemma":
+                        btnSaveHeadword.Enabled = (obj.Text != currentHeadword.Lemma) ? true : false;
+                        break;
+                    case "txtPronunciation":
+                        btnSaveHeadword.Enabled = (obj.Text != currentHeadword.Pronunciation) ? true : false;
+                        break;
+                    case "txtDescription":
+                        btnSaveHeadword.Enabled = (obj.Text != currentHeadword.Description) ? true : false;
+                        break;
+                    default:
+                        btnSaveHeadword.Enabled = false;
+                        break;
+                }
+            }
+
+            if (currentEntry != null)
+            {
+                switch (obj.Name)
+                {
+                    case "txtNumber":
+                        btnSaveEntry.Enabled = (obj.Text != currentEntry.Number) ? true : false;
+                        break;
+                    case "txtSourceText":
+                        string SourceTextValue = String.IsNullOrEmpty(obj.Text) | String.IsNullOrWhiteSpace(obj.Text) ? null : obj.Text;
+                        btnSaveEntry.Enabled = (SourceTextValue != currentEntry.SourceText) ? true : false;
+                        break;
+                    case "txtTranslation":
+                        btnSaveEntry.Enabled = (obj.Text != currentEntry.Translation) ? true : false;
+                        break;
+                    default:
+                        btnSaveEntry.Enabled = false;
+                        break;
+                }
+            }
+        }
+
+        private void chkIncomplete_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox obj = (CheckBox)sender;
+            if (currentHeadword != null)
+            {
+                btnSaveHeadword.Enabled = (obj.Checked != currentHeadword.Incomplete) ? true : false;
+            }
+        }
+
+        private void cmbBoxField_TextChanged(object sender, EventArgs e)
+        {
+            var obj = (ComboBox)sender;
+
+            if (currentEntry != null)
+            {
+                switch (obj.Name)
+                {
+                    case "cmbBoxType":
+                        btnSaveEntry.Enabled = (obj.Text != currentEntry.EntryType) ? true : false;
+                        break;
+                    case "cmbBoxDestinationLanguage":
+                        String Language = (obj.Text == "Persisch") ? "FA" : "DE";
+                        btnSaveEntry.Enabled = (Language != currentEntry.TranslationLanguage) ? true : false;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 	}

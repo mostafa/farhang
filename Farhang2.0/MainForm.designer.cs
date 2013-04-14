@@ -35,9 +35,9 @@ namespace Farhang2
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Headword");
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Headword");
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripResult = new System.Windows.Forms.ToolStripLabel();
             this.headwordsListBox = new System.Windows.Forms.ListBox();
@@ -45,7 +45,7 @@ namespace Farhang2
             this.headwordsListGroupBox = new System.Windows.Forms.GroupBox();
             this.lblLetter = new System.Windows.Forms.Label();
             this.btnDeleteHeadword = new System.Windows.Forms.Button();
-            this.btnNewHeadword = new System.Windows.Forms.Button();
+            this.btnAddHeadword = new System.Windows.Forms.Button();
             this.btnIPAKeyboard4Search = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.lblSearch = new System.Windows.Forms.Label();
@@ -249,7 +249,6 @@ namespace Farhang2
             | System.Windows.Forms.AnchorStyles.Left)));
             this.headwordsListGroupBox.Controls.Add(this.lblLetter);
             this.headwordsListGroupBox.Controls.Add(this.btnDeleteHeadword);
-            this.headwordsListGroupBox.Controls.Add(this.btnNewHeadword);
             this.headwordsListGroupBox.Controls.Add(this.btnIPAKeyboard4Search);
             this.headwordsListGroupBox.Controls.Add(this.txtSearch);
             this.headwordsListGroupBox.Controls.Add(this.lblSearch);
@@ -277,23 +276,24 @@ namespace Farhang2
             // btnDeleteHeadword
             // 
             this.btnDeleteHeadword.Enabled = false;
-            this.btnDeleteHeadword.Location = new System.Drawing.Point(140, 78);
+            this.btnDeleteHeadword.Location = new System.Drawing.Point(6, 78);
             this.btnDeleteHeadword.Name = "btnDeleteHeadword";
-            this.btnDeleteHeadword.Size = new System.Drawing.Size(111, 23);
+            this.btnDeleteHeadword.Size = new System.Drawing.Size(247, 23);
             this.btnDeleteHeadword.TabIndex = 7;
             this.btnDeleteHeadword.Text = "Delete";
             this.btnDeleteHeadword.UseVisualStyleBackColor = true;
             this.btnDeleteHeadword.Click += new System.EventHandler(this.btnDeleteHeadword_Click);
             // 
-            // btnNewHeadword
+            // btnAddHeadword
             // 
-            this.btnNewHeadword.Enabled = false;
-            this.btnNewHeadword.Location = new System.Drawing.Point(6, 78);
-            this.btnNewHeadword.Name = "btnNewHeadword";
-            this.btnNewHeadword.Size = new System.Drawing.Size(131, 23);
-            this.btnNewHeadword.TabIndex = 6;
-            this.btnNewHeadword.Text = "New Headword";
-            this.btnNewHeadword.UseVisualStyleBackColor = true;
+            this.btnAddHeadword.Enabled = false;
+            this.btnAddHeadword.Location = new System.Drawing.Point(203, 132);
+            this.btnAddHeadword.Name = "btnAddHeadword";
+            this.btnAddHeadword.Size = new System.Drawing.Size(131, 23);
+            this.btnAddHeadword.TabIndex = 6;
+            this.btnAddHeadword.Text = "Add Headword";
+            this.btnAddHeadword.UseVisualStyleBackColor = true;
+            this.btnAddHeadword.Click += new System.EventHandler(this.btnAddHeadword_Click);
             // 
             // btnIPAKeyboard4Search
             // 
@@ -330,10 +330,10 @@ namespace Farhang2
             this.entriesTreeView.FullRowSelect = true;
             this.entriesTreeView.Location = new System.Drawing.Point(9, 22);
             this.entriesTreeView.Name = "entriesTreeView";
-            treeNode3.Name = "Headword";
-            treeNode3.Text = "Headword";
+            treeNode4.Name = "Headword";
+            treeNode4.Text = "Headword";
             this.entriesTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3});
+            treeNode4});
             this.entriesTreeView.Size = new System.Drawing.Size(406, 226);
             this.entriesTreeView.TabIndex = 0;
             // 
@@ -379,7 +379,6 @@ namespace Farhang2
             // btnAddEntry
             // 
             this.btnAddEntry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddEntry.Enabled = false;
             this.btnAddEntry.Location = new System.Drawing.Point(242, 133);
             this.btnAddEntry.Name = "btnAddEntry";
             this.btnAddEntry.Size = new System.Drawing.Size(92, 23);
@@ -1235,8 +1234,8 @@ namespace Farhang2
             // 
             this.dataGridViewOriginal.AllowUserToAddRows = false;
             this.dataGridViewOriginal.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridViewOriginal.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridViewOriginal.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridViewOriginal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewOriginal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewOriginal.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1264,8 +1263,8 @@ namespace Farhang2
             this.dataGridView4Sort.AllowUserToAddRows = false;
             this.dataGridView4Sort.AllowUserToDeleteRows = false;
             this.dataGridView4Sort.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridView4Sort.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridView4Sort.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridView4Sort.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView4Sort.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView4Sort.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1283,6 +1282,7 @@ namespace Farhang2
             this.headwordGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.headwordGroupBox.Controls.Add(this.btnSaveHeadword);
             this.headwordGroupBox.Controls.Add(this.btnIPAKeyboard4Description);
+            this.headwordGroupBox.Controls.Add(this.btnAddHeadword);
             this.headwordGroupBox.Controls.Add(this.btnIPAKeyboard4Pronunciation);
             this.headwordGroupBox.Controls.Add(this.btnIPAKeyboard4Lemma);
             this.headwordGroupBox.Controls.Add(this.chkIncomplete);
@@ -1552,7 +1552,7 @@ namespace Farhang2
         private System.Windows.Forms.TextBox txtStatus;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Button btnDeleteHeadword;
-        private System.Windows.Forms.Button btnNewHeadword;
+        private System.Windows.Forms.Button btnAddHeadword;
         private System.Windows.Forms.Button btnSaveEntry;
         private System.Windows.Forms.DataGridView dataGridView4Sort;
         private System.Windows.Forms.GroupBox headwordGroupBox;

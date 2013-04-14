@@ -187,7 +187,7 @@ namespace Farhang2
             //headwordsListBox.Sorted = true;
             headwordsListBox.ResumeLayout();
 
-            btnNewHeadword.Enabled = false;
+            btnAddHeadword.Enabled = false;
             btnDeleteHeadword.Enabled = false;
             btnSaveHeadword.Enabled = false;
             btnSaveEntry.Enabled = false;
@@ -268,12 +268,12 @@ namespace Farhang2
             entriesTreeView.TopNode.ExpandAll();
             entriesTreeView.TopNode = entriesTreeView.Nodes[0];
 
-            btnNewHeadword.Enabled = true;
-            //btnDeleteHeadword.Enabled = true;
+            btnAddHeadword.Enabled = true;
+            btnDeleteHeadword.Enabled = true;
             btnDeleteEntry.Enabled = false;
             btnSaveHeadword.Enabled = false;
             btnSaveEntry.Enabled = false;
-            btnAddEntry.Enabled = false;
+            //btnAddEntry.Enabled = (currentHeadword.Entries == null) ? true : false;
 
             toolStripResult.Text = "Selected Headword " + currentHeadword.Lemma;
 
@@ -555,18 +555,21 @@ namespace Farhang2
         private void btnSavePriorityList_Click(object sender, EventArgs e)
         {
             collection = farhang_database.GetCollection<Headword>(cmbBoxLetter4Sort.SelectedItem.ToString());
+            WriteConcernResult result = new WriteConcernResult();
+
             for (int i = 0; i < newTableForUpdatingPriorities.Rows.Count; i++)
 			{
-                WriteConcernResult result = collection.Update(Query.EQ("Lemma", newTableForUpdatingPriorities.Rows[i].ItemArray[0].ToString()), MongoDB.Driver.Builders.Update.Set("Priority", (i + 1)));
-                if (result.DocumentsAffected > 0)
-                {
-                    txtStatus.Text = "Saved " + result.DocumentsAffected.ToString() + " records successfully!";
-                }
-                else
-                {
-                    txtStatus.Text = "No record has been saved!";
-                }
+                result = collection.Update(Query.EQ("Lemma", newTableForUpdatingPriorities.Rows[i].ItemArray[0].ToString()), MongoDB.Driver.Builders.Update.Set("Priority", (i + 1)));
 			}
+
+            if (result.Ok)
+            {
+                txtStatus.Text = "Saved " + result.DocumentsAffected.ToString() + " records successfully!";
+            }
+            else
+            {
+                txtStatus.Text = "No record has been saved!";
+            }
         }
 
         private void txtMHSSearch_TextChanged(object sender, EventArgs e)
@@ -731,6 +734,7 @@ namespace Farhang2
                 toolStripResult.Text = "Result: Headword saved successfully!";
                 btnSaveHeadword.Enabled = false;
                 headwordsListBox.SelectedItem = txtLemma.Text;
+                headwordsListBoxSelectedIndexChanged(sender, e);
             }
             else
             {
@@ -885,6 +889,65 @@ namespace Farhang2
             else
             {
                 toolStripResult.Text = "Result: Error creating entry!";
+            }
+        }
+
+        private void btnAddHeadword_Click(object sender, EventArgs e)
+        {
+            collection = farhang_database.GetCollection<Headword>(cmbBoxLetter.SelectedItem.ToString());
+            //var maxPriority = collection.FindAll().SetSortOrder(SortBy.Descending("Priority")).SetLimit(1);
+            //var max = 1;
+            //foreach (var item in maxPriority)
+            //{
+            //    max = item.Priority;
+            //}
+
+            string lemma = null;
+            string word = null;
+            string pronunciation = null;
+            string description = null;
+
+            if (!String.IsNullOrWhiteSpace(txtLemma.Text))
+            {
+                lemma = txtLemma.Text;
+                word = lemma;
+
+                foreach (var item in special_characters)
+                {
+                    word = word.Replace(item, "");
+                }
+            }
+
+            pronunciation = String.IsNullOrWhiteSpace(txtPronunciation.Text) ? null : txtPronunciation.Text;
+
+            description = String.IsNullOrWhiteSpace(txtDescription.Text) ? null : txtDescription.Text;
+
+            Headword newHeadword = new Headword(lemma, word, pronunciation, description, currentHeadword.Priority, chkIncomplete.Checked, DateTime.Now, DateTime.Now);
+
+            WriteConcernResult result = collection.Insert(newHeadword);
+            if (result.Ok)
+            {
+                toolStripResult.Text = "Result: Headword created successfully!";
+                cmbBoxLetterSelectedIndexChanged(sender, e);
+            }
+            else
+            {
+                toolStripResult.Text = "Result: Error creating headword!";
+            }
+
+            WriteConcernResult priorityUpdateResult = new WriteConcernResult();
+            for (int i = 0; i < headwordsListBox.Items.Count; i++)
+            {
+                priorityUpdateResult = collection.Update(Query.EQ("Lemma", headwordsListBox.Items[i].ToString()), MongoDB.Driver.Builders.Update.Set("Priority", (i + 1)), UpdateFlags.Multi);
+            }
+
+            if (priorityUpdateResult.DocumentsAffected > 0)
+            {
+                txtStatus.Text = "Saved " + result.DocumentsAffected.ToString() + " records successfully!";
+            }
+            else
+            {
+                txtStatus.Text = "No record has been saved!";
             }
         }
 	}

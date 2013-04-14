@@ -192,6 +192,15 @@ namespace Farhang2
 
             btnNewHeadword.Enabled = false;
             btnDeleteHeadword.Enabled = false;
+            btnSaveHeadword.Enabled = false;
+            btnSaveEntry.Enabled = false;
+
+            headwordsListBox.SelectedIndex = 0;
+            cmbBoxType.SelectedIndex = 0;
+            txtNumber.Text = "0";
+            txtSourceText.Text = null;
+            cmbBoxDestinationLanguage.SelectedIndex = 0;
+            txtTranslation.Text = null;
 
             this.Enabled = true;
 		}

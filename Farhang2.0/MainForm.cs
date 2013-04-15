@@ -12,6 +12,7 @@ using System.IO;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
+using MongoDB.Driver.GridFS;
 using Antlr.Runtime;
 using Antlr4.StringTemplate;
 
@@ -27,6 +28,7 @@ namespace Farhang2
         MongoClient client;
         MongoServer server;
         MongoDatabase farhang_database;
+        MongoGridFS gridFS;
         MongoCollection<Headword> collection;
         MongoCursor<Headword> collection_data;
         Headword currentHeadword;
@@ -150,6 +152,7 @@ namespace Farhang2
             client = new MongoClient();
             server = client.GetServer();
             farhang_database = server.GetDatabase("farhang");
+            gridFS = new MongoGridFS(farhang_database);
 
             special_characters = new List<string>() { "·", "̣", "|", "'", "ˌ", "̲", "͠" };
 
@@ -170,8 +173,6 @@ namespace Farhang2
 
             this.Enabled = false;
             headwordsListBox.Items.Clear();
-            txtSelectedLetter.Text = cmbBoxLetter.SelectedItem.ToString();
-            txtHeadwordsCount.Text = "0";
 
             headwordsListBox.SuspendLayout();
 
@@ -181,7 +182,6 @@ namespace Farhang2
             foreach (var item in collection_data)
             {
                 headwordsListBox.Items.Add(item.Lemma);
-                txtHeadwordsCount.Text = (Convert.ToInt32(txtHeadwordsCount.Text) + 1).ToString();
             }
 
             //headwordsListBox.Sorted = true;
@@ -268,12 +268,22 @@ namespace Farhang2
             entriesTreeView.TopNode.ExpandAll();
             entriesTreeView.TopNode = entriesTreeView.Nodes[0];
 
+            if (currentHeadword.Attachment != null)
+            {
+                txtAttachment.Text = currentHeadword.Attachment.FileName;
+            }
+            else
+            {
+                txtAttachment.Text = String.Empty;
+            }
+
             btnAddHeadword.Enabled = true;
             btnDeleteHeadword.Enabled = true;
             btnDeleteEntry.Enabled = false;
             btnSaveHeadword.Enabled = false;
             btnSaveEntry.Enabled = false;
             //btnAddEntry.Enabled = (currentHeadword.Entries == null) ? true : false;
+            btnRemoveAttachment.Enabled = (currentHeadword.Attachment == null) ? false : true;
 
             toolStripResult.Text = "Selected Headword " + currentHeadword.Lemma;
 
@@ -391,7 +401,7 @@ namespace Farhang2
             headwordGroupBox.Visible = true;
             attributesGroupBox.Visible = true;
             previewGroupBox.Visible = true;
-            previewGroupBox.Height = entriesGroupBox.Height + headwordGroupBox.Height + attributesGroupBox.Height + 12;
+            //previewGroupBox.Height = entriesGroupBox.Height + headwordGroupBox.Height + attributesGroupBox.Height + 12;
             //statisticsGroupBox.Visible = true;
             manualHeadwordSorterGrpBox.Visible = false;
         }
@@ -948,6 +958,73 @@ namespace Farhang2
             else
             {
                 txtStatus.Text = "No record has been saved!";
+            }
+        }
+
+        private void btnAddUpdateAttachment_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.Filter = "PDF (*.pdf)|*.pdf;|PS (*.ps)|*.ps;|TIFF (*.tiff *.tif)|*.tif;*.tiff|JPEG/JPG (*.jpeg *.jpg)|*.jpg;*.jpeg|PNG (*.png)|*.png;|All files (*.*)|*.*";
+            DialogResult result = openFile.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                // read file content as byte array
+                byte[] file_contents = File.ReadAllBytes(openFile.FileName);
+
+                // write it to database with its name and extension
+                var gfsFile = gridFS.Create(openFile.SafeFileName);
+                gfsFile.Write(file_contents, 0, file_contents.Length);
+                gfsFile.Close();
+
+                // add file info to headword
+                MongoGridFSFileInfo file = new MongoGridFSFileInfo(gridFS, openFile.SafeFileName);
+                currentHeadword.AddAttachment(file.Id.AsObjectId, file.Name.ToString());
+
+                var update = MongoDB.Driver.Builders.Update.Set("Attachment", currentHeadword.Attachment.ToBsonDocument());
+
+                WriteConcernResult writeResult = collection.Update(Query.EQ("_id", currentHeadwordObjectID), update, UpdateFlags.Upsert);
+                if (writeResult.DocumentsAffected == 1)
+                {
+
+                    toolStripResult.Text = String.IsNullOrWhiteSpace(txtAttachment.Text) ? "Result: Attachment added successfully!" : "Result: Attachment updated successfully!";
+                    txtAttachment.Text = file.Name;
+                }
+                else
+                {
+                    toolStripResult.Text = "Result: Error adding attachment!";
+                }
+            }
+        }
+
+        private void btnRemoveAttachment_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to remove attachment (file) '" + txtAttachment.Text + "' and its references?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == System.Windows.Forms.DialogResult.Yes)
+            {
+                MongoGridFSFileInfo file = new MongoGridFSFileInfo(gridFS, currentHeadword.Attachment.FileName);
+                file.Delete();
+
+                var update = MongoDB.Driver.Builders.Update.Unset("Attachment");
+
+                WriteConcernResult writeResult = collection.Update(Query.EQ("_id", currentHeadwordObjectID), update, UpdateFlags.Upsert);
+                if (writeResult.DocumentsAffected == 1)
+                {
+
+                    toolStripResult.Text = "Result: Attachment removed successfully!";
+                    txtAttachment.Text = String.Empty;
+                    btnRemoveAttachment.Enabled = false;
+                }
+                else
+                {
+                    toolStripResult.Text = "Result: Error removing attachment!";
+                }
+            }
+        }
+
+        private void txtAttachment_TextChanged(object sender, EventArgs e)
+        {
+            if (txtAttachment.Text != String.Empty)
+            {
+                btnRemoveAttachment.Enabled = true;
             }
         }
 	}

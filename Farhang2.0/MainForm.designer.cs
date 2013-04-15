@@ -35,9 +35,9 @@ namespace Farhang2
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Headword");
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Headword");
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripResult = new System.Windows.Forms.ToolStripLabel();
             this.headwordsListBox = new System.Windows.Forms.ListBox();
@@ -45,10 +45,10 @@ namespace Farhang2
             this.headwordsListGroupBox = new System.Windows.Forms.GroupBox();
             this.lblLetter = new System.Windows.Forms.Label();
             this.btnDeleteHeadword = new System.Windows.Forms.Button();
-            this.btnAddHeadword = new System.Windows.Forms.Button();
             this.btnIPAKeyboard4Search = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.lblSearch = new System.Windows.Forms.Label();
+            this.btnAddHeadword = new System.Windows.Forms.Button();
             this.entriesTreeView = new System.Windows.Forms.TreeView();
             this.entriesGroupBox = new System.Windows.Forms.GroupBox();
             this.attributesGroupBox = new System.Windows.Forms.GroupBox();
@@ -119,16 +119,6 @@ namespace Farhang2
             this.aboutFarhang20ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.previewGroupBox = new System.Windows.Forms.GroupBox();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
-            this.statisticsGroupBox = new System.Windows.Forms.GroupBox();
-            this.btnViewStatistics = new System.Windows.Forms.Button();
-            this.txtSubentriesCount = new System.Windows.Forms.TextBox();
-            this.lblSubentriesCount = new System.Windows.Forms.Label();
-            this.txtEntriesCount = new System.Windows.Forms.TextBox();
-            this.txtSelectedLetter = new System.Windows.Forms.TextBox();
-            this.txtHeadwordsCount = new System.Windows.Forms.TextBox();
-            this.lblEntriesCount = new System.Windows.Forms.Label();
-            this.lblHeadwordsCount = new System.Windows.Forms.Label();
-            this.lblSelectedLetter = new System.Windows.Forms.Label();
             this.manualHeadwordSorterGrpBox = new System.Windows.Forms.GroupBox();
             this.lblLetter4Sort = new System.Windows.Forms.Label();
             this.txtStatus = new System.Windows.Forms.TextBox();
@@ -159,13 +149,17 @@ namespace Farhang2
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.txtPronunciation = new System.Windows.Forms.TextBox();
             this.txtLemma = new System.Windows.Forms.TextBox();
+            this.attachmentGroupBox = new System.Windows.Forms.GroupBox();
+            this.lblAttachment = new System.Windows.Forms.Label();
+            this.txtAttachment = new System.Windows.Forms.TextBox();
+            this.btnRemoveAttachment = new System.Windows.Forms.Button();
+            this.btnAddUpdateAttachment = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.headwordsListGroupBox.SuspendLayout();
             this.entriesGroupBox.SuspendLayout();
             this.attributesGroupBox.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.previewGroupBox.SuspendLayout();
-            this.statisticsGroupBox.SuspendLayout();
             this.manualHeadwordSorterGrpBox.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.grpBoxOriginal.SuspendLayout();
@@ -173,6 +167,7 @@ namespace Farhang2
             this.grpBoxSorted.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4Sort)).BeginInit();
             this.headwordGroupBox.SuspendLayout();
+            this.attachmentGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -284,17 +279,6 @@ namespace Farhang2
             this.btnDeleteHeadword.UseVisualStyleBackColor = true;
             this.btnDeleteHeadword.Click += new System.EventHandler(this.btnDeleteHeadword_Click);
             // 
-            // btnAddHeadword
-            // 
-            this.btnAddHeadword.Enabled = false;
-            this.btnAddHeadword.Location = new System.Drawing.Point(203, 132);
-            this.btnAddHeadword.Name = "btnAddHeadword";
-            this.btnAddHeadword.Size = new System.Drawing.Size(131, 23);
-            this.btnAddHeadword.TabIndex = 6;
-            this.btnAddHeadword.Text = "Add Headword";
-            this.btnAddHeadword.UseVisualStyleBackColor = true;
-            this.btnAddHeadword.Click += new System.EventHandler(this.btnAddHeadword_Click);
-            // 
             // btnIPAKeyboard4Search
             // 
             this.btnIPAKeyboard4Search.Location = new System.Drawing.Point(213, 49);
@@ -322,6 +306,17 @@ namespace Farhang2
             this.lblSearch.TabIndex = 4;
             this.lblSearch.Text = "Search:";
             // 
+            // btnAddHeadword
+            // 
+            this.btnAddHeadword.Enabled = false;
+            this.btnAddHeadword.Location = new System.Drawing.Point(6, 132);
+            this.btnAddHeadword.Name = "btnAddHeadword";
+            this.btnAddHeadword.Size = new System.Drawing.Size(131, 23);
+            this.btnAddHeadword.TabIndex = 6;
+            this.btnAddHeadword.Text = "Add Headword";
+            this.btnAddHeadword.UseVisualStyleBackColor = true;
+            this.btnAddHeadword.Click += new System.EventHandler(this.btnAddHeadword_Click);
+            // 
             // entriesTreeView
             // 
             this.entriesTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -330,10 +325,10 @@ namespace Farhang2
             this.entriesTreeView.FullRowSelect = true;
             this.entriesTreeView.Location = new System.Drawing.Point(9, 22);
             this.entriesTreeView.Name = "entriesTreeView";
-            treeNode4.Name = "Headword";
-            treeNode4.Text = "Headword";
+            treeNode7.Name = "Headword";
+            treeNode7.Text = "Headword";
             this.entriesTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode4});
+            treeNode7});
             this.entriesTreeView.Size = new System.Drawing.Size(406, 226);
             this.entriesTreeView.TabIndex = 0;
             // 
@@ -907,10 +902,10 @@ namespace Farhang2
             this.previewGroupBox.Controls.Add(this.webBrowser1);
             this.previewGroupBox.Location = new System.Drawing.Point(699, 52);
             this.previewGroupBox.Name = "previewGroupBox";
-            this.previewGroupBox.Size = new System.Drawing.Size(345, 407);
+            this.previewGroupBox.Size = new System.Drawing.Size(345, 501);
             this.previewGroupBox.TabIndex = 4;
             this.previewGroupBox.TabStop = false;
-            this.previewGroupBox.Text = "Preview";
+            this.previewGroupBox.Text = "Output Preview";
             this.previewGroupBox.Visible = false;
             // 
             // webBrowser1
@@ -923,119 +918,8 @@ namespace Farhang2
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.ScriptErrorsSuppressed = true;
-            this.webBrowser1.Size = new System.Drawing.Size(339, 385);
+            this.webBrowser1.Size = new System.Drawing.Size(339, 479);
             this.webBrowser1.TabIndex = 0;
-            // 
-            // statisticsGroupBox
-            // 
-            this.statisticsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.statisticsGroupBox.Controls.Add(this.btnViewStatistics);
-            this.statisticsGroupBox.Controls.Add(this.txtSubentriesCount);
-            this.statisticsGroupBox.Controls.Add(this.lblSubentriesCount);
-            this.statisticsGroupBox.Controls.Add(this.txtEntriesCount);
-            this.statisticsGroupBox.Controls.Add(this.txtSelectedLetter);
-            this.statisticsGroupBox.Controls.Add(this.txtHeadwordsCount);
-            this.statisticsGroupBox.Controls.Add(this.lblEntriesCount);
-            this.statisticsGroupBox.Controls.Add(this.lblHeadwordsCount);
-            this.statisticsGroupBox.Controls.Add(this.lblSelectedLetter);
-            this.statisticsGroupBox.Location = new System.Drawing.Point(699, 465);
-            this.statisticsGroupBox.Name = "statisticsGroupBox";
-            this.statisticsGroupBox.Size = new System.Drawing.Size(345, 176);
-            this.statisticsGroupBox.TabIndex = 5;
-            this.statisticsGroupBox.TabStop = false;
-            this.statisticsGroupBox.Text = "Statistics";
-            this.statisticsGroupBox.Visible = false;
-            // 
-            // btnViewStatistics
-            // 
-            this.btnViewStatistics.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnViewStatistics.Location = new System.Drawing.Point(139, 134);
-            this.btnViewStatistics.Name = "btnViewStatistics";
-            this.btnViewStatistics.Size = new System.Drawing.Size(200, 36);
-            this.btnViewStatistics.TabIndex = 4;
-            this.btnViewStatistics.Text = "View Full Statistics";
-            this.btnViewStatistics.UseVisualStyleBackColor = true;
-            // 
-            // txtSubentriesCount
-            // 
-            this.txtSubentriesCount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSubentriesCount.Location = new System.Drawing.Point(139, 105);
-            this.txtSubentriesCount.Name = "txtSubentriesCount";
-            this.txtSubentriesCount.ReadOnly = true;
-            this.txtSubentriesCount.Size = new System.Drawing.Size(200, 23);
-            this.txtSubentriesCount.TabIndex = 3;
-            this.txtSubentriesCount.Text = "0";
-            // 
-            // lblSubentriesCount
-            // 
-            this.lblSubentriesCount.AutoSize = true;
-            this.lblSubentriesCount.Location = new System.Drawing.Point(6, 109);
-            this.lblSubentriesCount.Name = "lblSubentriesCount";
-            this.lblSubentriesCount.Size = new System.Drawing.Size(125, 15);
-            this.lblSubentriesCount.TabIndex = 6;
-            this.lblSubentriesCount.Text = "Subentries\' Count:";
-            // 
-            // txtEntriesCount
-            // 
-            this.txtEntriesCount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtEntriesCount.Location = new System.Drawing.Point(139, 76);
-            this.txtEntriesCount.Name = "txtEntriesCount";
-            this.txtEntriesCount.ReadOnly = true;
-            this.txtEntriesCount.Size = new System.Drawing.Size(200, 23);
-            this.txtEntriesCount.TabIndex = 2;
-            this.txtEntriesCount.Text = "0";
-            // 
-            // txtSelectedLetter
-            // 
-            this.txtSelectedLetter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSelectedLetter.Location = new System.Drawing.Point(139, 18);
-            this.txtSelectedLetter.Name = "txtSelectedLetter";
-            this.txtSelectedLetter.ReadOnly = true;
-            this.txtSelectedLetter.Size = new System.Drawing.Size(200, 23);
-            this.txtSelectedLetter.TabIndex = 0;
-            // 
-            // txtHeadwordsCount
-            // 
-            this.txtHeadwordsCount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtHeadwordsCount.Location = new System.Drawing.Point(139, 47);
-            this.txtHeadwordsCount.Name = "txtHeadwordsCount";
-            this.txtHeadwordsCount.ReadOnly = true;
-            this.txtHeadwordsCount.Size = new System.Drawing.Size(200, 23);
-            this.txtHeadwordsCount.TabIndex = 1;
-            this.txtHeadwordsCount.Text = "0";
-            // 
-            // lblEntriesCount
-            // 
-            this.lblEntriesCount.AutoSize = true;
-            this.lblEntriesCount.Location = new System.Drawing.Point(6, 80);
-            this.lblEntriesCount.Name = "lblEntriesCount";
-            this.lblEntriesCount.Size = new System.Drawing.Size(100, 15);
-            this.lblEntriesCount.TabIndex = 2;
-            this.lblEntriesCount.Text = "Entries\' Count:";
-            // 
-            // lblHeadwordsCount
-            // 
-            this.lblHeadwordsCount.AutoSize = true;
-            this.lblHeadwordsCount.Location = new System.Drawing.Point(6, 51);
-            this.lblHeadwordsCount.Name = "lblHeadwordsCount";
-            this.lblHeadwordsCount.Size = new System.Drawing.Size(127, 15);
-            this.lblHeadwordsCount.TabIndex = 1;
-            this.lblHeadwordsCount.Text = "Headwords\' Count:";
-            // 
-            // lblSelectedLetter
-            // 
-            this.lblSelectedLetter.AutoSize = true;
-            this.lblSelectedLetter.Location = new System.Drawing.Point(6, 22);
-            this.lblSelectedLetter.Name = "lblSelectedLetter";
-            this.lblSelectedLetter.Size = new System.Drawing.Size(49, 15);
-            this.lblSelectedLetter.TabIndex = 0;
-            this.lblSelectedLetter.Text = "Letter:";
             // 
             // manualHeadwordSorterGrpBox
             // 
@@ -1234,8 +1118,8 @@ namespace Farhang2
             // 
             this.dataGridViewOriginal.AllowUserToAddRows = false;
             this.dataGridViewOriginal.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridViewOriginal.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridViewOriginal.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
             this.dataGridViewOriginal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewOriginal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewOriginal.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1263,8 +1147,8 @@ namespace Farhang2
             this.dataGridView4Sort.AllowUserToAddRows = false;
             this.dataGridView4Sort.AllowUserToDeleteRows = false;
             this.dataGridView4Sort.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridView4Sort.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridView4Sort.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle14;
             this.dataGridView4Sort.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView4Sort.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView4Sort.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1347,7 +1231,7 @@ namespace Farhang2
             this.chkIncomplete.AutoSize = true;
             this.chkIncomplete.Location = new System.Drawing.Point(9, 109);
             this.chkIncomplete.Name = "chkIncomplete";
-            this.chkIncomplete.Size = new System.Drawing.Size(97, 19);
+            this.chkIncomplete.Size = new System.Drawing.Size(78, 17);
             this.chkIncomplete.TabIndex = 10;
             this.chkIncomplete.Text = "Incomplete";
             this.chkIncomplete.UseVisualStyleBackColor = true;
@@ -1405,13 +1289,68 @@ namespace Farhang2
             this.txtLemma.TabIndex = 0;
             this.txtLemma.TextChanged += new System.EventHandler(this.txtField_TextChanged);
             // 
+            // attachmentGroupBox
+            // 
+            this.attachmentGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.attachmentGroupBox.Controls.Add(this.lblAttachment);
+            this.attachmentGroupBox.Controls.Add(this.txtAttachment);
+            this.attachmentGroupBox.Controls.Add(this.btnRemoveAttachment);
+            this.attachmentGroupBox.Controls.Add(this.btnAddUpdateAttachment);
+            this.attachmentGroupBox.Location = new System.Drawing.Point(699, 559);
+            this.attachmentGroupBox.Name = "attachmentGroupBox";
+            this.attachmentGroupBox.Size = new System.Drawing.Size(345, 82);
+            this.attachmentGroupBox.TabIndex = 6;
+            this.attachmentGroupBox.TabStop = false;
+            this.attachmentGroupBox.Text = "Attachment";
+            // 
+            // lblAttachment
+            // 
+            this.lblAttachment.AutoSize = true;
+            this.lblAttachment.Location = new System.Drawing.Point(6, 26);
+            this.lblAttachment.Name = "lblAttachment";
+            this.lblAttachment.Size = new System.Drawing.Size(87, 15);
+            this.lblAttachment.TabIndex = 15;
+            this.lblAttachment.Text = "Attachment:";
+            // 
+            // txtAttachment
+            // 
+            this.txtAttachment.Location = new System.Drawing.Point(99, 22);
+            this.txtAttachment.Name = "txtAttachment";
+            this.txtAttachment.Size = new System.Drawing.Size(240, 23);
+            this.txtAttachment.TabIndex = 14;
+            this.txtAttachment.TextChanged += new System.EventHandler(this.txtAttachment_TextChanged);
+            // 
+            // btnRemoveAttachment
+            // 
+            this.btnRemoveAttachment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRemoveAttachment.Enabled = false;
+            this.btnRemoveAttachment.Location = new System.Drawing.Point(264, 54);
+            this.btnRemoveAttachment.Name = "btnRemoveAttachment";
+            this.btnRemoveAttachment.Size = new System.Drawing.Size(75, 23);
+            this.btnRemoveAttachment.TabIndex = 1;
+            this.btnRemoveAttachment.Text = "Remove";
+            this.btnRemoveAttachment.UseVisualStyleBackColor = true;
+            this.btnRemoveAttachment.Click += new System.EventHandler(this.btnRemoveAttachment_Click);
+            // 
+            // btnAddUpdateAttachment
+            // 
+            this.btnAddUpdateAttachment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAddUpdateAttachment.Location = new System.Drawing.Point(139, 54);
+            this.btnAddUpdateAttachment.Name = "btnAddUpdateAttachment";
+            this.btnAddUpdateAttachment.Size = new System.Drawing.Size(119, 23);
+            this.btnAddUpdateAttachment.TabIndex = 0;
+            this.btnAddUpdateAttachment.Text = "Add/Update";
+            this.btnAddUpdateAttachment.UseVisualStyleBackColor = true;
+            this.btnAddUpdateAttachment.Click += new System.EventHandler(this.btnAddUpdateAttachment_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1056, 653);
+            this.Controls.Add(this.attachmentGroupBox);
             this.Controls.Add(this.headwordGroupBox);
-            this.Controls.Add(this.statisticsGroupBox);
             this.Controls.Add(this.entriesGroupBox);
             this.Controls.Add(this.previewGroupBox);
             this.Controls.Add(this.attributesGroupBox);
@@ -1436,8 +1375,6 @@ namespace Farhang2
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.previewGroupBox.ResumeLayout(false);
-            this.statisticsGroupBox.ResumeLayout(false);
-            this.statisticsGroupBox.PerformLayout();
             this.manualHeadwordSorterGrpBox.ResumeLayout(false);
             this.manualHeadwordSorterGrpBox.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -1447,6 +1384,8 @@ namespace Farhang2
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4Sort)).EndInit();
             this.headwordGroupBox.ResumeLayout(false);
             this.headwordGroupBox.PerformLayout();
+            this.attachmentGroupBox.ResumeLayout(false);
+            this.attachmentGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1469,16 +1408,6 @@ namespace Farhang2
         private System.Windows.Forms.Label lblSearch;
         private System.Windows.Forms.GroupBox previewGroupBox;
         private System.Windows.Forms.WebBrowser webBrowser1;
-        private System.Windows.Forms.GroupBox statisticsGroupBox;
-        private System.Windows.Forms.Label lblEntriesCount;
-        private System.Windows.Forms.Label lblHeadwordsCount;
-        private System.Windows.Forms.Label lblSelectedLetter;
-        private System.Windows.Forms.TextBox txtHeadwordsCount;
-        private System.Windows.Forms.TextBox txtSelectedLetter;
-        private System.Windows.Forms.TextBox txtEntriesCount;
-        private System.Windows.Forms.TextBox txtSubentriesCount;
-        private System.Windows.Forms.Label lblSubentriesCount;
-        private System.Windows.Forms.Button btnViewStatistics;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editDictionaryToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
@@ -1572,5 +1501,10 @@ namespace Farhang2
         private System.Windows.Forms.Label lblLetter4Sort;
         private System.Windows.Forms.Button btnDeleteEntry;
         private System.Windows.Forms.Button btnAddEntry;
+        private System.Windows.Forms.GroupBox attachmentGroupBox;
+        private System.Windows.Forms.Button btnRemoveAttachment;
+        private System.Windows.Forms.Button btnAddUpdateAttachment;
+        private System.Windows.Forms.Label lblAttachment;
+        public System.Windows.Forms.TextBox txtAttachment;
 	}
 }

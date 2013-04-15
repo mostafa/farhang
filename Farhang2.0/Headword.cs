@@ -31,6 +31,9 @@ namespace Farhang2
         [BsonIgnoreIfNull]
         public List<Entry> Entries { get; set; }
 
+        [BsonIgnoreIfNull]
+        public Attachment Attachment { get; set; }
+
         public Headword(String lemma, String word, String pronunciation, String description, int priority, bool incomplete, DateTime creation, DateTime modification)
         {
             Lemma = lemma;
@@ -61,6 +64,14 @@ namespace Farhang2
                 Entries = new List<Entry>();
             }
             Entries.Add(ent);
+        }
+
+        public void AddAttachment(BsonObjectId _id, String fileName)
+        {
+            if (Attachment == null)
+            {
+                Attachment = new Attachment(_id, fileName);
+            }
         }
     }
 
@@ -101,5 +112,17 @@ namespace Farhang2
         //    Entry subentry = new Entry(type, number, sourcelang, source, translang, translation);
         //    Subentries.Add(subentry);
         //}
+    }
+
+    class Attachment
+    {
+        public BsonObjectId _AttachmentId;
+        public String FileName;
+
+        public Attachment(BsonObjectId _id, String fileName)
+        {
+            _AttachmentId = _id;
+            FileName = fileName;
+        }
     }
 }

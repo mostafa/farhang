@@ -282,7 +282,9 @@ namespace Farhang2
             btnDeleteEntry.Enabled = false;
             btnSaveHeadword.Enabled = false;
             btnSaveEntry.Enabled = false;
+            btnAddEntry.Enabled = true;
             //btnAddEntry.Enabled = (currentHeadword.Entries == null) ? true : false;
+            btnAddUpdateAttachment.Enabled = true;
             btnRemoveAttachment.Enabled = (currentHeadword.Attachment == null) ? false : true;
 
             toolStripResult.Text = "Selected Headword " + currentHeadword.Lemma;

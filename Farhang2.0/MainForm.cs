@@ -549,7 +549,7 @@ namespace Farhang2
 
             txtTotal4MHS.Text = collection_data.Count().ToString();
 
-            toolStripResult.Text = "Letter " + cmbBoxLetter.SelectedItem.ToString() + "'s Headword Count = " + collection.Count().ToString();
+            toolStripResult.Text = "Letter " + cmbBoxLetter4Sort.SelectedItem.ToString() + "'s Headword Count = " + collection.Count().ToString();
 
             this.Enabled = true;
         }
@@ -566,17 +566,20 @@ namespace Farhang2
 
         private void btnSavePriorityList_Click(object sender, EventArgs e)
         {
+            int count = 0;
             collection = farhang_database.GetCollection<Headword>(cmbBoxLetter4Sort.SelectedItem.ToString());
             WriteConcernResult result = new WriteConcernResult();
 
             for (int i = 0; i < newTableForUpdatingPriorities.Rows.Count; i++)
 			{
                 result = collection.Update(Query.EQ("Lemma", newTableForUpdatingPriorities.Rows[i].ItemArray[0].ToString()), MongoDB.Driver.Builders.Update.Set("Priority", (i + 1)));
+                count++;
 			}
 
             if (result.Ok)
             {
-                txtStatus.Text = "Saved " + result.DocumentsAffected.ToString() + " records successfully!";
+                txtStatus.Text = "Saved " + count.ToString() + " records successfully!";
+                cmbBoxLetter4Sort_SelectedIndexChanged(sender, e);
             }
             else
             {

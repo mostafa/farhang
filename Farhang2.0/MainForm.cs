@@ -404,7 +404,7 @@ namespace Farhang2
             attributesGroupBox.Visible = true;
             previewGroupBox.Visible = true;
             //previewGroupBox.Height = entriesGroupBox.Height + headwordGroupBox.Height + attributesGroupBox.Height + 12;
-            //statisticsGroupBox.Visible = true;
+            attachmentGroupBox.Visible = true;
             manualHeadwordSorterGrpBox.Visible = false;
         }
 
@@ -415,7 +415,7 @@ namespace Farhang2
             headwordGroupBox.Visible = false;
             attributesGroupBox.Visible = false;
             previewGroupBox.Visible = false;
-            //statisticsGroupBox.Visible = false;
+            attachmentGroupBox.Visible = false;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)

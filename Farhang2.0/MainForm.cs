@@ -706,7 +706,7 @@ namespace Farhang2
             {
                 if (txtLemma.Text != currentHeadword.Lemma)
                 {
-                    updateHeadword.Add(MongoDB.Driver.Builders.Update.Set("Lemma", txtLemma.Text.ToString()));
+                    updateHeadword.Add(MongoDB.Driver.Builders.Update.Set("Lemma", txtLemma.Text.Trim()));
 
                     string word = txtLemma.Text;
 
@@ -723,7 +723,7 @@ namespace Farhang2
             {
                 if (txtPronunciation.Text != currentHeadword.Pronunciation)
                 {
-                    updateHeadword.Add(MongoDB.Driver.Builders.Update.Set("Pronunciation", txtPronunciation.Text.ToString()));
+                    updateHeadword.Add(MongoDB.Driver.Builders.Update.Set("Pronunciation", txtPronunciation.Text.Trim()));
                 }
             }
             else
@@ -735,7 +735,7 @@ namespace Farhang2
             {
                 if (txtDescription.Text != currentHeadword.Description)
                 {
-                    updateHeadword.Add(MongoDB.Driver.Builders.Update.Set("Description", txtDescription.Text.ToString()));
+                    updateHeadword.Add(MongoDB.Driver.Builders.Update.Set("Description", txtDescription.Text.Trim()));
                 }
             }
             else
@@ -745,7 +745,7 @@ namespace Farhang2
 
             if (chkIncomplete.Checked != currentHeadword.Incomplete)
             {
-                updateHeadword.Add(MongoDB.Driver.Builders.Update.Set("Incomplete", txtLemma.Text.ToString()));
+                updateHeadword.Add(MongoDB.Driver.Builders.Update.Set("Incomplete", chkIncomplete.Checked));
             }
 
             if (DateTime.Now != currentHeadword.ModificationDateTime)
@@ -896,12 +896,12 @@ namespace Farhang2
 
             string sourcelang = String.IsNullOrWhiteSpace(txtSourceText.Text) ? null : "DE";
 
-            string source = String.IsNullOrWhiteSpace(txtSourceText.Text) ? null : txtSourceText.Text;
+            string source = String.IsNullOrWhiteSpace(txtSourceText.Text) ? null : txtSourceText.Text.Trim();
 
             string lang = cmbBoxTranslationLanguage.SelectedItem.ToString() == "Persisch" ? "FA" : "DE";
             string translang = String.IsNullOrWhiteSpace(txtTranslation.Text) ? null : lang;
 
-            string trans = String.IsNullOrWhiteSpace(txtTranslation.Text) ? null : txtTranslation.Text;
+            string trans = String.IsNullOrWhiteSpace(txtTranslation.Text) ? null : txtTranslation.Text.Trim();
 
             var entry = new Entry(cmbBoxEntryType.SelectedItem.ToString(), txtNumber.Text, sourcelang, source, translang, trans);
 
@@ -936,7 +936,7 @@ namespace Farhang2
 
             if (!String.IsNullOrWhiteSpace(txtLemma.Text))
             {
-                lemma = txtLemma.Text;
+                lemma = txtLemma.Text.Trim();
                 word = lemma;
 
                 foreach (var item in special_characters)
@@ -945,9 +945,9 @@ namespace Farhang2
                 }
             }
 
-            pronunciation = String.IsNullOrWhiteSpace(txtPronunciation.Text) ? null : txtPronunciation.Text;
+            pronunciation = String.IsNullOrWhiteSpace(txtPronunciation.Text) ? null : txtPronunciation.Text.Trim();
 
-            description = String.IsNullOrWhiteSpace(txtDescription.Text) ? null : txtDescription.Text;
+            description = String.IsNullOrWhiteSpace(txtDescription.Text) ? null : txtDescription.Text.Trim();
 
             Headword newHeadword = new Headword(lemma, word, pronunciation, description, currentHeadword.Priority, chkIncomplete.Checked, DateTime.Now, DateTime.Now);
 

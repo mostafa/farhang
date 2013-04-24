@@ -184,7 +184,7 @@ namespace Farhang2
                 headwordsListBox.Items.Add(item.Lemma);
             }
 
-            //headwordsListBox.Sorted = true;
+            //headwordsListBox.Sorted = true
             headwordsListBox.ResumeLayout();
 
             btnAddHeadword.Enabled = false;
@@ -238,6 +238,9 @@ namespace Farhang2
                 {
                     // construct entry structure
                     entriesTreeView.Nodes[0].Nodes.Add("Entries");
+
+                    // sort entries by their number
+                    currentHeadword.Entries.Sort((x, y) => x.Number.CompareTo(y.Number));
 
                     for (int i = 0; i < currentHeadword.Entries.Count; i++)
                     {
@@ -328,19 +331,28 @@ namespace Farhang2
                             if (entryCount == 1)
                             {
                                 entryTemplate.Add("deutschEntry", currentHeadword.Entries[i].SourceText);
-                                entryTemplate.Add("persianEntry", currentHeadword.Entries[i].Translation);
+                                if (currentHeadword.Entries[i].Translation != null)
+                                {
+                                    entryTemplate.Add("persianEntry", currentHeadword.Entries[i].Translation);
+                                }
                             }
                             else
                             {
                                 entryTemplate.Add("deutschEntry", currentHeadword.Entries[i].Number + ". " + currentHeadword.Entries[i].SourceText);
-                                entryTemplate.Add("persianEntry", currentHeadword.Entries[i].Number + ". " + currentHeadword.Entries[i].Translation);
+                                if (currentHeadword.Entries[i].Translation != null)
+                                {
+                                    entryTemplate.Add("persianEntry", currentHeadword.Entries[i].Number + ". " + currentHeadword.Entries[i].Translation);
+                                }
                             }
                             entries += entryTemplate.Render();
                         }
                         else
                         {
                             subentryTemplate.Add("deutschSubentry", currentHeadword.Entries[i].SourceText);
-                            subentryTemplate.Add("persianSubentry", currentHeadword.Entries[i].Translation);
+                            if (currentHeadword.Entries[i].Translation != null)
+                            {
+                                subentryTemplate.Add("persianSubentry", currentHeadword.Entries[i].Translation);
+                            }
                             entries += subentryTemplate.Render();
                         }
                     }

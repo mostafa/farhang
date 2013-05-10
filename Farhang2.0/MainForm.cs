@@ -169,16 +169,16 @@ namespace Farhang2
         }
 
         void cmbBoxLetterSelectedIndexChanged(object sender, EventArgs e)
-		{
+        {
             Initialize();
 
-            this.Enabled = false;
-            headwordsListBox.Items.Clear();
-
-            headwordsListBox.SuspendLayout();
-
-            if (server.Instance.State == MongoServerState.Connected)
+            try
             {
+                this.Enabled = false;
+                headwordsListBox.Items.Clear();
+
+                headwordsListBox.SuspendLayout();
+
                 collection = farhang_database.GetCollection<Headword>(cmbBoxLetter.SelectedItem.ToString().ToUpper());
                 collection_data = collection.FindAllAs<Headword>().SetSortOrder("Priority");
 
@@ -186,26 +186,31 @@ namespace Farhang2
                 {
                     headwordsListBox.Items.Add(item.Lemma);
                 }
+                //headwordsListBox.Sorted = true
+                headwordsListBox.ResumeLayout();
+
+                btnAddHeadword.Enabled = false;
+                btnDeleteHeadword.Enabled = false;
+                btnSaveHeadword.Enabled = false;
+                btnSaveEntry.Enabled = false;
+
+                headwordsListBox.SelectedIndex = 0;
+                cmbBoxEntryType.SelectedIndex = 0;
+                txtNumber.Text = "0";
+                txtSourceText.Text = null;
+                cmbBoxTranslationLanguage.SelectedIndex = 0;
+                txtTranslation.Text = null;
+
+                toolStripResult.Text = "Letter " + cmbBoxLetter.SelectedItem.ToString() + "'s Headword Count = " + collection.Count().ToString();
+
+                this.Enabled = true;
             }
-            //headwordsListBox.Sorted = true
-            headwordsListBox.ResumeLayout();
-
-            btnAddHeadword.Enabled = false;
-            btnDeleteHeadword.Enabled = false;
-            btnSaveHeadword.Enabled = false;
-            btnSaveEntry.Enabled = false;
-
-            headwordsListBox.SelectedIndex = 0;
-            cmbBoxEntryType.SelectedIndex = 0;
-            txtNumber.Text = "0";
-            txtSourceText.Text = null;
-            cmbBoxTranslationLanguage.SelectedIndex = 0;
-            txtTranslation.Text = null;
-
-            toolStripResult.Text = "Letter " + cmbBoxLetter.SelectedItem.ToString() + "'s Headword Count = " + collection.Count().ToString();
-
-            this.Enabled = true;
-		}
+            catch (Exception)
+            {
+                MessageBox.Show("Server is not available or not responding!", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                return;
+            }
+        }
 
         void headwordsListBoxSelectedIndexChanged(object sender, EventArgs e)
 		{
@@ -550,10 +555,10 @@ namespace Farhang2
         {
             Initialize();
 
-            this.Enabled = false;
-
-            if (server.Instance.State == MongoServerState.Connected)
+            try
             {
+                this.Enabled = false;
+
                 collection = farhang_database.GetCollection<Headword>(cmbBoxLetter4Sort.SelectedItem.ToString().ToUpper());
                 collection_data = collection.FindAllAs<Headword>().SetSortOrder("Priority");
 
@@ -580,9 +585,14 @@ namespace Farhang2
                 txtTotal4MHS.Text = collection_data.Count().ToString();
 
                 toolStripResult.Text = "Letter " + cmbBoxLetter4Sort.SelectedItem.ToString() + "'s Headword Count = " + collection.Count().ToString();
-            }
 
-            this.Enabled = true;
+                this.Enabled = true;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         private void dataGridView4Sort_CellValueChanged(object sender, DataGridViewCellEventArgs e)

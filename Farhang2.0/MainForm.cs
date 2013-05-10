@@ -769,7 +769,7 @@ namespace Farhang2
 
             UpdateBuilder update = MongoDB.Driver.Builders.Update.Combine(updateHeadword);
 
-            WriteConcernResult result = collection.Update(Query.EQ("_id", currentHeadwordObjectID), update);
+            WriteConcernResult result = collection.Update(Query.EQ("_id", currentHeadwordObjectID), update, UpdateFlags.Upsert);
             if (result.DocumentsAffected == 1)
             {
                 toolStripResult.Text = "Result: Headword saved successfully!";
@@ -853,7 +853,9 @@ namespace Farhang2
 
             UpdateBuilder update = MongoDB.Driver.Builders.Update.Combine(updateEntry);
 
-            WriteConcernResult result = collection.Update(Query.And(Query.EQ("_id", currentHeadwordObjectID), Query.EQ("Entries.Number", currentEntry.Number), Query.EQ("Entries.EntryType", cmbBoxEntryType.SelectedItem.ToString())), update);
+            var query = Query.And(Query.EQ("_id", currentHeadwordObjectID), Query.ElemMatch("Entries", Query.And(Query.EQ("Number", currentEntry.Number), Query.EQ("EntryType", cmbBoxEntryType.SelectedItem.ToString()))));
+
+            WriteConcernResult result = collection.Update(query, update, UpdateFlags.Upsert);
             if (result.DocumentsAffected == 1)
             {
                 toolStripResult.Text = "Result: Entry saved successfully!";

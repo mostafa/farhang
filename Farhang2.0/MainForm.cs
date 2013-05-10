@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Data;
+using System.Linq;
 using System.IO;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -231,8 +232,6 @@ namespace Farhang2
             entriesTreeView.Nodes[0].Nodes[1].NodeFont = new System.Drawing.Font(new FontFamily("DejaVu Sans"), 8, FontStyle.Regular);
             entriesTreeView.Nodes[0].Nodes.Add(String.IsNullOrWhiteSpace(txtDescription.Text) ? "Description: " : "Description: " + txtDescription.Text);
             entriesTreeView.Nodes[0].Nodes[2].NodeFont = new System.Drawing.Font(new FontFamily("DejaVu Sans"), 8, FontStyle.Italic);
-            //NaturalComparer comp = new NaturalComparer();
-            NaturalSortComparer comp = new NaturalSortComparer();
 
             if (currentHeadword.Entries != null)
             {
@@ -242,8 +241,7 @@ namespace Farhang2
                     entriesTreeView.Nodes[0].Nodes.Add("Entries");
 
                     // sort entries by their number
-                    //currentHeadword.Entries.Sort((x, y) => comp.Compare(x, y));
-                    currentHeadword.Entries.Sort((x, y) => comp.Compare(x.Number, y.Number));
+                    currentHeadword.Entries.OrderBy(x => x.Number).ThenBy(x => x.EntryType);
 
                     for (int i = 0; i < currentHeadword.Entries.Count; i++)
                     {

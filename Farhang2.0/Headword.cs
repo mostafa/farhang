@@ -9,7 +9,7 @@ using MongoDB.Driver;
 
 namespace Farhang2
 {
-    class Headword
+    public class Headword
     {
         [BsonId]
         public BsonObjectId _id { get; set; }
@@ -75,7 +75,7 @@ namespace Farhang2
         }
     }
 
-    class Entry
+    public class Entry
     {
         public String EntryType { get; set; }
         public String Number { get; set; }
@@ -114,7 +114,7 @@ namespace Farhang2
         //}
     }
 
-    class Attachment
+    public class Attachment
     {
         public BsonObjectId _AttachmentId;
         public String FileName;

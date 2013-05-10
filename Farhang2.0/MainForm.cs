@@ -231,6 +231,8 @@ namespace Farhang2
             entriesTreeView.Nodes[0].Nodes[1].NodeFont = new System.Drawing.Font(new FontFamily("DejaVu Sans"), 8, FontStyle.Regular);
             entriesTreeView.Nodes[0].Nodes.Add(String.IsNullOrWhiteSpace(txtDescription.Text) ? "Description: " : "Description: " + txtDescription.Text);
             entriesTreeView.Nodes[0].Nodes[2].NodeFont = new System.Drawing.Font(new FontFamily("DejaVu Sans"), 8, FontStyle.Italic);
+            //NaturalComparer comp = new NaturalComparer();
+            NaturalSortComparer comp = new NaturalSortComparer();
 
             if (currentHeadword.Entries != null)
             {
@@ -240,18 +242,29 @@ namespace Farhang2
                     entriesTreeView.Nodes[0].Nodes.Add("Entries");
 
                     // sort entries by their number
-                    currentHeadword.Entries.Sort((x, y) => x.Number.CompareTo(y.Number));
+                    //currentHeadword.Entries.Sort((x, y) => comp.Compare(x, y));
+                    currentHeadword.Entries.Sort((x, y) => comp.Compare(x.Number, y.Number));
 
                     for (int i = 0; i < currentHeadword.Entries.Count; i++)
                     {
-                        if (currentHeadword.Entries[i].Number.Contains(".") == false)
-                        {
-                            entriesTreeView.Nodes[0].Nodes[3].Nodes.Add("Entry: " + currentHeadword.Entries[i].Number);
-                        }
-                        else
-                        {
-                            entriesTreeView.Nodes[0].Nodes[3].Nodes.Add("Subentry: " + currentHeadword.Entries[i].Number);
-                        }
+                        switch (currentHeadword.Entries[i].EntryType)
+	                    {
+                            case "Entry":
+                                entriesTreeView.Nodes[0].Nodes[3].Nodes.Add("Entry: " + currentHeadword.Entries[i].Number);
+                                break;
+                            case "Subentry":
+                                entriesTreeView.Nodes[0].Nodes[3].Nodes.Add("Subentry: " + currentHeadword.Entries[i].Number);
+                                break;
+                            case "Reference":
+                                entriesTreeView.Nodes[0].Nodes[3].Nodes.Add("Reference: " + currentHeadword.Entries[i].Number);
+                                break;
+                            case "Combination":
+                                entriesTreeView.Nodes[0].Nodes[3].Nodes.Add("Combination: " + currentHeadword.Entries[i].Number);
+                                break;
+                            default:
+                                 break;
+	                    }
+                            
 
                         entriesTreeView.Nodes[0].Nodes[3].Nodes[i].Nodes.Add("Number: " + currentHeadword.Entries[i].Number);
                         entriesTreeView.Nodes[0].Nodes[3].Nodes[i].Nodes.Add("Source: " + currentHeadword.Entries[i].SourceText);
@@ -260,7 +273,7 @@ namespace Farhang2
 
                     for (int j = 0; j < entriesTreeView.Nodes[0].Nodes[3].Nodes.Count; j++)
                     {
-                        if (entriesTreeView.Nodes[0].Nodes[3].Nodes[j].Text.Contains("Entry: "))
+                        if (entriesTreeView.Nodes[0].Nodes[3].Nodes[j].Text.Contains("Entry: ") | entriesTreeView.Nodes[0].Nodes[3].Nodes[j].Text.Contains("Reference: ") | entriesTreeView.Nodes[0].Nodes[3].Nodes[j].Text.Contains("Combination: "))
                         {
                             entriesTreeView.Nodes[0].Nodes[3].Nodes[j].NodeFont = new System.Drawing.Font(new FontFamily("DejaVu Sans"), 8, FontStyle.Bold);
                         }
@@ -368,9 +381,12 @@ namespace Farhang2
             {
                 if (currentHeadword.Entries.Count > 0)
                 {
+                    char[] separator = new char[] {':'};
                     foreach (var item in currentHeadword.Entries)
                     {
-                        if ((item.Number == entriesTreeView.SelectedNode.Text.Replace("Entry: ", "").Replace("Subentry: ", "")) | item.Number == entriesTreeView.SelectedNode.Parent.Text.Replace("Entry: ", "").Replace("Subentry: ", ""))
+                        if ((item.Number == entriesTreeView.SelectedNode.Text.Replace("Entry: ", "").Replace("Subentry: ", "").Replace("Reference: ", "").Replace("Combination: ", "") |
+                            item.Number == entriesTreeView.SelectedNode.Parent.Text.Replace("Entry: ", "").Replace("Subentry: ", "").Replace("Reference: ", "").Replace("Combination: ", "")) &
+                            (item.EntryType == entriesTreeView.SelectedNode.Text.Split(separator)[0] | item.EntryType == entriesTreeView.SelectedNode.Parent.Text.Split(separator)[0]))
                         {
                             cmbBoxEntryType.Text = item.EntryType;
 
@@ -807,33 +823,39 @@ namespace Farhang2
                 updateEntry.Add(MongoDB.Driver.Builders.Update.Set("Entries.$.SourceText", BsonNull.Value));
             }
 
-            if (!String.IsNullOrWhiteSpace(cmbBoxTranslationLanguage.SelectedItem.ToString()))
+            if (cmbBoxEntryType.SelectedItem.ToString() == "Entry" | cmbBoxEntryType.SelectedItem.ToString() == "Subentry")
             {
-                if (cmbBoxTranslationLanguage.Items.Contains(cmbBoxTranslationLanguage.SelectedItem.ToString()))
+                if (!String.IsNullOrWhiteSpace(cmbBoxTranslationLanguage.SelectedItem.ToString()))
                 {
-                    string translang = (cmbBoxTranslationLanguage.SelectedItem.ToString() == "Persisch") ? "FA" : "DE";
-                    if (translang != currentEntry.TranslationLanguage)
+                    if (cmbBoxTranslationLanguage.Items.Contains(cmbBoxTranslationLanguage.SelectedItem.ToString()))
                     {
-                        updateEntry.Add(MongoDB.Driver.Builders.Update.Set("Entries.$.TranslationLanguage", translang));
+                        string translang = (cmbBoxTranslationLanguage.SelectedItem.ToString() == "Persisch") ? "FA" : "DE";
+                        if (translang != currentEntry.TranslationLanguage)
+                        {
+                            updateEntry.Add(MongoDB.Driver.Builders.Update.Set("Entries.$.TranslationLanguage", translang));
+                        }
                     }
                 }
             }
 
-            if (!String.IsNullOrWhiteSpace(txtTranslation.Text))
+            if (cmbBoxEntryType.SelectedItem.ToString() == "Entry" | cmbBoxEntryType.SelectedItem.ToString() == "Subentry")
             {
-                if (txtTranslation.Text != currentEntry.Translation)
+                if (!String.IsNullOrWhiteSpace(txtTranslation.Text))
                 {
-                    updateEntry.Add(MongoDB.Driver.Builders.Update.Set("Entries.$.Translation", txtTranslation.Text.Trim()));
+                    if (txtTranslation.Text != currentEntry.Translation)
+                    {
+                        updateEntry.Add(MongoDB.Driver.Builders.Update.Set("Entries.$.Translation", txtTranslation.Text.Trim()));
+                    }
                 }
-            }
-            else
-            {
-                updateEntry.Add(MongoDB.Driver.Builders.Update.Set("Translation", BsonNull.Value));
+                else
+                {
+                    updateEntry.Add(MongoDB.Driver.Builders.Update.Set("Translation", BsonNull.Value));
+                }
             }
 
             UpdateBuilder update = MongoDB.Driver.Builders.Update.Combine(updateEntry);
 
-            WriteConcernResult result = collection.Update(Query.And(Query.EQ("_id", currentHeadwordObjectID), Query.EQ("Entries.Number", currentEntry.Number)), update);
+            WriteConcernResult result = collection.Update(Query.And(Query.EQ("_id", currentHeadwordObjectID), Query.EQ("Entries.Number", currentEntry.Number), Query.EQ("Entries.EntryType", cmbBoxEntryType.SelectedItem.ToString())), update);
             if (result.DocumentsAffected == 1)
             {
                 toolStripResult.Text = "Result: Entry saved successfully!";

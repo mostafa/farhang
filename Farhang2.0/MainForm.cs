@@ -354,7 +354,7 @@ namespace Farhang2
                                 entryTemplate.Add("deutschEntry", currentHeadword.Entries[i].Number + ". " + currentHeadword.Entries[i].SourceText);
                                 if (currentHeadword.Entries[i].Translation != null)
                                 {
-                                    entryTemplate.Add("persianEntry", currentHeadword.Entries[i].Number + ". " + currentHeadword.Entries[i].Translation);
+                                    entryTemplate.Add("persianEntry", currentHeadword.Entries[i].Translation);
                                 }
                             }
                             entries += entryTemplate.Render();

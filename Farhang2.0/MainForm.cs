@@ -868,7 +868,7 @@ namespace Farhang2
 
             UpdateBuilder update = MongoDB.Driver.Builders.Update.Combine(updateEntry);
 
-            var query = Query.And(Query.EQ("_id", currentHeadwordObjectID), Query.ElemMatch("Entries", Query.And(Query.EQ("Number", currentEntry.Number), Query.EQ("EntryType", cmbBoxEntryType.SelectedItem.ToString()))));
+            var query = Query.And(Query.EQ("_id", currentHeadwordObjectID), Query.ElemMatch("Entries", Query.And(Query.EQ("Number", currentEntry.Number), Query.EQ("EntryType", currentEntry.EntryType))));
 
             WriteConcernResult result = collection.Update(query, update, UpdateFlags.Upsert);
             if (result.DocumentsAffected == 1)

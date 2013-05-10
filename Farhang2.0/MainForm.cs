@@ -177,14 +177,16 @@ namespace Farhang2
 
             headwordsListBox.SuspendLayout();
 
-            collection = farhang_database.GetCollection<Headword>(cmbBoxLetter.SelectedItem.ToString().ToUpper());
-            collection_data = collection.FindAllAs<Headword>().SetSortOrder("Priority");
-
-            foreach (var item in collection_data)
+            if (server.Instance.State == MongoServerState.Connected)
             {
-                headwordsListBox.Items.Add(item.Lemma);
-            }
+                collection = farhang_database.GetCollection<Headword>(cmbBoxLetter.SelectedItem.ToString().ToUpper());
+                collection_data = collection.FindAllAs<Headword>().SetSortOrder("Priority");
 
+                foreach (var item in collection_data)
+                {
+                    headwordsListBox.Items.Add(item.Lemma);
+                }
+            }
             //headwordsListBox.Sorted = true
             headwordsListBox.ResumeLayout();
 
@@ -550,32 +552,35 @@ namespace Farhang2
 
             this.Enabled = false;
 
-            collection = farhang_database.GetCollection<Headword>(cmbBoxLetter4Sort.SelectedItem.ToString().ToUpper());
-            collection_data = collection.FindAllAs<Headword>().SetSortOrder("Priority");
-
-            priorityDataSet = new DataSet();
-            priorityDataSet.Tables.Add("Headwords");
-            priorityDataSet.Tables[0].Columns.Add("Lemma");
-            priorityDataSet.Tables[0].Columns.Add("Priority", typeof(int));
-
-            foreach (var item in collection_data)
+            if (server.Instance.State == MongoServerState.Connected)
             {
-                priorityDataSet.Tables[0].Rows.Add(item.Lemma, item.Priority);
+                collection = farhang_database.GetCollection<Headword>(cmbBoxLetter4Sort.SelectedItem.ToString().ToUpper());
+                collection_data = collection.FindAllAs<Headword>().SetSortOrder("Priority");
+
+                priorityDataSet = new DataSet();
+                priorityDataSet.Tables.Add("Headwords");
+                priorityDataSet.Tables[0].Columns.Add("Lemma");
+                priorityDataSet.Tables[0].Columns.Add("Priority", typeof(int));
+
+                foreach (var item in collection_data)
+                {
+                    priorityDataSet.Tables[0].Rows.Add(item.Lemma, item.Priority);
+                }
+
+                dataGridView4Sort.DataSource = priorityDataSet;
+                dataGridView4Sort.DataMember = priorityDataSet.Tables[0].TableName;
+                dataGridView4Sort.Sort(dataGridView4Sort.Columns[1], System.ComponentModel.ListSortDirection.Ascending);
+
+                DataSet OriginalDataSet = priorityDataSet.Copy();
+
+                dataGridViewOriginal.DataSource = OriginalDataSet;
+                dataGridViewOriginal.DataMember = OriginalDataSet.Tables[0].TableName;
+                dataGridViewOriginal.Sort(dataGridViewOriginal.Columns[1], System.ComponentModel.ListSortDirection.Ascending);
+
+                txtTotal4MHS.Text = collection_data.Count().ToString();
+
+                toolStripResult.Text = "Letter " + cmbBoxLetter4Sort.SelectedItem.ToString() + "'s Headword Count = " + collection.Count().ToString();
             }
-
-            dataGridView4Sort.DataSource = priorityDataSet;
-            dataGridView4Sort.DataMember = priorityDataSet.Tables[0].TableName;
-            dataGridView4Sort.Sort(dataGridView4Sort.Columns[1], System.ComponentModel.ListSortDirection.Ascending);
-
-            DataSet OriginalDataSet = priorityDataSet.Copy();
-
-            dataGridViewOriginal.DataSource = OriginalDataSet;
-            dataGridViewOriginal.DataMember = OriginalDataSet.Tables[0].TableName;
-            dataGridViewOriginal.Sort(dataGridViewOriginal.Columns[1], System.ComponentModel.ListSortDirection.Ascending);
-
-            txtTotal4MHS.Text = collection_data.Count().ToString();
-
-            toolStripResult.Text = "Letter " + cmbBoxLetter4Sort.SelectedItem.ToString() + "'s Headword Count = " + collection.Count().ToString();
 
             this.Enabled = true;
         }

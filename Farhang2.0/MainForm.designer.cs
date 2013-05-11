@@ -1353,7 +1353,6 @@ namespace Farhang2
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1056, 653);
-            this.Controls.Add(this.manualHeadwordSorterGrpBox);
             this.Controls.Add(this.attachmentGroupBox);
             this.Controls.Add(this.headwordGroupBox);
             this.Controls.Add(this.entriesGroupBox);
@@ -1362,6 +1361,7 @@ namespace Farhang2
             this.Controls.Add(this.headwordsListGroupBox);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.manualHeadwordSorterGrpBox);
             this.Font = new System.Drawing.Font("DejaVu Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);

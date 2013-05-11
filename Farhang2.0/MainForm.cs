@@ -172,22 +172,24 @@ namespace Farhang2
         {
             Initialize();
 
+            this.Enabled = false;
+            headwordsListBox.Items.Clear();
+
+            headwordsListBox.SuspendLayout();
+
             try
             {
-                this.Enabled = false;
-                headwordsListBox.Items.Clear();
-
-                headwordsListBox.SuspendLayout();
-
                 collection = farhang_database.GetCollection<Headword>(cmbBoxLetter.SelectedItem.ToString().ToUpper());
                 collection_data = collection.FindAllAs<Headword>().SetSortOrder("Priority");
+
+                var x = collection_data.ToList();
 
                 foreach (var item in collection_data)
                 {
                     headwordsListBox.Items.Add(item.Lemma);
                 }
-                //headwordsListBox.Sorted = true
-                headwordsListBox.ResumeLayout();
+
+                toolStripResult.Text = "Letter " + cmbBoxLetter.SelectedItem.ToString() + "'s Headword Count = " + collection.Count().ToString();
 
                 btnAddHeadword.Enabled = false;
                 btnDeleteHeadword.Enabled = false;
@@ -200,16 +202,16 @@ namespace Farhang2
                 txtSourceText.Text = null;
                 cmbBoxTranslationLanguage.SelectedIndex = 0;
                 txtTranslation.Text = null;
-
-                toolStripResult.Text = "Letter " + cmbBoxLetter.SelectedItem.ToString() + "'s Headword Count = " + collection.Count().ToString();
-
-                this.Enabled = true;
             }
             catch (Exception)
             {
                 MessageBox.Show("Server is not available or not responding!", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-                return;
             }
+
+            //headwordsListBox.Sorted = true
+            headwordsListBox.ResumeLayout();
+
+            this.Enabled = true;
         }
 
         void headwordsListBoxSelectedIndexChanged(object sender, EventArgs e)
@@ -555,10 +557,10 @@ namespace Farhang2
         {
             Initialize();
 
+            this.Enabled = false;
+
             try
             {
-                this.Enabled = false;
-
                 collection = farhang_database.GetCollection<Headword>(cmbBoxLetter4Sort.SelectedItem.ToString().ToUpper());
                 collection_data = collection.FindAllAs<Headword>().SetSortOrder("Priority");
 
@@ -585,14 +587,13 @@ namespace Farhang2
                 txtTotal4MHS.Text = collection_data.Count().ToString();
 
                 toolStripResult.Text = "Letter " + cmbBoxLetter4Sort.SelectedItem.ToString() + "'s Headword Count = " + collection.Count().ToString();
-
-                this.Enabled = true;
             }
             catch (Exception)
             {
-
-                throw;
+                MessageBox.Show("Server is not available or not responding!", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
             }
+
+            this.Enabled = true;
         }
 
         private void dataGridView4Sort_CellValueChanged(object sender, DataGridViewCellEventArgs e)

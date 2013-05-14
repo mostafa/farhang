@@ -20,7 +20,7 @@ namespace Farhang2
                                                         {"ɔ", "ø", "øː", "œ", "œ̃ː", "o͜u", "oʊ", "ɔ͜y", "ɔɪ", "ʃ"},
                                                         {"t͜s", "t͜ʃ", "θ", "uː", "u̯", "ʊ", "yː", "y̆", "ʏ", "ʒ"},
                                                         {"ʌ", "ӕ", "ð", "Ä", "ä", "Ö", "ö", "Ü", "ü", "ß"} };
-        public static String[] combinations = new String[] { "∥ K-: ", "∥ -K: ", "∥ NB: ", "∥ ID ", "∥ zu ", "∥ hierzu " };
+        public static String[] combinations = new String[] { "∥ K-: ", "∥ -K: ", "∥ NB: ", "∥ ID ", "∥ zu ", "∥ hierzu ", "→" };
         public static String[] helpers1 = new String[] { "·", "̣", "|", "∥", "'", "ˌ", "↑", "®", "©", "‣" };
         public static String[] helpers2 = new String[] { "̲", "͟", "≈", "⌘", "↔", "à", "é", "¹", "²", "³" };
         public TextBox textView = new TextBox();
@@ -70,9 +70,21 @@ namespace Farhang2
                 tmpBtn.Text = combinations[i].ToString();
                 tmpBtn.Font = new System.Drawing.Font(new FontFamily("DejaVu Sans"), 9, FontStyle.Bold);
                 tmpBtn.Parent = this;
-                tmpBtn.Width = 73;
+                tmpBtn.Width = 60;
                 tmpBtn.Height = 35;
                 tmpBtn.Location = new Point(10 + (i * (tmpBtn.Width + 5)), 250);
+                if (tmpBtn.Text == "∥ hierzu ")
+                {
+                    // hack for || hierzu button
+                    tmpBtn.Width = 73;
+                    tmpBtn.Location = new Point(335, 250);
+                }
+
+                if (tmpBtn.Text == "→")
+                {
+                    // hack for → button
+                    tmpBtn.Location = new Point(tmpBtn.Location.X + 13, tmpBtn.Location.Y);
+                }
                 //buttonList.Add(tmpBtn);
                 tmpBtn.Click += new EventHandler(tmpBtn_Click);
                 tmpBtn.Show();

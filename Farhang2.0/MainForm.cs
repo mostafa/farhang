@@ -871,11 +871,11 @@ namespace Farhang2
             UpdateBuilder update = MongoDB.Driver.Builders.Update.Combine(updateEntry);
 
             var query = Query.And(Query.EQ("_id", currentHeadwordObjectID),
-                // TODO: fix bug in selecting entry by its contents
                 Query.ElemMatch("Entries",
                     Query.And(
                         Query.And(Query.EQ("Number", currentEntry.Number), Query.EQ("EntryType", currentEntry.EntryType)),
-                        Query.Or(Query.EQ("SourceText", currentEntry.SourceText), Query.EQ("Translation", currentEntry.SourceText))
+                        Query.Or(Query.EQ("SourceText", String.IsNullOrWhiteSpace(currentEntry.SourceText) ? "{$type: 6}" : currentEntry.SourceText),
+                                 Query.EQ("Translation", String.IsNullOrWhiteSpace(currentEntry.Translation) ? "{$type: 6}" : currentEntry.Translation))
                         )));
 
             WriteConcernResult result = collection.Update(query, update, UpdateFlags.Upsert);

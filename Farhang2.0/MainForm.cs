@@ -366,6 +366,10 @@ namespace Farhang2
                                 {
                                     entryTemplate.Add("deutschEntry", currentHeadword.Entries[i].Number + ". " + currentHeadword.Entries[i].SourceText.Replace("<", "&lt;").Replace(">", "&gt;")); //.Replace("⌘", "&#8984;"));
                                 }
+                                else
+                                {
+                                    entryTemplate.Add("deutschEntry", currentHeadword.Entries[i].Number + "."); //.Replace("⌘", "&#8984;"));
+                                }
 
                                 if (currentHeadword.Entries[i].Translation != null)
                                 {

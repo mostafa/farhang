@@ -350,28 +350,40 @@ namespace Farhang2
                         {
                             if (entryCount == 1)
                             {
-                                entryTemplate.Add("deutschEntry", currentHeadword.Entries[i].SourceText);
+                                if (currentHeadword.Entries[i].SourceText != null)
+                                {
+                                    entryTemplate.Add("deutschEntry", currentHeadword.Entries[i].SourceText.Replace("<", "&lt;").Replace(">", "&gt;")); //.Replace("⌘", "&#8984;"));
+                                }
+
                                 if (currentHeadword.Entries[i].Translation != null)
                                 {
-                                    entryTemplate.Add("persianEntry", currentHeadword.Entries[i].Translation);
+                                    entryTemplate.Add("persianEntry", currentHeadword.Entries[i].Translation.Replace("<", "&lt;").Replace(">", "&gt;")); //.Replace("⌘", "&#8984;"));
                                 }
                             }
                             else
                             {
-                                entryTemplate.Add("deutschEntry", currentHeadword.Entries[i].Number + ". " + currentHeadword.Entries[i].SourceText);
+                                if (currentHeadword.Entries[i].SourceText != null)
+                                {
+                                    entryTemplate.Add("deutschEntry", currentHeadword.Entries[i].Number + ". " + currentHeadword.Entries[i].SourceText.Replace("<", "&lt;").Replace(">", "&gt;")); //.Replace("⌘", "&#8984;"));
+                                }
+
                                 if (currentHeadword.Entries[i].Translation != null)
                                 {
-                                    entryTemplate.Add("persianEntry", currentHeadword.Entries[i].Translation);
+                                    entryTemplate.Add("persianEntry", currentHeadword.Entries[i].Translation.Replace("<", "&lt;").Replace(">", "&gt;")); //.Replace("⌘", "&#8984;")
                                 }
                             }
                             entries += entryTemplate.Render();
                         }
                         else
                         {
-                            subentryTemplate.Add("deutschSubentry", currentHeadword.Entries[i].SourceText);
+                            if (currentHeadword.Entries[i].SourceText != null)
+                            {
+                                subentryTemplate.Add("deutschSubentry", currentHeadword.Entries[i].SourceText.Replace("<", "&lt;").Replace(">", "&gt;")); //.Replace("⌘", "&#8984;"));
+                            }
+
                             if (currentHeadword.Entries[i].Translation != null)
                             {
-                                subentryTemplate.Add("persianSubentry", currentHeadword.Entries[i].Translation);
+                                subentryTemplate.Add("persianSubentry", currentHeadword.Entries[i].Translation.Replace("<", "&lt;").Replace(">", "&gt;")); //.Replace("⌘", "&#8984;"));
                             }
                             entries += subentryTemplate.Render();
                         }

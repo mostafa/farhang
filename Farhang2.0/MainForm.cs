@@ -855,14 +855,17 @@ namespace Farhang2
 
             if (cmbBoxEntryType.SelectedItem.ToString() == "Entry" | cmbBoxEntryType.SelectedItem.ToString() == "Subentry")
             {
-                if (!String.IsNullOrWhiteSpace(cmbBoxTranslationLanguage.SelectedItem.ToString()))
+                if (!String.IsNullOrWhiteSpace(txtTranslation.Text))
                 {
-                    if (cmbBoxTranslationLanguage.Items.Contains(cmbBoxTranslationLanguage.SelectedItem.ToString()))
+                    if (!String.IsNullOrWhiteSpace(cmbBoxTranslationLanguage.SelectedItem.ToString()))
                     {
-                        string translang = (cmbBoxTranslationLanguage.SelectedItem.ToString() == "Persisch") ? "FA" : "DE";
-                        if (translang != currentEntry.TranslationLanguage)
+                        if (cmbBoxTranslationLanguage.Items.Contains(cmbBoxTranslationLanguage.SelectedItem.ToString()))
                         {
-                            updateEntry.Add(MongoDB.Driver.Builders.Update.Set("Entries.$.TranslationLanguage", translang));
+                            string translang = (cmbBoxTranslationLanguage.SelectedItem.ToString() == "Persisch") ? "FA" : "DE";
+                            if (translang != currentEntry.TranslationLanguage)
+                            {
+                                updateEntry.Add(MongoDB.Driver.Builders.Update.Set("Entries.$.TranslationLanguage", translang));
+                            }
                         }
                     }
                 }
@@ -872,7 +875,9 @@ namespace Farhang2
             {
                 if (!String.IsNullOrWhiteSpace(txtTranslation.Text))
                 {
-                    if (txtTranslation.Text != currentEntry.Translation)
+                    string translation = String.IsNullOrWhiteSpace(txtTranslation.Text) ? null : txtTranslation.Text;
+
+                    if (translation != currentEntry.Translation)
                     {
                         updateEntry.Add(MongoDB.Driver.Builders.Update.Set("Entries.$.Translation", txtTranslation.Text.Trim()));
                     }

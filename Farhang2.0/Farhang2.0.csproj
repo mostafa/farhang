@@ -88,6 +88,7 @@
     <Compile Include="UnmanagedCode.cs" />
     <EmbeddedResource Include="IPAKeyboard.resx">
       <DependentUpon>IPAKeyboard.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

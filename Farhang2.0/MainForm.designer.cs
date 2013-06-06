@@ -154,6 +154,7 @@ namespace Farhang2
             this.txtAttachment = new System.Windows.Forms.TextBox();
             this.btnRemoveAttachment = new System.Windows.Forms.Button();
             this.btnAddUpdateAttachment = new System.Windows.Forms.Button();
+            this.pDFBuilderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.headwordsListGroupBox.SuspendLayout();
             this.entriesGroupBox.SuspendLayout();
@@ -809,7 +810,8 @@ namespace Farhang2
             this.optionsToolStripMenuItem,
             this.dictionaryPropertiesToolStripMenuItem,
             this.statisticsToolStripMenuItem1,
-            this.manualHeadwordSorterToolStripMenuItem});
+            this.manualHeadwordSorterToolStripMenuItem,
+            this.pDFBuilderToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
@@ -1348,6 +1350,13 @@ namespace Farhang2
             this.btnAddUpdateAttachment.UseVisualStyleBackColor = true;
             this.btnAddUpdateAttachment.Click += new System.EventHandler(this.btnAddUpdateAttachment_Click);
             // 
+            // pDFBuilderToolStripMenuItem
+            // 
+            this.pDFBuilderToolStripMenuItem.Name = "pDFBuilderToolStripMenuItem";
+            this.pDFBuilderToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.pDFBuilderToolStripMenuItem.Text = "&PDF Builder";
+            this.pDFBuilderToolStripMenuItem.Click += new System.EventHandler(this.pDFBuilderToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -1510,5 +1519,6 @@ namespace Farhang2
         private System.Windows.Forms.Button btnAddUpdateAttachment;
         private System.Windows.Forms.Label lblAttachment;
         public System.Windows.Forms.TextBox txtAttachment;
+        private System.Windows.Forms.ToolStripMenuItem pDFBuilderToolStripMenuItem;
 	}
 }

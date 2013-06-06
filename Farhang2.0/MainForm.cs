@@ -1110,5 +1110,11 @@ namespace Farhang2
                 btnRemoveAttachment.Enabled = true;
             }
         }
+
+        private void pDFBuilderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PDFBuilder pdfBuilderFrm = new PDFBuilder();
+            pdfBuilderFrm.Show();
+        }
 	}
 }

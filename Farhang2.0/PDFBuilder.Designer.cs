@@ -33,6 +33,7 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.lblLetter = new System.Windows.Forms.Label();
             this.cmbBoxLetter = new System.Windows.Forms.ComboBox();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.grpBoxOutput.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,9 +53,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpBoxOutput.Controls.Add(this.listBox1);
-            this.grpBoxOutput.Location = new System.Drawing.Point(12, 36);
+            this.grpBoxOutput.Location = new System.Drawing.Point(12, 65);
             this.grpBoxOutput.Name = "grpBoxOutput";
-            this.grpBoxOutput.Size = new System.Drawing.Size(608, 398);
+            this.grpBoxOutput.Size = new System.Drawing.Size(610, 371);
             this.grpBoxOutput.TabIndex = 1;
             this.grpBoxOutput.TabStop = false;
             this.grpBoxOutput.Text = "Output";
@@ -62,10 +63,11 @@
             // listBox1
             // 
             this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBox1.Font = new System.Drawing.Font("DejaVu Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(3, 16);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(602, 379);
+            this.listBox1.Size = new System.Drawing.Size(604, 352);
             this.listBox1.TabIndex = 0;
             // 
             // lblLetter
@@ -113,16 +115,28 @@
             this.cmbBoxLetter.Size = new System.Drawing.Size(185, 21);
             this.cmbBoxLetter.TabIndex = 9;
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(12, 36);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(610, 23);
+            this.progressBar1.TabIndex = 11;
+            // 
             // PDFBuilder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(632, 446);
+            this.ClientSize = new System.Drawing.Size(634, 448);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.lblLetter);
             this.Controls.Add(this.grpBoxOutput);
             this.Controls.Add(this.cmbBoxLetter);
             this.Controls.Add(this.btnGenerateTEXFile);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(640, 480);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(640, 480);
             this.Name = "PDFBuilder";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PDFBuilder";
@@ -139,5 +153,6 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label lblLetter;
         private System.Windows.Forms.ComboBox cmbBoxLetter;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }

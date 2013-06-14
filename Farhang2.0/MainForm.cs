@@ -1114,7 +1114,7 @@ namespace Farhang2
         private void pDFBuilderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PDFBuilder pdfBuilderFrm = new PDFBuilder();
-            pdfBuilderFrm.Show();
+            pdfBuilderFrm.ShowDialog();
         }
 	}
 }

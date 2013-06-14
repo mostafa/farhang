@@ -95,7 +95,9 @@ namespace Farhang2
             {"⁶", "\\textsuperscript{6}"},
             {"⁷", "\\textsuperscript{7}"},
             {"⁸", "\\textsuperscript{8}"},
-            {"⁹", "\\textsuperscript{9}"}
+            {"⁹", "\\textsuperscript{9}"},
+            {"\"", "\'\'"},
+            {"%", "\\%"}
         };
         #endregion
         #region TEXDOCUMENTTEMPLATE
@@ -105,7 +107,7 @@ namespace Farhang2
 \documentclass{farhang} % use larger type; default would be 10pt
 
 \settextfont[Scale=0.9]{XB Zar}
-\defpersianfont\roya[Scale=0.8]{XB Roya}
+\defpersianfont\Roya[Scale=0.8]{XB Roya}
 \setlength{\oddsidemargin}{-5mm}
 \setlength{\evensidemargin}{-5mm}
 \setlength{\textheight}{21.5cm}
@@ -150,9 +152,11 @@ $items$
         {
             InitializeComponent();
         }
-
         private void Initialize()
         {
+            if (server != null)
+                server.Disconnect();
+
             client = new MongoClient();
             server = client.GetServer();
             farhang_database = server.GetDatabase("farhang");
@@ -186,25 +190,46 @@ $items$
             }
 
             Initialize(); // initialize database variables
+            if (!farhang_database.CollectionExists(cmbBoxLetter.SelectedItem.ToString().ToUpper()))
+            {
+                MessageBox.Show("Collection does not exist!", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                return;
+            }
+
             DirectoryInfo dirInfo = Directory.CreateDirectory(Application.StartupPath + "\\Output\\");
             if (dirInfo.Exists)
             {
                 collection = farhang_database.GetCollection<Headword>(cmbBoxLetter.SelectedItem.ToString().ToUpper());
                 collection_data = collection.FindAllAs<Headword>().SetSortOrder("Priority");
                 outputTEXDocument = new StreamWriter(dirInfo.FullName + "\\" + cmbBoxLetter.SelectedItem.ToString().ToUpper() + ".tex", false);
+                outputTEXDocument.AutoFlush = true;
 
                 string documentElements = "";
-                
-                foreach (var item in collection_data)
+                try
                 {
-                    currentHeadword = item;
-                    documentElements += makeTEXDocument();
+                    progressBar1.Value = 0;
+                    listBox1.Items.Clear();
+
+                    progressBar1.Maximum = Int32.Parse(collection_data.Count().ToString());
+                    foreach (var item in collection_data)
+                    {
+                        currentHeadword = item;
+                        listBox1.Items.Add("Processing lemma: " + currentHeadword.Lemma);
+                        documentElements += makeTEXDocument();
+                        progressBar1.Value += 1;
+                    }
+                }
+                catch (Exception)
+                {
+                    outputTEXDocument.Close();
+                    MessageBox.Show("Server is not available or not responding!", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                    return;
                 }
 
-                texDocString = texDocString.Replace("$letter$", cmbBoxLetter.SelectedItem.ToString().ToUpper());
-                texDocString = texDocString.Replace("$items$", documentElements);
+                string documentContents = texDocString.Replace("$letter$", cmbBoxLetter.SelectedItem.ToString().ToUpper());
+                documentContents = documentContents.Replace("$items$", documentElements);
 
-                outputTEXDocument.WriteLine(texDocString);
+                outputTEXDocument.WriteLine(documentContents);
                 outputTEXDocument.Close();
             }
             else
@@ -218,10 +243,11 @@ $items$
             var headword = new { Lemma = "Lemma", Pronunciation = "[pronunciation]", Description = "description..." };
             String entries = "";
 
-            Template headwordTemplate = new Template("\\headword{$Lemma$}{$Pronunciation$}{$Description$}\n", '$', '$');
+            Template headwordTemplate = new Template("\\headword{$Lemma$}{$Pronunciation$}{$Description$}{$Word$}\n", '$', '$');
             headwordTemplate.Add("Lemma", formatTEXString(currentHeadword.Lemma));
             headwordTemplate.Add("Pronunciation", String.IsNullOrWhiteSpace(currentHeadword.Pronunciation) ? "" : "[" + formatTEXString(currentHeadword.Pronunciation) + "]");
-            headwordTemplate.Add("Description", formatTEXString(currentHeadword.Description));
+            headwordTemplate.Add("Description", String.IsNullOrWhiteSpace(currentHeadword.Description) ? "" : formatTEXString(currentHeadword.Description));
+            headwordTemplate.Add("Word", currentHeadword.Word);
 
             entries += headwordTemplate.Render();
 
@@ -249,20 +275,20 @@ $items$
                             {
                                 if (currentHeadword.Entries[i].SourceText != null)
                                 {
-                                    entryTemplate.Add("sourcetext", formatTEXString(currentHeadword.Entries[i].SourceText));
+                                    entryTemplate.Add("sourcetext", String.IsNullOrWhiteSpace(currentHeadword.Entries[i].SourceText) ? "" : formatTEXString(currentHeadword.Entries[i].SourceText));
                                 }
 
                                 if (currentHeadword.Entries[i].Translation != null)
                                 {
-                                    entryTemplate.Add("translation", formatTEXString(currentHeadword.Entries[i].Translation));
+                                    entryTemplate.Add("translation", String.IsNullOrWhiteSpace(currentHeadword.Entries[i].Translation) ? "" : formatTEXString(currentHeadword.Entries[i].Translation));
                                 }
                             }
                             else
                             {
                                 if (currentHeadword.Entries[i].SourceText != null)
                                 {
-                                    entryTemplate.Add("number", currentHeadword.Entries[i].Number + ". ");
-                                    entryTemplate.Add("sourcetext", formatTEXString(currentHeadword.Entries[i].SourceText));
+                                    entryTemplate.Add("number", currentHeadword.Entries[i].Number + ".");
+                                    entryTemplate.Add("sourcetext", String.IsNullOrWhiteSpace(currentHeadword.Entries[i].SourceText) ? "" : formatTEXString(currentHeadword.Entries[i].SourceText));
                                 }
                                 else
                                 {
@@ -271,7 +297,7 @@ $items$
 
                                 if (currentHeadword.Entries[i].Translation != null)
                                 {
-                                    entryTemplate.Add("translation", formatTEXString(currentHeadword.Entries[i].Translation));
+                                    entryTemplate.Add("translation", String.IsNullOrWhiteSpace(currentHeadword.Entries[i].Translation) ? "" : formatTEXString(currentHeadword.Entries[i].Translation));
                                 }
                             }
                             entries += entryTemplate.Render();
@@ -280,17 +306,21 @@ $items$
                         {
                             if (currentHeadword.Entries[i].SourceText != null)
                             {
-                                subentryTemplate.Add("sourcetext", formatTEXString(currentHeadword.Entries[i].SourceText));
+                                subentryTemplate.Add("sourcetext", String.IsNullOrWhiteSpace(currentHeadword.Entries[i].SourceText) ? "" : formatTEXString(currentHeadword.Entries[i].SourceText));
                             }
 
                             if (currentHeadword.Entries[i].Translation != null)
                             {
-                                subentryTemplate.Add("translation", formatTEXString(currentHeadword.Entries[i].Translation));
+                                subentryTemplate.Add("translation", String.IsNullOrWhiteSpace(currentHeadword.Entries[i].Translation) ? "" : formatTEXString(currentHeadword.Entries[i].Translation));
                             }
                             entries += subentryTemplate.Render();
                         }
                     }
                 }
+            }
+            else
+            {
+                entries += "\\newline";
             }
 
             return entries;
@@ -328,6 +358,19 @@ $items$
                             break;
                         case "͟":
                             // double/multi character underline
+                            bool multiChar = false;
+                            // check if there is more than one double line character (multiline)
+                            // character exists in the string
+                            int count = input.Count(c => c == '͟');
+                            if (count > 1)
+                            {
+                                multiChar = true;
+                            }
+
+                            if (multiChar)
+                            {
+                                //FIXME: add multiple character support to underline character
+                            }
                             // select previous character from input string
                             PreviousCharacter = input[i - 1].ToString();
                             // select next character from input string

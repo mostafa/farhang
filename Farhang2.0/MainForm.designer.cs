@@ -109,6 +109,7 @@ namespace Farhang2
             this.dictionaryPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statisticsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.manualHeadwordSorterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pDFBuilderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.maximizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.minimizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -154,7 +155,10 @@ namespace Farhang2
             this.txtAttachment = new System.Windows.Forms.TextBox();
             this.btnRemoveAttachment = new System.Windows.Forms.Button();
             this.btnAddUpdateAttachment = new System.Windows.Forms.Button();
-            this.pDFBuilderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblAttachmentTranslation = new System.Windows.Forms.Label();
+            this.txtAttachmentTranslation = new System.Windows.Forms.TextBox();
+            this.lblAttachmentTitle = new System.Windows.Forms.Label();
+            this.txtAttachmentTitle = new System.Windows.Forms.TextBox();
             this.toolStrip1.SuspendLayout();
             this.headwordsListGroupBox.SuspendLayout();
             this.entriesGroupBox.SuspendLayout();
@@ -841,6 +845,13 @@ namespace Farhang2
             this.manualHeadwordSorterToolStripMenuItem.Text = "&Manual Headword Sorter";
             this.manualHeadwordSorterToolStripMenuItem.Click += new System.EventHandler(this.manualHeadwordSorterToolStripMenuItem_Click);
             // 
+            // pDFBuilderToolStripMenuItem
+            // 
+            this.pDFBuilderToolStripMenuItem.Name = "pDFBuilderToolStripMenuItem";
+            this.pDFBuilderToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.pDFBuilderToolStripMenuItem.Text = "&PDF Builder";
+            this.pDFBuilderToolStripMenuItem.Click += new System.EventHandler(this.pDFBuilderToolStripMenuItem_Click);
+            // 
             // windowToolStripMenuItem
             // 
             this.windowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -905,7 +916,7 @@ namespace Farhang2
             this.previewGroupBox.Controls.Add(this.webBrowser1);
             this.previewGroupBox.Location = new System.Drawing.Point(699, 52);
             this.previewGroupBox.Name = "previewGroupBox";
-            this.previewGroupBox.Size = new System.Drawing.Size(345, 501);
+            this.previewGroupBox.Size = new System.Drawing.Size(345, 449);
             this.previewGroupBox.TabIndex = 4;
             this.previewGroupBox.TabStop = false;
             this.previewGroupBox.Text = "Output Preview";
@@ -921,7 +932,7 @@ namespace Farhang2
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.ScriptErrorsSuppressed = true;
-            this.webBrowser1.Size = new System.Drawing.Size(339, 479);
+            this.webBrowser1.Size = new System.Drawing.Size(339, 427);
             this.webBrowser1.TabIndex = 0;
             // 
             // manualHeadwordSorterGrpBox
@@ -1296,13 +1307,17 @@ namespace Farhang2
             // 
             this.attachmentGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.attachmentGroupBox.Controls.Add(this.lblAttachmentTitle);
+            this.attachmentGroupBox.Controls.Add(this.txtAttachmentTitle);
+            this.attachmentGroupBox.Controls.Add(this.lblAttachmentTranslation);
+            this.attachmentGroupBox.Controls.Add(this.txtAttachmentTranslation);
             this.attachmentGroupBox.Controls.Add(this.lblAttachment);
             this.attachmentGroupBox.Controls.Add(this.txtAttachment);
             this.attachmentGroupBox.Controls.Add(this.btnRemoveAttachment);
             this.attachmentGroupBox.Controls.Add(this.btnAddUpdateAttachment);
-            this.attachmentGroupBox.Location = new System.Drawing.Point(699, 559);
+            this.attachmentGroupBox.Location = new System.Drawing.Point(699, 504);
             this.attachmentGroupBox.Name = "attachmentGroupBox";
-            this.attachmentGroupBox.Size = new System.Drawing.Size(345, 82);
+            this.attachmentGroupBox.Size = new System.Drawing.Size(345, 137);
             this.attachmentGroupBox.TabIndex = 6;
             this.attachmentGroupBox.TabStop = false;
             this.attachmentGroupBox.Text = "Attachment";
@@ -1310,7 +1325,7 @@ namespace Farhang2
             // lblAttachment
             // 
             this.lblAttachment.AutoSize = true;
-            this.lblAttachment.Location = new System.Drawing.Point(6, 26);
+            this.lblAttachment.Location = new System.Drawing.Point(6, 83);
             this.lblAttachment.Name = "lblAttachment";
             this.lblAttachment.Size = new System.Drawing.Size(87, 15);
             this.lblAttachment.TabIndex = 15;
@@ -1320,7 +1335,7 @@ namespace Farhang2
             // 
             this.txtAttachment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtAttachment.Location = new System.Drawing.Point(99, 22);
+            this.txtAttachment.Location = new System.Drawing.Point(99, 79);
             this.txtAttachment.Name = "txtAttachment";
             this.txtAttachment.Size = new System.Drawing.Size(240, 23);
             this.txtAttachment.TabIndex = 14;
@@ -1330,7 +1345,7 @@ namespace Farhang2
             // 
             this.btnRemoveAttachment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRemoveAttachment.Enabled = false;
-            this.btnRemoveAttachment.Location = new System.Drawing.Point(264, 54);
+            this.btnRemoveAttachment.Location = new System.Drawing.Point(264, 109);
             this.btnRemoveAttachment.Name = "btnRemoveAttachment";
             this.btnRemoveAttachment.Size = new System.Drawing.Size(75, 23);
             this.btnRemoveAttachment.TabIndex = 1;
@@ -1342,7 +1357,7 @@ namespace Farhang2
             // 
             this.btnAddUpdateAttachment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddUpdateAttachment.Enabled = false;
-            this.btnAddUpdateAttachment.Location = new System.Drawing.Point(139, 54);
+            this.btnAddUpdateAttachment.Location = new System.Drawing.Point(139, 109);
             this.btnAddUpdateAttachment.Name = "btnAddUpdateAttachment";
             this.btnAddUpdateAttachment.Size = new System.Drawing.Size(119, 23);
             this.btnAddUpdateAttachment.TabIndex = 0;
@@ -1350,12 +1365,41 @@ namespace Farhang2
             this.btnAddUpdateAttachment.UseVisualStyleBackColor = true;
             this.btnAddUpdateAttachment.Click += new System.EventHandler(this.btnAddUpdateAttachment_Click);
             // 
-            // pDFBuilderToolStripMenuItem
+            // lblAttachmentTranslation
             // 
-            this.pDFBuilderToolStripMenuItem.Name = "pDFBuilderToolStripMenuItem";
-            this.pDFBuilderToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.pDFBuilderToolStripMenuItem.Text = "&PDF Builder";
-            this.pDFBuilderToolStripMenuItem.Click += new System.EventHandler(this.pDFBuilderToolStripMenuItem_Click);
+            this.lblAttachmentTranslation.AutoSize = true;
+            this.lblAttachmentTranslation.Location = new System.Drawing.Point(6, 54);
+            this.lblAttachmentTranslation.Name = "lblAttachmentTranslation";
+            this.lblAttachmentTranslation.Size = new System.Drawing.Size(79, 15);
+            this.lblAttachmentTranslation.TabIndex = 17;
+            this.lblAttachmentTranslation.Text = "Translation:";
+            // 
+            // txtAttachmentTranslation
+            // 
+            this.txtAttachmentTranslation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtAttachmentTranslation.Location = new System.Drawing.Point(99, 50);
+            this.txtAttachmentTranslation.Name = "txtAttachmentTranslation";
+            this.txtAttachmentTranslation.Size = new System.Drawing.Size(240, 23);
+            this.txtAttachmentTranslation.TabIndex = 16;
+            // 
+            // lblAttachmentTitle
+            // 
+            this.lblAttachmentTitle.AutoSize = true;
+            this.lblAttachmentTitle.Location = new System.Drawing.Point(6, 25);
+            this.lblAttachmentTitle.Name = "lblAttachmentTitle";
+            this.lblAttachmentTitle.Size = new System.Drawing.Size(37, 15);
+            this.lblAttachmentTitle.TabIndex = 19;
+            this.lblAttachmentTitle.Text = "Title:";
+            // 
+            // txtAttachmentTitle
+            // 
+            this.txtAttachmentTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtAttachmentTitle.Location = new System.Drawing.Point(99, 21);
+            this.txtAttachmentTitle.Name = "txtAttachmentTitle";
+            this.txtAttachmentTitle.Size = new System.Drawing.Size(240, 23);
+            this.txtAttachmentTitle.TabIndex = 18;
             // 
             // MainForm
             // 
@@ -1520,5 +1564,9 @@ namespace Farhang2
         private System.Windows.Forms.Label lblAttachment;
         public System.Windows.Forms.TextBox txtAttachment;
         private System.Windows.Forms.ToolStripMenuItem pDFBuilderToolStripMenuItem;
+        private System.Windows.Forms.Label lblAttachmentTitle;
+        public System.Windows.Forms.TextBox txtAttachmentTitle;
+        private System.Windows.Forms.Label lblAttachmentTranslation;
+        public System.Windows.Forms.TextBox txtAttachmentTranslation;
 	}
 }

@@ -1061,7 +1061,7 @@ namespace Farhang2
 
                 // add file info to headword
                 MongoGridFSFileInfo file = new MongoGridFSFileInfo(gridFS, openFile.SafeFileName);
-                currentHeadword.AddAttachment(file.Id.AsObjectId, file.Name.ToString());
+                currentHeadword.AddAttachment(file.Id.AsObjectId, file.Name.ToString(), txtAttachmentTitle.Text, txtAttachmentTranslation.Text);
 
                 var update = MongoDB.Driver.Builders.Update.Set("Attachment", currentHeadword.Attachment.ToBsonDocument());
 

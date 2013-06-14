@@ -1047,7 +1047,7 @@ namespace Farhang2
         private void btnAddUpdateAttachment_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFile = new OpenFileDialog();
-            openFile.Filter = "PDF (*.pdf)|*.pdf;|PS (*.ps)|*.ps;|TIFF (*.tiff *.tif)|*.tif;*.tiff|JPEG/JPG (*.jpeg *.jpg)|*.jpg;*.jpeg|PNG (*.png)|*.png;|All files (*.*)|*.*";
+            openFile.Filter = "PDF (*.pdf)|*.pdf;|PS/EPS (*.ps *.eps)|*.ps;*.eps|TIFF (*.tiff *.tif)|*.tif;*.tiff|JPEG/JPG (*.jpeg *.jpg)|*.jpg;*.jpeg|PNG (*.png)|*.png;|All files (*.*)|*.*";
             DialogResult result = openFile.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK)
             {

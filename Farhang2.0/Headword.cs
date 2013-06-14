@@ -118,7 +118,11 @@ namespace Farhang2
     {
         public BsonObjectId _AttachmentId;
         public String FileName;
+
+        [BsonIgnoreIfNull]
         public String Title;
+
+        [BsonIgnoreIfNull]
         public String Translation;
 
         public Attachment(BsonObjectId _id, String fileName, String title, String translation)

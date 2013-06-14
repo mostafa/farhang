@@ -221,6 +221,8 @@ namespace Farhang2
             txtSourceText.Text = "";
             cmbBoxTranslationLanguage.SelectedIndex = 0;
             txtTranslation.Text = "";
+            txtAttachmentTitle.Text = "";
+            txtAttachmentTranslation.Text = "";
 
             currentHeadword = collection.FindOneAs<Headword>(Query.EQ("Lemma", headwordsListBox.SelectedItem.ToString()));
             currentEntry = null;
@@ -294,10 +296,14 @@ namespace Farhang2
             if (currentHeadword.Attachment != null)
             {
                 txtAttachment.Text = currentHeadword.Attachment.FileName;
+                txtAttachmentTitle.Text = String.IsNullOrWhiteSpace(currentHeadword.Attachment.Title) ? currentHeadword.Attachment.Title : "";
+                txtAttachmentTranslation.Text = String.IsNullOrWhiteSpace(currentHeadword.Attachment.Translation) ? currentHeadword.Attachment.Translation : "";
             }
             else
             {
                 txtAttachment.Text = String.Empty;
+                txtAttachmentTitle.Text = String.Empty;
+                txtAttachmentTranslation.Text = String.Empty;
             }
 
             btnAddHeadword.Enabled = true;

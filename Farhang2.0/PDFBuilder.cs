@@ -196,7 +196,7 @@ $items$
                 return;
             }
 
-            DirectoryInfo dirInfo = Directory.CreateDirectory(Application.StartupPath + "\\Output\\");
+            DirectoryInfo dirInfo = Directory.CreateDirectory(Application.StartupPath + "\\Output\\" + cmbBoxLetter.SelectedItem.ToString().ToUpper());
             if (dirInfo.Exists)
             {
                 collection = farhang_database.GetCollection<Headword>(cmbBoxLetter.SelectedItem.ToString().ToUpper());
@@ -216,6 +216,22 @@ $items$
                         currentHeadword = item;
                         listBox1.Items.Add("Processing lemma: " + currentHeadword.Lemma);
                         documentElements += makeTEXDocument();
+                        if (currentHeadword.Attachment != null)
+                        {
+                            var picturefile = gridFS.FindOne(Query.EQ("_id", (BsonObjectId)currentHeadword.Attachment._AttachmentId));
+
+                            using (var stream = picturefile.OpenRead())
+                            {
+                                var bytes = new byte[stream.Length];
+                                stream.Read(bytes, 0, (int)stream.Length);
+                                using (var outputFile = new FileStream(dirInfo.FullName + "\\" + currentHeadword.Attachment.FileName, FileMode.Create))
+                                {
+                                    outputFile.Write(bytes, 0, bytes.Length);
+                                }
+                            }
+
+                            listBox1.Items.Add("Processing file: " + currentHeadword.Attachment.FileName.ToString());
+                        }
                         progressBar1.Value += 1;
                     }
                 }
@@ -321,6 +337,16 @@ $items$
             else
             {
                 entries += "\\newline";
+            }
+
+            if (currentHeadword.Attachment != null)
+            {
+                Template attachmentTemplate = new Template("\\picture{$Filename$}{$Title$}{$Translation$}\n", '$', '$');
+                attachmentTemplate.Add("Filename", currentHeadword.Attachment.FileName);
+                attachmentTemplate.Add("Title", currentHeadword.Attachment.Title);
+                attachmentTemplate.Add("Translation", currentHeadword.Attachment.Translation);
+
+                entries += attachmentTemplate.Render();
             }
 
             return entries;

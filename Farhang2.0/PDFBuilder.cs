@@ -177,9 +177,11 @@ $items$
 
         private void btnGenerateTEXFile_Click(object sender, EventArgs e)
         {
+            string selectedLetter = cmbBoxLetter.SelectedItem.ToString().ToUpper();
+
             try
             {
-                if (!cmbBoxLetter.Items.Contains(cmbBoxLetter.SelectedItem.ToString().ToUpper()))
+                if (!cmbBoxLetter.Items.Contains(selectedLetter))
                 {
                     MessageBox.Show("No item is selected or the selected item does not exist!", "Item Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                     return;
@@ -192,18 +194,19 @@ $items$
             }
 
             Initialize(); // initialize database variables
-            if (!farhang_database.CollectionExists(cmbBoxLetter.SelectedItem.ToString().ToUpper()))
+            if (!farhang_database.CollectionExists(selectedLetter))
             {
                 MessageBox.Show("Collection does not exist!", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                 return;
             }
 
-            DirectoryInfo dirInfo = Directory.CreateDirectory(Application.StartupPath + "\\Output\\" + cmbBoxLetter.SelectedItem.ToString().ToUpper());
+            string outputDirectory = Application.StartupPath + "\\Output\\" + selectedLetter;
+            DirectoryInfo dirInfo = Directory.CreateDirectory(outputDirectory);
             if (dirInfo.Exists)
             {
-                collection = farhang_database.GetCollection<Headword>(cmbBoxLetter.SelectedItem.ToString().ToUpper());
+                collection = farhang_database.GetCollection<Headword>(selectedLetter);
                 collection_data = collection.FindAllAs<Headword>().SetSortOrder("Priority");
-                outputTEXDocument = new StreamWriter(dirInfo.FullName + "\\" + cmbBoxLetter.SelectedItem.ToString().ToUpper() + ".tex", false);
+                outputTEXDocument = new StreamWriter(dirInfo.FullName + "\\" + selectedLetter + ".tex", false);
                 outputTEXDocument.AutoFlush = true;
 
                 string documentElements = "";
@@ -228,7 +231,7 @@ $items$
                                 {
                                     var bytes = new byte[stream.Length];
                                     stream.Read(bytes, 0, (int)stream.Length);
-                                    var filesDirectory = Directory.CreateDirectory(Application.StartupPath + "\\Output\\" + cmbBoxLetter.SelectedItem.ToString().ToUpper() + "\\files\\");
+                                    var filesDirectory = Directory.CreateDirectory(outputDirectory + "\\files\\");
                                     using (var outputFile = new FileStream(filesDirectory.FullName + "\\" + currentHeadword.Attachment.FileName, FileMode.Create))
                                     {
                                         outputFile.Write(bytes, 0, bytes.Length);
@@ -248,13 +251,13 @@ $items$
                     return;
                 }
 
-                string documentContents = texDocString.Replace("$letter$", cmbBoxLetter.SelectedItem.ToString().ToUpper());
+                string documentContents = texDocString.Replace("$letter$", selectedLetter);
                 documentContents = documentContents.Replace("$items$", documentElements);
 
                 outputTEXDocument.WriteLine(documentContents);
                 outputTEXDocument.Close();
 
-                using (outputTEXDocumentClass = new StreamWriter(dirInfo.FullName + "\\farhang.cls", false))
+                using (outputTEXDocumentClass = new StreamWriter(outputDirectory + "\\farhang.cls", false))
                 {
                     using (inputTEXDocumentClass = new StreamReader(Application.StartupPath + "\\farhang.cls"))
                     {

@@ -23,18 +23,20 @@
 \RequirePackage{color}
 %\RequirePackage{pstricks}
 \RequirePackage{ifthen}
-\RequirePackage{float}
 \RequirePackage{manfnt}
 \RequirePackage{textcomp}
 %\RequirePackage{framed}
+\RequirePackage{float}
 \RequirePackage{dblfloatfix}
+%\RequirePackage{fix2col}
 %\RequirePackage{hyperref}
 %\RequirePackage{balance}
 \RequirePackage[absolute]{textpos}
 \RequirePackage{changepage}
 \RequirePackage{everypage}
+%\RequirePackage{afterpage}
 \RequirePackage{calc}
-%\RequirePackage{printlen}
+\RequirePackage{printlen}
 %\RequirePackage{alphalph}
 %\RequirePackage[pagecontinue=true,alphMult=ab,AlphMulti=AB,fnsymbolmult=true,romanMult=true,RomanMulti=true]{pagesLTS}
 %\RequirePackage[showframe]{geometry}
@@ -162,10 +164,10 @@
 %------------------------------------------------------------------------------------------------------
 % variable to detect the remaining space at the end of the paragraph
 
-\newlength{\currentHeadwordLineWidth}%
-\newlength{\remainingHeadwordColumnWidth}%
-\newlength{\currentTranslationLineWidth}%
-\newlength{\currentSourceTextLineWidth}%
+\newlength{\HeadwordLineWidth}%
+\newlength{\remainingHeadwordLineWidth}%
+\newlength{\TranslationLineWidth}%
+\newlength{\SourceTextLineWidth}%
 \newlength{\remainingEntryColumnWidth}%
 \newlength{\remainingEntryAndTranslationColumnWidth}%
 \newlength{\totalEntryAndSourceTextWidth}%
@@ -178,18 +180,20 @@
 \setlength{\TripleColumnWidth}{3\columnwidth}
 
 \newcommand{\getHeadwordLineWidth}[1]{%
-\settowidth{\currentHeadwordLineWidth}{#1}%
-\ifthenelse{\lengthtest{\columnwidth > \currentHeadwordLineWidth}}{\setlength{\remainingHeadwordColumnWidth}{\columnwidth - \currentHeadwordLineWidth}}{\setlength{\remainingHeadwordColumnWidth}{\currentHeadwordLineWidth - \columnwidth}}}%
+\settowidth{\HeadwordLineWidth}{#1}%
+\ifthenelse{\lengthtest{\columnwidth > \HeadwordLineWidth}}{\setlength{\remainingHeadwordLineWidth}{\columnwidth - \HeadwordLineWidth}}{\setlength{\remainingHeadwordLineWidth}{\HeadwordLineWidth - \columnwidth}}}%
 
 \newcommand{\getEntryLineWidth}[2]{%
-\settowidth{\currentSourceTextLineWidth}{#1}%
-\settowidth{\currentTranslationLineWidth}{#2}%
-\setlength{\totalEntryAndSourceTextWidth}{\currentSourceTextLineWidth+\currentTranslationLineWidth}%
-\setlength{\remainingHeadwordAndTranslationWidth}{\currentHeadwordLineWidth - \currentTranslationLineWidth}%
-\ifthenelse{\lengthtest{\columnwidth > \currentSourceTextLineWidth}}{\setlength{\remainingEntryColumnWidth}{\columnwidth - \currentSourceTextLineWidth}}{\setlength{\remainingEntryColumnWidth}{\currentSourceTextLineWidth - \columnwidth}}%
+\settowidth{\SourceTextLineWidth}{#1}%
+\settowidth{\TranslationLineWidth}{#2}%
+\setlength{\totalEntryAndSourceTextWidth}{\SourceTextLineWidth+\TranslationLineWidth}%
+\setlength{\remainingHeadwordAndTranslationWidth}{\HeadwordLineWidth - \TranslationLineWidth}%
+\ifthenelse{\lengthtest{\columnwidth > \SourceTextLineWidth}}{\setlength{\remainingEntryColumnWidth}{\columnwidth - \SourceTextLineWidth}}{\ifthenelse{\lengthtest{\DoubleColumnWidth > \SourceTextLineWidth}}{\setlength{\remainingEntryColumnWidth}{\DoubleColumnWidth - \SourceTextLineWidth}}{\SourceTextLineWidth - \DoubleColumnWidth}}
+%%%%%%%%%%%%%%%%%%%%%%%
+%{\setlength{\remainingEntryColumnWidth}{\SourceTextLineWidth - \columnwidth}}%
 \ifthenelse{\lengthtest{\columnwidth > \totalEntryAndSourceTextWidth}}{\setlength{\remainingEntryAndTranslationColumnWidth}{\columnwidth - \totalEntryAndSourceTextWidth}}{\ifthenelse{\lengthtest{\DoubleColumnWidth > \totalEntryAndSourceTextWidth}}{\setlength{\remainingEntryAndTranslationColumnWidth}{\DoubleColumnWidth - \totalEntryAndSourceTextWidth}}{\ifthenelse{\lengthtest{\TripleColumnWidth > \totalEntryAndSourceTextWidth}}{\setlength{\remainingEntryAndTranslationColumnWidth}{\totalEntryAndSourceTextWidth - \DoubleColumnWidth}}{\setlength{\remainingEntryAndTranslationColumnWidth}{\totalEntryAndSourceTextWidth - \TripleColumnWidth}}}}
-\setlength{\totalEntryAndSourceTextWidth}{\currentSourceTextLineWidth+\currentTranslationLineWidth}
-\setlength{\totalTranslationAndRemainingWidth}{\remainingEntryAndTranslationColumnWidth - \currentTranslationLineWidth}}%
+\setlength{\totalEntryAndSourceTextWidth}{\SourceTextLineWidth+\TranslationLineWidth}
+\setlength{\totalTranslationAndRemainingWidth}{\remainingEntryAndTranslationColumnWidth - \TranslationLineWidth}}%
 
 %\totalEntryAndSourceTextWidth - \DoubleColumnWidth
 
@@ -216,7 +220,7 @@
 % derived and etymology should be defined (not used now) [only in English or monolingual languages]
 % usage: \headword{lemma}{pronunciation}{description}{headerlemma-notag}
 % example: \headword{Aa}{[a]}{nur Sg.}{Aa}
-\DeclareRobustCommand{\headword}[4]{\getHeadwordLineWidth{\noindent\hspace*{-2.5mm}\raggedright\lr{\textcolor{cyan}{\ArialNormal{\textbf{#1}}} \textcolor{black}{\TimesNormal{#2 \textit{#3}}}}}\noindent\hspace*{-2.5mm}\raggedright\lr{\textcolor{cyan}{\ArialNormal{\textbf{#1}}} \textcolor{black}{\TimesNormal{#2 \textit{#3}}}}\header{#4}}%
+\DeclareRobustCommand{\headword}[4]{\getHeadwordLineWidth{\noindent\hspace*{-2.5mm}\lr{\textcolor{cyan}{\ArialNormal{\textbf{#1}}} \textcolor{black}{\TimesNormal{#2 \textit{#3}}}}}\noindent\hspace*{-2.5mm}\lr{\textcolor{cyan}{\ArialNormal{\textbf{#1}}} \textcolor{black}{\TimesNormal{#2 \textit{#3}}}}\header{#4}}%
 %\hfill\null\newline{}
 %\measureremainder{\whatsleft}
 
@@ -231,17 +235,17 @@
 % here lies ;) the entry
 % usage: \entry{number}{entry}{translation}
 % example: \entry{1.}{to welcome s.o.}{jdn. begrüssen}
-\DeclareRobustCommand{\entry}[3]{\getEntryLineWidth{\raggedright\noindent\textcolor{black}{\textbf{\TimesNormal{#1}} \textit{\TimesNormal{#2\hfill}}}}{\rl{\textbf{#3\hfill}}}\ifthenelse{\equal{#1}{1.}}{\newline}{}\ifthenelse{\equal{#1}{}}{\ifthenelse{\lengthtest{\currentHeadwordLineWidth > \columnwidth}}{\ifthenelse{\lengthtest{\currentHeadwordLineWidth > \currentTranslationLineWidth}}{\ifthenelse{\lengthtest{\currentTranslationLineWidth > \remainingHeadwordColumnWidth}}{}{\newline}}{\ifthenelse{\lengthtest{\currentTranslationLineWidth > \remainingHeadwordColumnWidth}}{\newline}{}}}{\ifthenelse{\lengthtest{\currentHeadwordLineWidth > \currentTranslationLineWidth}}{\ifthenelse{\lengthtest{\currentTranslationLineWidth > \remainingHeadwordColumnWidth}}{\hspace*{\remainingHeadwordColumnWidth}}{\ifthenelse{\lengthtest{\remainingHeadwordAndTranslationWidth > \remainingHeadwordColumnWidth}}{\hspace{-5mm}}{}}}{\ifthenelse{\lengthtest{\currentTranslationLineWidth > \remainingHeadwordColumnWidth}}{\newline}{}}}}{}\raggedright\noindent\textcolor{black}{\textbf{\TimesNormal{#1}} \textit{\TimesNormal{#2\hfill}}\ifthenelse{\lengthtest{\currentSourceTextLineWidth > \columnwidth}}{\ifthenelse{\lengthtest{\currentSourceTextLineWidth > \currentTranslationLineWidth}}{}{\newline}}{\ifthenelse{\lengthtest{\currentTranslationLineWidth > \remainingEntryColumnWidth}}{\newline}{}}\rl{\textbf{#3\hfill}}}\newline}%
+\DeclareRobustCommand{\entry}[3]{\getEntryLineWidth{\noindent\textcolor{black}{\textbf{\TimesNormal{#1}} \textit{\TimesNormal{#2\hfill}}}}{\rl{\textbf{#3\hfill}}}\ifthenelse{\equal{#1}{1.}}{\newline}{}\ifthenelse{\equal{#1}{}}{\ifthenelse{\lengthtest{\remainingHeadwordLineWidth < \TranslationLineWidth}}{\newline}{\hspace*{-1mm}}}{}\noindent\textcolor{black}{\textbf{\TimesNormal{#1}}} \textit{\TimesNormal{#2\hfill}}\ifthenelse{\equal{#1}{}}{}{\ifthenelse{\lengthtest{\remainingEntryColumnWidth < \TranslationLineWidth}}{\ifthenelse{\TranslationLineWidth > 0}{\newline}{}}{\hspace*{-1mm}}}\rl{\textbf{#3\hfill}}\newline}%
 
-%\printlength{\remainingHeadwordColumnWidth}\printlength{\remainingHeadwordAndTranslationWidth}
-%\printlength{\currentHeadwordLineWidth}  \printlength{\remainingHeadwordColumnWidth}
+%\printlength{\remainingHeadwordLineWidth}\printlength{\remainingHeadwordAndTranslationWidth}
+%\printlength{\HeadwordLineWidth}  \printlength{\remainingHeadwordLineWidth}
 %\ifthenelse{\equal{#1}{1.}}{\newline}{}\ifthenelse{\equal{#1}{}}{\linebreak}{}
 
 % here lies ;) the subentry
 % usage: \subentry{subentry}{translation}
 % example: \subentry{Hallo}{Hello}
 %%% for myself: put \vspace{1mm} before \newline to have a clearer text/column [43 lines instead of 48 lines per column per page]
-\DeclareRobustCommand{\subentry}[2]{\getEntryLineWidth{\raggedright\noindent\textcolor{black}{\lr{\TimesNormal{#1\hfill}}}}{\rl{\Roya{#2\hfill}}}\raggedright\noindent\textcolor{black}{\lr{\TimesNormal{#1\hfill}}   \ifthenelse{\lengthtest{\currentSourceTextLineWidth < \columnwidth}}{\ifthenelse{\lengthtest{\currentTranslationLineWidth > \remainingEntryColumnWidth}}{\ifthenelse{\lengthtest{\currentSourceTextLineWidth > \currentTranslationLineWidth}}{\newline}{\ifthenelse{\lengthtest{\currentTranslationLineWidth > \remainingEntryAndTranslationColumnWidth}}{}{\newline}}}{}}{\ifthenelse{\lengthtest{\currentTranslationLineWidth > \remainingEntryColumnWidth}}{\ifthenelse{\lengthtest{\currentSourceTextLineWidth > \currentTranslationLineWidth}}{\ifthenelse{\lengthtest{\currentTranslationLineWidth > \remainingEntryAndTranslationColumnWidth}}{}{\ifthenelse{\lengthtest{\totalTranslationAndRemainingWidth < 50mm}}{\newline}{}}}{\ifthenelse{\lengthtest{\currentTranslationLineWidth > \remainingEntryAndTranslationColumnWidth}}{}{\ifthenelse{\lengthtest{\totalTranslationAndRemainingWidth < 50mm}}{\newline}{}}}}{}}\rl{\Roya{#2\hfill}}}\newline}%
+\DeclareRobustCommand{\subentry}[2]{\getEntryLineWidth{\noindent\textcolor{black}{\lr{\TimesNormal{#1\hfill}}}}{\rl{\Roya{#2\hfill}}}\noindent\textcolor{black}{\lr{\TimesNormal{#1\hfill}}\ifthenelse{\equal{#1}{}}{}{\ifthenelse{\lengthtest{\remainingEntryColumnWidth < \TranslationLineWidth}}{\newline}{\hspace*{-1mm}}}\rl{\Roya{#2\hfill}}}\newline}%
 
 %\hspace*{-5mm}
 
@@ -254,32 +258,33 @@
 % current version
 %\DeclareRobustCommand{\refcomb}[1]{\TimesNormal{\textit{\textcolor{black}{#1}}}\newline}%
 
-\newlength{\imagewidth}
-\newlength{\imageheight}
+%\newlength{\imagewidth}
+%\newlength{\imageheight}
 
 % here lies ;) the picture
 %%%%%%%%%%%%FIXME: add title/translation to the generated indices
-% usage: \picture{filename}{title}{translation}
-% example: \picture{balloon.eps}{title}{translation}
+% usage: \picture{filename}{title}{translation}{1|2}
+% example: \picture{balloon.eps}{title}{translation}{1}
 % %\includegraphics[width=0.5\textwidth]{#2}
-\DeclareRobustCommand{\picture}[3]{
-\settowidth{\imagewidth}{\includegraphics[keepaspectratio]{#1}}% determine image width
-\settoheight{\imageheight}{\includegraphics[keepaspectratio]{#1}}% determine image height
-\ifthenelse{\lengthtest{\imagewidth < 0.5\textwidth}}% signle-column image
+\DeclareRobustCommand{\picture}[4]{
+%\settowidth{\imagewidth}{\includegraphics[keepaspectratio]{#1}}% determine image width
+%\settoheight{\imageheight}{\includegraphics[keepaspectratio]{#1}}% determine image height
+%\printlength{\imagewidth}
+\ifthenelse{\equal{#4}{1}}% signle-column image
 {
 \begin{figure}[H]
 \vspace{-5mm}
 \centering
-\includegraphics[width=\columnwidth]{#1}
+\includegraphics[width=\columnwidth,keepaspectratio]{#1}
 \vspace{-6mm}
 \end{figure}
 }
 {
-%\vspace{-10mm}
-\begin{figure*}[t]
-\vspace{-3mm}
+\vspace{5mm}
+\begin{figure*}[!tb]
 \centering
 \includegraphics[width=\textwidth,keepaspectratio]{#1}
 \end{figure*}
+\vspace{-3mm}
 }
 }

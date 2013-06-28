@@ -35,9 +35,9 @@ namespace Farhang2
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Headword");
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Headword");
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripResult = new System.Windows.Forms.ToolStripLabel();
             this.headwordsListBox = new System.Windows.Forms.ListBox();
@@ -151,14 +151,16 @@ namespace Farhang2
             this.txtPronunciation = new System.Windows.Forms.TextBox();
             this.txtLemma = new System.Windows.Forms.TextBox();
             this.attachmentGroupBox = new System.Windows.Forms.GroupBox();
+            this.lblAttachmentTitle = new System.Windows.Forms.Label();
+            this.txtAttachmentTitle = new System.Windows.Forms.TextBox();
+            this.lblAttachmentTranslation = new System.Windows.Forms.Label();
+            this.txtAttachmentTranslation = new System.Windows.Forms.TextBox();
             this.lblAttachment = new System.Windows.Forms.Label();
             this.txtAttachment = new System.Windows.Forms.TextBox();
             this.btnRemoveAttachment = new System.Windows.Forms.Button();
             this.btnAddUpdateAttachment = new System.Windows.Forms.Button();
-            this.lblAttachmentTranslation = new System.Windows.Forms.Label();
-            this.txtAttachmentTranslation = new System.Windows.Forms.TextBox();
-            this.lblAttachmentTitle = new System.Windows.Forms.Label();
-            this.txtAttachmentTitle = new System.Windows.Forms.TextBox();
+            this.lblColumns = new System.Windows.Forms.Label();
+            this.txtAttachmentColumns = new System.Windows.Forms.TextBox();
             this.toolStrip1.SuspendLayout();
             this.headwordsListGroupBox.SuspendLayout();
             this.entriesGroupBox.SuspendLayout();
@@ -330,10 +332,10 @@ namespace Farhang2
             this.entriesTreeView.FullRowSelect = true;
             this.entriesTreeView.Location = new System.Drawing.Point(9, 22);
             this.entriesTreeView.Name = "entriesTreeView";
-            treeNode1.Name = "Headword";
-            treeNode1.Text = "Headword";
+            treeNode3.Name = "Headword";
+            treeNode3.Text = "Headword";
             this.entriesTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode3});
             this.entriesTreeView.Size = new System.Drawing.Size(406, 226);
             this.entriesTreeView.TabIndex = 0;
             // 
@@ -916,7 +918,7 @@ namespace Farhang2
             this.previewGroupBox.Controls.Add(this.webBrowser1);
             this.previewGroupBox.Location = new System.Drawing.Point(699, 52);
             this.previewGroupBox.Name = "previewGroupBox";
-            this.previewGroupBox.Size = new System.Drawing.Size(345, 449);
+            this.previewGroupBox.Size = new System.Drawing.Size(345, 421);
             this.previewGroupBox.TabIndex = 4;
             this.previewGroupBox.TabStop = false;
             this.previewGroupBox.Text = "Output Preview";
@@ -932,7 +934,7 @@ namespace Farhang2
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.ScriptErrorsSuppressed = true;
-            this.webBrowser1.Size = new System.Drawing.Size(339, 427);
+            this.webBrowser1.Size = new System.Drawing.Size(339, 399);
             this.webBrowser1.TabIndex = 0;
             // 
             // manualHeadwordSorterGrpBox
@@ -1132,8 +1134,8 @@ namespace Farhang2
             // 
             this.dataGridViewOriginal.AllowUserToAddRows = false;
             this.dataGridViewOriginal.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridViewOriginal.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridViewOriginal.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridViewOriginal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewOriginal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewOriginal.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1161,8 +1163,8 @@ namespace Farhang2
             this.dataGridView4Sort.AllowUserToAddRows = false;
             this.dataGridView4Sort.AllowUserToDeleteRows = false;
             this.dataGridView4Sort.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridView4Sort.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridView4Sort.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView4Sort.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView4Sort.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView4Sort.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1307,6 +1309,8 @@ namespace Farhang2
             // 
             this.attachmentGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.attachmentGroupBox.Controls.Add(this.lblColumns);
+            this.attachmentGroupBox.Controls.Add(this.txtAttachmentColumns);
             this.attachmentGroupBox.Controls.Add(this.lblAttachmentTitle);
             this.attachmentGroupBox.Controls.Add(this.txtAttachmentTitle);
             this.attachmentGroupBox.Controls.Add(this.lblAttachmentTranslation);
@@ -1315,73 +1319,12 @@ namespace Farhang2
             this.attachmentGroupBox.Controls.Add(this.txtAttachment);
             this.attachmentGroupBox.Controls.Add(this.btnRemoveAttachment);
             this.attachmentGroupBox.Controls.Add(this.btnAddUpdateAttachment);
-            this.attachmentGroupBox.Location = new System.Drawing.Point(699, 504);
+            this.attachmentGroupBox.Location = new System.Drawing.Point(699, 479);
             this.attachmentGroupBox.Name = "attachmentGroupBox";
-            this.attachmentGroupBox.Size = new System.Drawing.Size(345, 137);
+            this.attachmentGroupBox.Size = new System.Drawing.Size(345, 162);
             this.attachmentGroupBox.TabIndex = 6;
             this.attachmentGroupBox.TabStop = false;
             this.attachmentGroupBox.Text = "Attachment";
-            // 
-            // lblAttachment
-            // 
-            this.lblAttachment.AutoSize = true;
-            this.lblAttachment.Location = new System.Drawing.Point(6, 83);
-            this.lblAttachment.Name = "lblAttachment";
-            this.lblAttachment.Size = new System.Drawing.Size(87, 15);
-            this.lblAttachment.TabIndex = 15;
-            this.lblAttachment.Text = "Attachment:";
-            // 
-            // txtAttachment
-            // 
-            this.txtAttachment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtAttachment.Location = new System.Drawing.Point(99, 79);
-            this.txtAttachment.Name = "txtAttachment";
-            this.txtAttachment.Size = new System.Drawing.Size(240, 23);
-            this.txtAttachment.TabIndex = 14;
-            this.txtAttachment.TextChanged += new System.EventHandler(this.txtAttachment_TextChanged);
-            // 
-            // btnRemoveAttachment
-            // 
-            this.btnRemoveAttachment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemoveAttachment.Enabled = false;
-            this.btnRemoveAttachment.Location = new System.Drawing.Point(264, 109);
-            this.btnRemoveAttachment.Name = "btnRemoveAttachment";
-            this.btnRemoveAttachment.Size = new System.Drawing.Size(75, 23);
-            this.btnRemoveAttachment.TabIndex = 1;
-            this.btnRemoveAttachment.Text = "Remove";
-            this.btnRemoveAttachment.UseVisualStyleBackColor = true;
-            this.btnRemoveAttachment.Click += new System.EventHandler(this.btnRemoveAttachment_Click);
-            // 
-            // btnAddUpdateAttachment
-            // 
-            this.btnAddUpdateAttachment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddUpdateAttachment.Enabled = false;
-            this.btnAddUpdateAttachment.Location = new System.Drawing.Point(139, 109);
-            this.btnAddUpdateAttachment.Name = "btnAddUpdateAttachment";
-            this.btnAddUpdateAttachment.Size = new System.Drawing.Size(119, 23);
-            this.btnAddUpdateAttachment.TabIndex = 0;
-            this.btnAddUpdateAttachment.Text = "Add/Update";
-            this.btnAddUpdateAttachment.UseVisualStyleBackColor = true;
-            this.btnAddUpdateAttachment.Click += new System.EventHandler(this.btnAddUpdateAttachment_Click);
-            // 
-            // lblAttachmentTranslation
-            // 
-            this.lblAttachmentTranslation.AutoSize = true;
-            this.lblAttachmentTranslation.Location = new System.Drawing.Point(6, 54);
-            this.lblAttachmentTranslation.Name = "lblAttachmentTranslation";
-            this.lblAttachmentTranslation.Size = new System.Drawing.Size(79, 15);
-            this.lblAttachmentTranslation.TabIndex = 17;
-            this.lblAttachmentTranslation.Text = "Translation:";
-            // 
-            // txtAttachmentTranslation
-            // 
-            this.txtAttachmentTranslation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtAttachmentTranslation.Location = new System.Drawing.Point(99, 50);
-            this.txtAttachmentTranslation.Name = "txtAttachmentTranslation";
-            this.txtAttachmentTranslation.Size = new System.Drawing.Size(240, 23);
-            this.txtAttachmentTranslation.TabIndex = 16;
             // 
             // lblAttachmentTitle
             // 
@@ -1400,6 +1343,86 @@ namespace Farhang2
             this.txtAttachmentTitle.Name = "txtAttachmentTitle";
             this.txtAttachmentTitle.Size = new System.Drawing.Size(240, 23);
             this.txtAttachmentTitle.TabIndex = 18;
+            // 
+            // lblAttachmentTranslation
+            // 
+            this.lblAttachmentTranslation.AutoSize = true;
+            this.lblAttachmentTranslation.Location = new System.Drawing.Point(6, 54);
+            this.lblAttachmentTranslation.Name = "lblAttachmentTranslation";
+            this.lblAttachmentTranslation.Size = new System.Drawing.Size(79, 15);
+            this.lblAttachmentTranslation.TabIndex = 17;
+            this.lblAttachmentTranslation.Text = "Translation:";
+            // 
+            // txtAttachmentTranslation
+            // 
+            this.txtAttachmentTranslation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtAttachmentTranslation.Location = new System.Drawing.Point(99, 49);
+            this.txtAttachmentTranslation.Name = "txtAttachmentTranslation";
+            this.txtAttachmentTranslation.Size = new System.Drawing.Size(240, 23);
+            this.txtAttachmentTranslation.TabIndex = 16;
+            // 
+            // lblAttachment
+            // 
+            this.lblAttachment.AutoSize = true;
+            this.lblAttachment.Location = new System.Drawing.Point(6, 109);
+            this.lblAttachment.Name = "lblAttachment";
+            this.lblAttachment.Size = new System.Drawing.Size(87, 15);
+            this.lblAttachment.TabIndex = 15;
+            this.lblAttachment.Text = "Attachment:";
+            // 
+            // txtAttachment
+            // 
+            this.txtAttachment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtAttachment.Location = new System.Drawing.Point(99, 105);
+            this.txtAttachment.Name = "txtAttachment";
+            this.txtAttachment.Size = new System.Drawing.Size(240, 23);
+            this.txtAttachment.TabIndex = 14;
+            this.txtAttachment.TextChanged += new System.EventHandler(this.txtAttachment_TextChanged);
+            // 
+            // btnRemoveAttachment
+            // 
+            this.btnRemoveAttachment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRemoveAttachment.Enabled = false;
+            this.btnRemoveAttachment.Location = new System.Drawing.Point(264, 134);
+            this.btnRemoveAttachment.Name = "btnRemoveAttachment";
+            this.btnRemoveAttachment.Size = new System.Drawing.Size(75, 23);
+            this.btnRemoveAttachment.TabIndex = 1;
+            this.btnRemoveAttachment.Text = "Remove";
+            this.btnRemoveAttachment.UseVisualStyleBackColor = true;
+            this.btnRemoveAttachment.Click += new System.EventHandler(this.btnRemoveAttachment_Click);
+            // 
+            // btnAddUpdateAttachment
+            // 
+            this.btnAddUpdateAttachment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddUpdateAttachment.Enabled = false;
+            this.btnAddUpdateAttachment.Location = new System.Drawing.Point(139, 134);
+            this.btnAddUpdateAttachment.Name = "btnAddUpdateAttachment";
+            this.btnAddUpdateAttachment.Size = new System.Drawing.Size(119, 23);
+            this.btnAddUpdateAttachment.TabIndex = 0;
+            this.btnAddUpdateAttachment.Text = "Add/Update";
+            this.btnAddUpdateAttachment.UseVisualStyleBackColor = true;
+            this.btnAddUpdateAttachment.Click += new System.EventHandler(this.btnAddUpdateAttachment_Click);
+            // 
+            // lblColumns
+            // 
+            this.lblColumns.AutoSize = true;
+            this.lblColumns.Location = new System.Drawing.Point(6, 82);
+            this.lblColumns.Name = "lblColumns";
+            this.lblColumns.Size = new System.Drawing.Size(77, 15);
+            this.lblColumns.TabIndex = 21;
+            this.lblColumns.Text = "Column(s):";
+            // 
+            // txtAttachmentColumns
+            // 
+            this.txtAttachmentColumns.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtAttachmentColumns.Location = new System.Drawing.Point(99, 77);
+            this.txtAttachmentColumns.Name = "txtAttachmentColumns";
+            this.txtAttachmentColumns.Size = new System.Drawing.Size(240, 23);
+            this.txtAttachmentColumns.TabIndex = 20;
+            this.txtAttachmentColumns.Text = "1";
             // 
             // MainForm
             // 
@@ -1568,5 +1591,7 @@ namespace Farhang2
         public System.Windows.Forms.TextBox txtAttachmentTitle;
         private System.Windows.Forms.Label lblAttachmentTranslation;
         public System.Windows.Forms.TextBox txtAttachmentTranslation;
+        private System.Windows.Forms.Label lblColumns;
+        public System.Windows.Forms.TextBox txtAttachmentColumns;
 	}
 }

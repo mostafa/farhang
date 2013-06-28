@@ -66,11 +66,11 @@ namespace Farhang2
             Entries.Add(ent);
         }
 
-        public void AddAttachment(BsonObjectId _id, String fileName, String title, String translation)
+        public void AddAttachment(BsonObjectId _id, String fileName, Int32 column, String title, String translation)
         {
             if (Attachment == null)
             {
-                Attachment = new Attachment(_id, fileName, title, translation);
+                Attachment = new Attachment(_id, fileName, column, title, translation);
             }
         }
     }
@@ -118,6 +118,7 @@ namespace Farhang2
     {
         public BsonObjectId _AttachmentId;
         public String FileName;
+        public Int32 Column;
 
         [BsonIgnoreIfNull]
         public String Title;
@@ -125,10 +126,11 @@ namespace Farhang2
         [BsonIgnoreIfNull]
         public String Translation;
 
-        public Attachment(BsonObjectId _id, String fileName, String title, String translation)
+        public Attachment(BsonObjectId _id, String fileName, Int32 column, String title, String translation)
         {
             _AttachmentId = _id;
             FileName = fileName;
+            Column = column;
             Title = title;
             Translation = translation;
         }

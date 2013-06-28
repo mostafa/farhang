@@ -34,6 +34,7 @@
             this.lblLetter = new System.Windows.Forms.Label();
             this.cmbBoxLetter = new System.Windows.Forms.ComboBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.chkOutputPictures = new System.Windows.Forms.CheckBox();
             this.grpBoxOutput.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -122,11 +123,24 @@
             this.progressBar1.Size = new System.Drawing.Size(610, 23);
             this.progressBar1.TabIndex = 11;
             // 
+            // chkOutputPictures
+            // 
+            this.chkOutputPictures.AutoSize = true;
+            this.chkOutputPictures.Checked = true;
+            this.chkOutputPictures.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkOutputPictures.Location = new System.Drawing.Point(525, 14);
+            this.chkOutputPictures.Name = "chkOutputPictures";
+            this.chkOutputPictures.Size = new System.Drawing.Size(97, 17);
+            this.chkOutputPictures.TabIndex = 13;
+            this.chkOutputPictures.Text = "Export Pictures";
+            this.chkOutputPictures.UseVisualStyleBackColor = true;
+            // 
             // PDFBuilder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(634, 448);
+            this.Controls.Add(this.chkOutputPictures);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.lblLetter);
             this.Controls.Add(this.grpBoxOutput);
@@ -154,5 +168,6 @@
         private System.Windows.Forms.Label lblLetter;
         private System.Windows.Forms.ComboBox cmbBoxLetter;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.CheckBox chkOutputPictures;
     }
 }

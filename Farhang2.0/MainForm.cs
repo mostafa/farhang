@@ -296,12 +296,14 @@ namespace Farhang2
             if (currentHeadword.Attachment != null)
             {
                 txtAttachment.Text = currentHeadword.Attachment.FileName;
+                txtAttachmentColumns.Text = currentHeadword.Attachment.Column.ToString();
                 txtAttachmentTitle.Text = String.IsNullOrWhiteSpace(currentHeadword.Attachment.Title) ? "" : currentHeadword.Attachment.Title;
                 txtAttachmentTranslation.Text = String.IsNullOrWhiteSpace(currentHeadword.Attachment.Translation) ? "" : currentHeadword.Attachment.Translation;
             }
             else
             {
                 txtAttachment.Text = String.Empty;
+                txtAttachmentColumns.Text = String.Empty;
                 txtAttachmentTitle.Text = String.Empty;
                 txtAttachmentTranslation.Text = String.Empty;
             }
@@ -1067,7 +1069,7 @@ namespace Farhang2
 
                 // add file info to headword
                 MongoGridFSFileInfo file = new MongoGridFSFileInfo(gridFS, openFile.SafeFileName);
-                currentHeadword.AddAttachment(file.Id.AsObjectId, file.Name.ToString(), txtAttachmentTitle.Text, txtAttachmentTranslation.Text);
+                currentHeadword.AddAttachment(file.Id.AsObjectId, file.Name.ToString(), int.Parse(txtAttachmentColumns.Text), txtAttachmentTitle.Text, txtAttachmentTranslation.Text);
 
                 var update = MongoDB.Driver.Builders.Update.Set("Attachment", currentHeadword.Attachment.ToBsonDocument());
 

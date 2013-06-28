@@ -25,11 +25,13 @@ namespace Farhang2
         MongoCollection<Headword> collection;
         MongoCursor<Headword> collection_data;
         Headword currentHeadword;
+        TextWriter outputTEXDocumentClass;
+        TextReader inputTEXDocumentClass;
         StreamWriter outputTEXDocument;
         #region SpecialCharacters
         public static Dictionary<String, String> special_characters = new Dictionary<string,string>
         {
-            {"ː", "\\\textlengthmark{}"},
+            {"ː", "\\textlengthmark{}"},
             {"ɐ", "\\textturna{}"},
             {"ɐ̯", "\\hill{\\textturna{}}"},
             {"ã", "\\~{a}"},
@@ -70,14 +72,14 @@ namespace Farhang2
             //{"→", "\\rightarrow{}"},
             //{"↑", "\\uparrow{}"},
             //{"↔", "\\leftrightarrow{}"},
-            {"·", "\\textperiodcentered{}"},
+            //{"·", "\\textperiodcentered{}"},
             {"̣", "\\d{$letter$}"},
             {"|", "\\textpipe{}"},
-            {"'", "\\textprimstress{}"},
+            //{"'", "\\textprimstress{}"},
             {"ˌ", "\\textsecstress{}"},
             {"®", "\\textregistered{}"},
             {"©", "\\textcopyright{}"},
-            {"‣", "\\blacktriangleright{}"},
+            //{"‣", "\\blacktriangleright{}"},
             // single character underline
             {"̲", "\\underline{$letter$}"},
             // double character underline
@@ -216,21 +218,25 @@ $items$
                         currentHeadword = item;
                         listBox1.Items.Add("Processing lemma: " + currentHeadword.Lemma);
                         documentElements += makeTEXDocument();
-                        if (currentHeadword.Attachment != null)
+                        if (chkOutputPictures.Checked)
                         {
-                            var picturefile = gridFS.FindOne(Query.EQ("_id", (BsonObjectId)currentHeadword.Attachment._AttachmentId));
-
-                            using (var stream = picturefile.OpenRead())
+                            if (currentHeadword.Attachment != null)
                             {
-                                var bytes = new byte[stream.Length];
-                                stream.Read(bytes, 0, (int)stream.Length);
-                                using (var outputFile = new FileStream(dirInfo.FullName + "\\" + currentHeadword.Attachment.FileName, FileMode.Create))
-                                {
-                                    outputFile.Write(bytes, 0, bytes.Length);
-                                }
-                            }
+                                var picturefile = gridFS.FindOne(Query.EQ("_id", (BsonObjectId)currentHeadword.Attachment._AttachmentId));
 
-                            listBox1.Items.Add("Processing file: " + currentHeadword.Attachment.FileName.ToString());
+                                using (var stream = picturefile.OpenRead())
+                                {
+                                    var bytes = new byte[stream.Length];
+                                    stream.Read(bytes, 0, (int)stream.Length);
+                                    var filesDirectory = Directory.CreateDirectory(Application.StartupPath + "\\Output\\" + cmbBoxLetter.SelectedItem.ToString().ToUpper() + "\\files\\");
+                                    using (var outputFile = new FileStream(filesDirectory.FullName + "\\" + currentHeadword.Attachment.FileName, FileMode.Create))
+                                    {
+                                        outputFile.Write(bytes, 0, bytes.Length);
+                                    }
+                                }
+
+                                listBox1.Items.Add("Processing file: " + currentHeadword.Attachment.FileName.ToString());
+                            }
                         }
                         progressBar1.Value += 1;
                     }
@@ -247,6 +253,15 @@ $items$
 
                 outputTEXDocument.WriteLine(documentContents);
                 outputTEXDocument.Close();
+
+                using (outputTEXDocumentClass = new StreamWriter(dirInfo.FullName + "\\farhang.cls", false))
+                {
+                    using (inputTEXDocumentClass = new StreamReader(Application.StartupPath + "\\farhang.cls"))
+                    {
+                        outputTEXDocumentClass.Write(inputTEXDocumentClass.ReadToEnd());
+                        listBox1.Items.Add("farhang.cls successfully added.");
+                    }
+                }
             }
             else
             {
@@ -341,10 +356,11 @@ $items$
 
             if (currentHeadword.Attachment != null)
             {
-                Template attachmentTemplate = new Template("\\picture{$Filename$}{$Title$}{$Translation$}\n", '$', '$');
-                attachmentTemplate.Add("Filename", currentHeadword.Attachment.FileName);
+                Template attachmentTemplate = new Template("\\picture{$Filename$}{$Title$}{$Translation$}{$Column$}\n", '$', '$');
+                attachmentTemplate.Add("Filename", "files/" + currentHeadword.Attachment.FileName);
                 attachmentTemplate.Add("Title", currentHeadword.Attachment.Title);
                 attachmentTemplate.Add("Translation", currentHeadword.Attachment.Translation);
+                attachmentTemplate.Add("Column", currentHeadword.Attachment.Column);
 
                 entries += attachmentTemplate.Render();
             }
@@ -354,36 +370,47 @@ $items$
 
         private string formatTEXString(string input)
         {
-            string output = "";
+            string output = input;
+            Int32 SpecialCharacterIndex = 0;
             string PreviousCharacter = "";
             string NextCharacter = "";
 
-            for (int i = 0; i < input.Length; i++)
+            foreach (var item in special_characters.Keys)
             {
-                if (special_characters.ContainsKey(input[i].ToString()))
+                if (output.Contains(item))
                 {
-                    switch (input[i].ToString())
-	                {
+                    switch (item)
+                    {
                         case "̣":
                             // single character underline
+                            // get index of the character in string
+                            SpecialCharacterIndex = output.IndexOf(item);
                             // select previous character from input string
-                            PreviousCharacter = input[i - 1].ToString();
-                            // remove previous character in output string
-                            output = output.Remove(output.Length - 1);
-                            // add \\underline{PreviousCharacter} to output string
-                            output += special_characters[input[i].ToString()].Replace("$letter$", PreviousCharacter);
+                            PreviousCharacter = output[SpecialCharacterIndex - 1].ToString();
+                            // add \\d{PreviousCharacter} to output string
+                            output = output.Replace(PreviousCharacter + item, special_characters[item].Replace("$letter$", PreviousCharacter));
                             break;
                         case "̲":
                             // single character underline
+                            // get index of the character in string
+                            SpecialCharacterIndex = output.IndexOf(item);
                             // select previous character from input string
-                            PreviousCharacter = input[i - 1].ToString();
-                            // remove previous character in output string
-                            output = output.Remove(output.Length - 1);
+                            PreviousCharacter = output[SpecialCharacterIndex - 1].ToString();
                             // add \\underline{PreviousCharacter} to output string
-                            output += special_characters[input[i].ToString()].Replace("$letter$", PreviousCharacter);
+                            output = output.Replace(PreviousCharacter + item, special_characters[item].Replace("$letter$", PreviousCharacter));
                             break;
                         case "͟":
-                            // double/multi character underline
+                            // double character underline
+                            // get index of the character in string
+                            SpecialCharacterIndex = output.IndexOf(item);
+                            // select previous character from input string
+                            PreviousCharacter = output[SpecialCharacterIndex - 1].ToString();
+                            // select next character from input string
+                            NextCharacter = output[SpecialCharacterIndex + 1].ToString();
+                            // add \\underline{PreviousCharacter + NextCharacter} to output string
+                            output = output.Replace(PreviousCharacter + item + NextCharacter, special_characters[item].Replace("$letter$", PreviousCharacter + NextCharacter));
+                            /*
+                            // multi character underline
                             bool multiChar = false;
                             // check if there is more than one double line character (multiline)
                             // character exists in the string
@@ -397,24 +424,15 @@ $items$
                             {
                                 //FIXME: add multiple character support to underline character
                             }
-                            // select previous character from input string
-                            PreviousCharacter = input[i - 1].ToString();
-                            // select next character from input string
-                            NextCharacter = input[i + 1].ToString();
-                            // remove previous character in output string
-                            output = output.Remove(output.Length - 1);
-                            // add \\underline{PreviousCharacterNextCharacter} to output string
-                            output += special_characters[input[i].ToString()].Replace("$letter$", PreviousCharacter + NextCharacter);
-                            i++;
+                            else
+                            {
+                            }
+                            */
                             break;
-		                default:
-                            output += special_characters[input[i].ToString()];
+                        default:
+                            output = output.Replace(item, special_characters[item]);
                             break;
-	                }
-                }
-                else
-                {
-                    output += input[i];
+                    }
                 }
             }
 

@@ -52,6 +52,9 @@
     <Reference Include="MongoDB.Driver">
       <HintPath>MongoDB-csharp-driver-1.8\MongoDB.Driver.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Json.Net-5.0-ms.net4.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -64,6 +67,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MobileDBExporter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MobileDBExporter.Designer.cs">
+      <DependentUpon>MobileDBExporter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Headword.cs" />
     <Compile Include="IPAKeyboard.cs">
       <SubType>Form</SubType>
@@ -86,6 +95,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnmanagedCode.cs" />
+    <EmbeddedResource Include="MobileDBExporter.resx">
+      <DependentUpon>MobileDBExporter.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="IPAKeyboard.resx">
       <DependentUpon>IPAKeyboard.cs</DependentUpon>
       <SubType>Designer</SubType>

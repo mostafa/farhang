@@ -1124,5 +1124,11 @@ namespace Farhang2
             PDFBuilder pdfBuilderFrm = new PDFBuilder();
             pdfBuilderFrm.ShowDialog();
         }
+
+        private void mobileDatabaseExporterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MobileDBExporter mobileDBExporterFrm = new MobileDBExporter();
+            mobileDBExporterFrm.ShowDialog();
+        }
 	}
 }

@@ -35,9 +35,9 @@ namespace Farhang2
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Headword");
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Headword");
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripResult = new System.Windows.Forms.ToolStripLabel();
             this.headwordsListBox = new System.Windows.Forms.ListBox();
@@ -151,6 +151,8 @@ namespace Farhang2
             this.txtPronunciation = new System.Windows.Forms.TextBox();
             this.txtLemma = new System.Windows.Forms.TextBox();
             this.attachmentGroupBox = new System.Windows.Forms.GroupBox();
+            this.lblColumns = new System.Windows.Forms.Label();
+            this.txtAttachmentColumns = new System.Windows.Forms.TextBox();
             this.lblAttachmentTitle = new System.Windows.Forms.Label();
             this.txtAttachmentTitle = new System.Windows.Forms.TextBox();
             this.lblAttachmentTranslation = new System.Windows.Forms.Label();
@@ -159,8 +161,7 @@ namespace Farhang2
             this.txtAttachment = new System.Windows.Forms.TextBox();
             this.btnRemoveAttachment = new System.Windows.Forms.Button();
             this.btnAddUpdateAttachment = new System.Windows.Forms.Button();
-            this.lblColumns = new System.Windows.Forms.Label();
-            this.txtAttachmentColumns = new System.Windows.Forms.TextBox();
+            this.mobileDatabaseExporterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.headwordsListGroupBox.SuspendLayout();
             this.entriesGroupBox.SuspendLayout();
@@ -332,10 +333,10 @@ namespace Farhang2
             this.entriesTreeView.FullRowSelect = true;
             this.entriesTreeView.Location = new System.Drawing.Point(9, 22);
             this.entriesTreeView.Name = "entriesTreeView";
-            treeNode3.Name = "Headword";
-            treeNode3.Text = "Headword";
+            treeNode1.Name = "Headword";
+            treeNode1.Text = "Headword";
             this.entriesTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3});
+            treeNode1});
             this.entriesTreeView.Size = new System.Drawing.Size(406, 226);
             this.entriesTreeView.TabIndex = 0;
             // 
@@ -817,7 +818,8 @@ namespace Farhang2
             this.dictionaryPropertiesToolStripMenuItem,
             this.statisticsToolStripMenuItem1,
             this.manualHeadwordSorterToolStripMenuItem,
-            this.pDFBuilderToolStripMenuItem});
+            this.pDFBuilderToolStripMenuItem,
+            this.mobileDatabaseExporterToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
@@ -825,32 +827,32 @@ namespace Farhang2
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.optionsToolStripMenuItem.Text = "&Options";
             // 
             // dictionaryPropertiesToolStripMenuItem
             // 
             this.dictionaryPropertiesToolStripMenuItem.Name = "dictionaryPropertiesToolStripMenuItem";
-            this.dictionaryPropertiesToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.dictionaryPropertiesToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.dictionaryPropertiesToolStripMenuItem.Text = "&Dictionary Properties";
             // 
             // statisticsToolStripMenuItem1
             // 
             this.statisticsToolStripMenuItem1.Name = "statisticsToolStripMenuItem1";
-            this.statisticsToolStripMenuItem1.Size = new System.Drawing.Size(193, 22);
+            this.statisticsToolStripMenuItem1.Size = new System.Drawing.Size(198, 22);
             this.statisticsToolStripMenuItem1.Text = "&Statistics";
             // 
             // manualHeadwordSorterToolStripMenuItem
             // 
             this.manualHeadwordSorterToolStripMenuItem.Name = "manualHeadwordSorterToolStripMenuItem";
-            this.manualHeadwordSorterToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.manualHeadwordSorterToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.manualHeadwordSorterToolStripMenuItem.Text = "&Manual Headword Sorter";
             this.manualHeadwordSorterToolStripMenuItem.Click += new System.EventHandler(this.manualHeadwordSorterToolStripMenuItem_Click);
             // 
             // pDFBuilderToolStripMenuItem
             // 
             this.pDFBuilderToolStripMenuItem.Name = "pDFBuilderToolStripMenuItem";
-            this.pDFBuilderToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.pDFBuilderToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.pDFBuilderToolStripMenuItem.Text = "&PDF Builder";
             this.pDFBuilderToolStripMenuItem.Click += new System.EventHandler(this.pDFBuilderToolStripMenuItem_Click);
             // 
@@ -1134,8 +1136,8 @@ namespace Farhang2
             // 
             this.dataGridViewOriginal.AllowUserToAddRows = false;
             this.dataGridViewOriginal.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridViewOriginal.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridViewOriginal.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewOriginal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewOriginal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewOriginal.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1163,8 +1165,8 @@ namespace Farhang2
             this.dataGridView4Sort.AllowUserToAddRows = false;
             this.dataGridView4Sort.AllowUserToDeleteRows = false;
             this.dataGridView4Sort.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridView4Sort.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridView4Sort.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView4Sort.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView4Sort.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView4Sort.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1326,6 +1328,25 @@ namespace Farhang2
             this.attachmentGroupBox.TabStop = false;
             this.attachmentGroupBox.Text = "Attachment";
             // 
+            // lblColumns
+            // 
+            this.lblColumns.AutoSize = true;
+            this.lblColumns.Location = new System.Drawing.Point(6, 82);
+            this.lblColumns.Name = "lblColumns";
+            this.lblColumns.Size = new System.Drawing.Size(77, 15);
+            this.lblColumns.TabIndex = 21;
+            this.lblColumns.Text = "Column(s):";
+            // 
+            // txtAttachmentColumns
+            // 
+            this.txtAttachmentColumns.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtAttachmentColumns.Location = new System.Drawing.Point(99, 77);
+            this.txtAttachmentColumns.Name = "txtAttachmentColumns";
+            this.txtAttachmentColumns.Size = new System.Drawing.Size(240, 23);
+            this.txtAttachmentColumns.TabIndex = 20;
+            this.txtAttachmentColumns.Text = "1";
+            // 
             // lblAttachmentTitle
             // 
             this.lblAttachmentTitle.AutoSize = true;
@@ -1405,24 +1426,12 @@ namespace Farhang2
             this.btnAddUpdateAttachment.UseVisualStyleBackColor = true;
             this.btnAddUpdateAttachment.Click += new System.EventHandler(this.btnAddUpdateAttachment_Click);
             // 
-            // lblColumns
+            // mobileDatabaseExporterToolStripMenuItem
             // 
-            this.lblColumns.AutoSize = true;
-            this.lblColumns.Location = new System.Drawing.Point(6, 82);
-            this.lblColumns.Name = "lblColumns";
-            this.lblColumns.Size = new System.Drawing.Size(77, 15);
-            this.lblColumns.TabIndex = 21;
-            this.lblColumns.Text = "Column(s):";
-            // 
-            // txtAttachmentColumns
-            // 
-            this.txtAttachmentColumns.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtAttachmentColumns.Location = new System.Drawing.Point(99, 77);
-            this.txtAttachmentColumns.Name = "txtAttachmentColumns";
-            this.txtAttachmentColumns.Size = new System.Drawing.Size(240, 23);
-            this.txtAttachmentColumns.TabIndex = 20;
-            this.txtAttachmentColumns.Text = "1";
+            this.mobileDatabaseExporterToolStripMenuItem.Name = "mobileDatabaseExporterToolStripMenuItem";
+            this.mobileDatabaseExporterToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.mobileDatabaseExporterToolStripMenuItem.Text = "Mobile Database &Exporter";
+            this.mobileDatabaseExporterToolStripMenuItem.Click += new System.EventHandler(this.mobileDatabaseExporterToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -1593,5 +1602,6 @@ namespace Farhang2
         public System.Windows.Forms.TextBox txtAttachmentTranslation;
         private System.Windows.Forms.Label lblColumns;
         public System.Windows.Forms.TextBox txtAttachmentColumns;
+        private System.Windows.Forms.ToolStripMenuItem mobileDatabaseExporterToolStripMenuItem;
 	}
 }

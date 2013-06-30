@@ -177,60 +177,124 @@ $items$
 
         private void btnGenerateMobileDB_Click(object sender, EventArgs e)
         {
-            string selectedLetter = cmbBoxLetter.SelectedItem.ToString().ToUpper();
+            string selectedLetter = (cmbBoxLetter.SelectedItem == null) ? null : cmbBoxLetter.SelectedItem.ToString().ToUpper();
 
-            try
+            if (cmbBoxLetter.SelectedItem != null)
             {
-                if (!cmbBoxLetter.Items.Contains(selectedLetter))
+                try
+                {
+                    if (!cmbBoxLetter.Items.Contains(selectedLetter))
+                    {
+                        MessageBox.Show("No item is selected or the selected item does not exist!", "Item Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                        return;
+                    }
+                }
+                catch (Exception)
                 {
                     MessageBox.Show("No item is selected or the selected item does not exist!", "Item Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                     return;
                 }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("No item is selected or the selected item does not exist!", "Item Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-                return;
-            }
 
-            Initialize(); // initialize database variables
-            if (!farhang_database.CollectionExists(selectedLetter))
+                Initialize(); // initialize database variables
+                if (!farhang_database.CollectionExists(selectedLetter))
+                {
+                    MessageBox.Show("Collection does not exist!", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                    return;
+                }
+            }
+            else
             {
-                MessageBox.Show("Collection does not exist!", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-                return;
+                Initialize(); // initialize database variables
             }
 
             string outputDirectory = Application.StartupPath + "\\Output\\" + selectedLetter;
             DirectoryInfo dirInfo = Directory.CreateDirectory(outputDirectory);
             if (dirInfo.Exists)
             {
-                collection = farhang_database.GetCollection<Headword>(selectedLetter);
-                collection_data = collection.FindAllAs<Headword>().SetSortOrder("Priority");
-                FileStream fileStream = new FileStream(outputDirectory + "\\" + selectedLetter + ".db", FileMode.Create, FileAccess.Write);
+                FileStream fileStream;
                 List<Headword> headwordsList = new List<Headword>();
+                Dictionary<string, List<Headword>> wholeDictionary = new Dictionary<string, List<Headword>>();
 
                 try
                 {
-                    progressBar1.Value = 0;
-                    listBox1.Items.Clear();
-
-                    progressBar1.Maximum = Int32.Parse(collection_data.Count().ToString());
-
-                    using (outputMobileDB = new BinaryWriter(fileStream))
+                    if (selectedLetter != null)
                     {
-                        using (BsonWriter writer = new BsonWriter(outputMobileDB))
+                        collection = farhang_database.GetCollection<Headword>(selectedLetter);
+                        collection_data = collection.FindAllAs<Headword>().SetSortOrder("Priority");
+                        fileStream = new FileStream(outputDirectory + "\\" + selectedLetter + ".db", FileMode.Create, FileAccess.Write);
+
+                        progressBar1.Value = 0;
+                        listBox1.Items.Clear();
+
+                        progressBar1.Maximum = Int32.Parse(collection_data.Count().ToString());
+
+                        using (outputMobileDB = new BinaryWriter(fileStream))
                         {
-                            JsonSerializer serializer = new JsonSerializer();
-                            foreach (var item in collection_data)
+                            using (BsonWriter writer = new BsonWriter(outputMobileDB))
                             {
-                                currentHeadword = item;
-                                currentHeadword._id = null;
-                                currentHeadword.Attachment = null;
-                                headwordsList.Add(currentHeadword);
-                                listBox1.Items.Add("Processing lemma: " + currentHeadword.Lemma);
-                                progressBar1.Value++;
+                                headwordsList = new List<Headword>();
+                                JsonSerializer serializer = new JsonSerializer();
+                                foreach (var item in collection_data)
+                                {
+                                    currentHeadword = item;
+                                    currentHeadword._id = null;
+                                    currentHeadword.Attachment = null;
+                                    headwordsList.Add(currentHeadword);
+                                    listBox1.Items.Add("Processing lemma: " + currentHeadword.Lemma);
+                                    progressBar1.Value++;
+                                }
+                                serializer.Serialize(writer, headwordsList);
                             }
-                            serializer.Serialize(writer, headwordsList);
+                        }
+                    }
+                    else
+                    {
+                        outputDirectory = Application.StartupPath + "\\Output\\Database";
+                        dirInfo = Directory.CreateDirectory(outputDirectory);
+                        fileStream = new FileStream(outputDirectory + "\\database.db", FileMode.Create, FileAccess.Write);
+
+                        progressBar1.Value = 0;
+                        listBox1.Items.Clear();
+
+                        int count = 0;
+                        foreach (var letter in cmbBoxLetter.Items)
+                        {
+                            collection = farhang_database.GetCollection<Headword>(letter.ToString());
+                            collection_data = collection.FindAllAs<Headword>().SetSortOrder("Priority");
+
+                            foreach (var headword in collection_data)
+                            {
+                                count++;
+                            }
+                        }
+
+                        progressBar1.Maximum = count;
+
+                        using (outputMobileDB = new BinaryWriter(fileStream))
+                        {
+                            using (BsonWriter writer = new BsonWriter(outputMobileDB))
+                            {
+                                JsonSerializer serializer = new JsonSerializer();
+                                foreach (var letter in cmbBoxLetter.Items)
+                                {
+                                    collection = farhang_database.GetCollection<Headword>(letter.ToString());
+                                    collection_data = collection.FindAllAs<Headword>().SetSortOrder("Priority");
+                                    headwordsList = new List<Headword>();
+
+                                    foreach (var headword in collection_data)
+                                    {
+                                        currentHeadword = headword;
+                                        currentHeadword._id = null;
+                                        currentHeadword.Attachment = null;
+                                        headwordsList.Add(currentHeadword);
+                                        listBox1.Items.Add("Processing lemma: " + currentHeadword.Lemma);
+                                        progressBar1.Value++;
+                                    }
+
+                                    wholeDictionary.Add(letter.ToString(), headwordsList);
+                                }
+                                serializer.Serialize(writer, wholeDictionary);
+                            }
                         }
                     }
                 }

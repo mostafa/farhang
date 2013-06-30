@@ -213,7 +213,6 @@ $items$
             {
                 FileStream fileStream;
                 List<Headword> headwordsList = new List<Headword>();
-                Dictionary<string, List<Headword>> wholeDictionary = new Dictionary<string, List<Headword>>();
 
                 try
                 {
@@ -279,7 +278,6 @@ $items$
                                 {
                                     collection = farhang_database.GetCollection<Headword>(letter.ToString());
                                     collection_data = collection.FindAllAs<Headword>().SetSortOrder("Priority");
-                                    headwordsList = new List<Headword>();
 
                                     foreach (var headword in collection_data)
                                     {
@@ -290,10 +288,8 @@ $items$
                                         listBox1.Items.Add("Processing lemma: " + currentHeadword.Lemma);
                                         progressBar1.Value++;
                                     }
-
-                                    wholeDictionary.Add(letter.ToString(), headwordsList);
                                 }
-                                serializer.Serialize(writer, wholeDictionary);
+                                serializer.Serialize(writer, headwordsList);
                             }
                         }
                     }

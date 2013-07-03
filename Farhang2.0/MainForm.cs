@@ -155,7 +155,7 @@ namespace Farhang2
             farhang_database = server.GetDatabase("farhang");
             gridFS = new MongoGridFS(farhang_database);
 
-            special_characters = new List<string>() { "·", "̣", "|", "'", "ˌ", "̲", "͠" };
+            special_characters = new List<string>() { "·", "̣", "|", "'", "ˌ", "̲", "͠", "¹", "²", "³", "⁴", "⁵" };
 
             try
             {

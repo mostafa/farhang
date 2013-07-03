@@ -177,6 +177,7 @@ $items$
 
         private void btnGenerateMobileDB_Click(object sender, EventArgs e)
         {
+            List<string> special_characters = new List<string>() { "·", "̣", "|", "'", "ˌ", "̲", "͟", "͠", ";" };
             string selectedLetter = (cmbBoxLetter.SelectedItem == null) ? null : cmbBoxLetter.SelectedItem.ToString().ToUpper();
 
             if (cmbBoxLetter.SelectedItem != null)
@@ -238,6 +239,12 @@ $items$
                                     currentHeadword = item;
                                     currentHeadword._id = null;
                                     currentHeadword.Attachment = null;
+                                    string word = currentHeadword.Lemma;
+                                    foreach (var character in special_characters)
+                                    {
+                                        word = word.Replace(character, "");
+                                    }
+                                    currentHeadword.Word = word;
                                     headwordsList.Add(currentHeadword);
                                     listBox1.Items.Add("Processing lemma: " + currentHeadword.Lemma);
                                     progressBar1.Value++;
@@ -284,6 +291,12 @@ $items$
                                         currentHeadword = headword;
                                         currentHeadword._id = null;
                                         currentHeadword.Attachment = null;
+                                        string word = currentHeadword.Lemma;
+                                        foreach (var character in special_characters)
+                                        {
+                                            word = word.Replace(character, "");
+                                        }
+                                        currentHeadword.Word = word;
                                         headwordsList.Add(currentHeadword);
                                         listBox1.Items.Add("Processing lemma: " + currentHeadword.Lemma);
                                         progressBar1.Value++;

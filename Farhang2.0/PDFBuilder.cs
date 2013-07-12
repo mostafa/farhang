@@ -112,8 +112,8 @@ namespace Farhang2
 \defpersianfont\Roya[Scale=0.8]{XB Roya}
 \setlength{\oddsidemargin}{-5mm}
 \setlength{\evensidemargin}{-5mm}
-\setlength{\textheight}{21.5cm}
-\setlength{\textwidth}{13.5cm}
+\setlength{\textheight}{20.5cm}
+\setlength{\textwidth}{13cm}
 \setlength{\topmargin}{-14mm}
 %\setlength{\footskip}{8mm}
 \setlength{\headsep}{3mm}
@@ -132,10 +132,10 @@ namespace Farhang2
 %\setcounter{page}{$lastpage$}
 \setlength{\TPHorizModule}{1cm}
 \setlength{\TPVertModule}{1cm}
-\thumbindexcharacter{$letter$}
+%\thumbindexcharacter{A}
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[LO]{\lr{\DejaVuSansExtraLight{\thepage}}}
+\fancyhead[LO]{\lr{\DejaVuSansExtraLight{\hspace*{-2.5mm}\thepage}}}
 \fancyhead[RE]{\lr{\DejaVuSansExtraLight{\thepage}}}
 
 \begin{document}

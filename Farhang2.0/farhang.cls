@@ -8,7 +8,7 @@
 \LoadClass[a4paper,openright,final]{book}
 
 % required packages are called here
-\RequirePackage[papersize={175mm,250mm}]{zwpagelayout}
+\RequirePackage[papersize={170mm,240mm}]{zwpagelayout}
 \RequirePackage[ngerman]{babel}
 \RequirePackage[OT1]{fontenc}
 \RequirePackage{xunicode}
@@ -60,17 +60,17 @@
 \definecolor{ThumbIndexBackgroundCyan}{cmyk}{0.4,0.0,0,0.0}
 
 % font definition for thumbindices
-\newfontfamily\ArialThumbIndex[Scale=1.5]{Arial}
+\newfontfamily\ArialThumbIndex[Scale=1.55]{Arial}
 
 % these are used to change the position and length of the thumbindices
 % initial values are just for character "A"
 \newcommand\thumbindexwidth{12mm}
 %\newcommand\thumbindexheight{0.14}
-\newcommand\thumbindexoddx{161.5mm}
+\newcommand\thumbindexoddx{156.5mm}
 \newcommand\thumbindexevenx{1mm}
 \newcommand\thumbindexy{0mm}
 
-\TPMargin*{2.5mm}
+\TPMargin*{2.3mm}
 \textblockorigin{0mm}{0mm}
 \textblockcolour{ThumbIndexBackgroundCyan}
 
@@ -134,32 +134,32 @@
 \DeclareRobustCommand{\thumbindexcharacter}[1]
 {
 	\AddEverypageHook{\thumbindex{#1}}
-	\ifthenelse{\equal{#1}{A}}{\renewcommand{\thumbindexy}{2mm}}{}
-	\ifthenelse{\equal{#1}{B}}{\renewcommand{\thumbindexy}{16.75mm}}{}
-	\ifthenelse{\equal{#1}{C}}{\renewcommand{\thumbindexy}{26mm}}{}
-	\ifthenelse{\equal{#1}{D}}{\renewcommand{\thumbindexy}{35.25mm}}{}
-	\ifthenelse{\equal{#1}{E}}{\renewcommand{\thumbindexy}{44.5mm}}{}
-	\ifthenelse{\equal{#1}{F}}{\renewcommand{\thumbindexy}{53.75mm}}{}
-	\ifthenelse{\equal{#1}{G}}{\renewcommand{\thumbindexy}{63mm}}{}
-	\ifthenelse{\equal{#1}{H}}{\renewcommand{\thumbindexy}{72.25mm}}{}
-	\ifthenelse{\equal{#1}{I}}{\renewcommand{\thumbindexy}{81.5mm}}{}
-	\ifthenelse{\equal{#1}{J}}{\renewcommand{\thumbindexy}{90.75mm}}{}
-	\ifthenelse{\equal{#1}{K}}{\renewcommand{\thumbindexy}{100mm}}{}
-	\ifthenelse{\equal{#1}{L}}{\renewcommand{\thumbindexy}{109.25mm}}{}
-	\ifthenelse{\equal{#1}{M}}{\renewcommand{\thumbindexy}{118.5mm}}{}
-	\ifthenelse{\equal{#1}{N}}{\renewcommand{\thumbindexy}{127.75mm}}{}
-	\ifthenelse{\equal{#1}{O}}{\renewcommand{\thumbindexy}{137mm}}{}
-	\ifthenelse{\equal{#1}{P}}{\renewcommand{\thumbindexy}{146.25mm}}{}
-	\ifthenelse{\equal{#1}{Q}}{\renewcommand{\thumbindexy}{155.5mm}}{}
-	\ifthenelse{\equal{#1}{R}}{\renewcommand{\thumbindexy}{165mm}}{}
-	\ifthenelse{\equal{#1}{S}}{\renewcommand{\thumbindexy}{174.25mm}}{}
-	\ifthenelse{\equal{#1}{T}}{\renewcommand{\thumbindexy}{183.5mm}}{}
-	\ifthenelse{\equal{#1}{U}}{\renewcommand{\thumbindexy}{192.75mm}}{}
-	\ifthenelse{\equal{#1}{V}}{\renewcommand{\thumbindexy}{202mm}}{}
-	\ifthenelse{\equal{#1}{W}}{\renewcommand{\thumbindexy}{211.25mm}}{}
-	\ifthenelse{\equal{#1}{X}}{\renewcommand{\thumbindexy}{220.5mm}}{}
-	\ifthenelse{\equal{#1}{Y}}{\renewcommand{\thumbindexy}{229.75mm}}{}
-	\ifthenelse{\equal{#1}{Z}}{\renewcommand{\thumbindexy}{239mm}}{}
+	\ifthenelse{\equal{#1}{A}}{\renewcommand{\thumbindexy}{0mm}}{}
+	\ifthenelse{\equal{#1}{B}}{\renewcommand{\thumbindexy}{14.8mm}}{}
+	\ifthenelse{\equal{#1}{C}}{\renewcommand{\thumbindexy}{23.8mm}}{}
+	\ifthenelse{\equal{#1}{D}}{\renewcommand{\thumbindexy}{32.8mm}}{}
+	\ifthenelse{\equal{#1}{E}}{\renewcommand{\thumbindexy}{41.8mm}}{}
+	\ifthenelse{\equal{#1}{F}}{\renewcommand{\thumbindexy}{50.8mm}}{}
+	\ifthenelse{\equal{#1}{G}}{\renewcommand{\thumbindexy}{59.8mm}}{}
+	\ifthenelse{\equal{#1}{H}}{\renewcommand{\thumbindexy}{68.8mm}}{}
+	\ifthenelse{\equal{#1}{I}}{\renewcommand{\thumbindexy}{77.8mm}}{}
+	\ifthenelse{\equal{#1}{J}}{\renewcommand{\thumbindexy}{86.8mm}}{}
+	\ifthenelse{\equal{#1}{K}}{\renewcommand{\thumbindexy}{95.8mm}}{}
+	\ifthenelse{\equal{#1}{L}}{\renewcommand{\thumbindexy}{104.8mm}}{}
+	\ifthenelse{\equal{#1}{M}}{\renewcommand{\thumbindexy}{113.8mm}}{}
+	\ifthenelse{\equal{#1}{N}}{\renewcommand{\thumbindexy}{122.8mm}}{}
+	\ifthenelse{\equal{#1}{O}}{\renewcommand{\thumbindexy}{131.8mm}}{}
+	\ifthenelse{\equal{#1}{P}}{\renewcommand{\thumbindexy}{140.8mm}}{}
+	\ifthenelse{\equal{#1}{Q}}{\renewcommand{\thumbindexy}{149.8mm}}{}
+	\ifthenelse{\equal{#1}{R}}{\renewcommand{\thumbindexy}{158.8mm}}{}
+	\ifthenelse{\equal{#1}{S}}{\renewcommand{\thumbindexy}{167.8mm}}{}
+	\ifthenelse{\equal{#1}{T}}{\renewcommand{\thumbindexy}{176.8mm}}{}
+	\ifthenelse{\equal{#1}{U}}{\renewcommand{\thumbindexy}{185.8mm}}{}
+	\ifthenelse{\equal{#1}{V}}{\renewcommand{\thumbindexy}{194.8mm}}{}
+	\ifthenelse{\equal{#1}{W}}{\renewcommand{\thumbindexy}{203.8mm}}{}
+	\ifthenelse{\equal{#1}{X}}{\renewcommand{\thumbindexy}{212.8mm}}{}
+	\ifthenelse{\equal{#1}{Y}}{\renewcommand{\thumbindexy}{221.8mm}}{}
+	\ifthenelse{\equal{#1}{Z}}{\renewcommand{\thumbindexy}{230.8mm}}{}
 }
 %------------------------------------------------------------------------------------------------------
 % variable to detect the remaining space at the end of the paragraph
@@ -230,7 +230,7 @@
 
 
 % uses words in \headword{}{}{}{word} to mark left and right side of header (lemmanotag)
-\DeclareRobustCommand{\header}[1]{\markboth{\lr{\textcolor{cyan}{\DejaVuSansExtraLight{\textbf{{#1}}}}}}{\lr{\textcolor{cyan}{\DejaVuSansExtraLight{\textbf{{#1}}}}}}\fancyhead[LE]{\hspace{-3mm}\rightmark}\fancyhead[RO]{\leftmark}}
+\DeclareRobustCommand{\header}[1]{\markboth{\lr{\textcolor{cyan}{\DejaVuSansExtraLight{\textbf{{#1}}}}}}{\lr{\textcolor{cyan}{\DejaVuSansExtraLight{\textbf{{\hspace*{-2.5mm}#1}}}}}}\fancyhead[LE]{\rightmark}\fancyhead[RO]{\leftmark}}
 
 % here lies ;) the entry
 % usage: \entry{number}{entry}{translation}

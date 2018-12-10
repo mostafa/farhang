@@ -82,6 +82,7 @@
             // 
             // cmbBoxLetter
             // 
+            this.cmbBoxLetter.Enabled = false;
             this.cmbBoxLetter.ItemHeight = 13;
             this.cmbBoxLetter.Items.AddRange(new object[] {
             "A",
@@ -140,7 +141,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(634, 448);
+            this.ClientSize = new System.Drawing.Size(624, 441);
             this.Controls.Add(this.chkOutputPictures);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.lblLetter);

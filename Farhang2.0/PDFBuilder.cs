@@ -138,6 +138,7 @@ namespace Farhang2
 \fancyhead[LO]{\lr{\DejaVuSansExtraLight{\hspace*{-2.5mm}\thepage}}}
 \fancyhead[RE]{\lr{\DejaVuSansExtraLight{\thepage}}}
 
+\setLTR
 \begin{document}
 \pagenumbering{arabic}
 \begin{latin}
@@ -225,7 +226,7 @@ $items$
                         {
                             if (currentHeadword.Attachment != null)
                             {
-                                var picturefile = gridFS.FindOne(Query.EQ("_id", (BsonObjectId)currentHeadword.Attachment._AttachmentId));
+                                var picturefile = gridFS.FindOne(Query.EQ("filename", currentHeadword.Attachment.FileName));
 
                                 using (var stream = picturefile.OpenRead())
                                 {
@@ -235,6 +236,7 @@ $items$
                                     using (var outputFile = new FileStream(filesDirectory.FullName + "\\" + currentHeadword.Attachment.FileName, FileMode.Create))
                                     {
                                         outputFile.Write(bytes, 0, bytes.Length);
+                                        outputFile.Close();
                                     }
                                 }
 
@@ -244,7 +246,7 @@ $items$
                         progressBar1.Value += 1;
                     }
                 }
-                catch (Exception)
+                catch (Exception f)
                 {
                     outputTEXDocument.Close();
                     MessageBox.Show("Server is not available or not responding!", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);

@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBHeadword.cs" />
     <Compile Include="MobileDBExporter.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,6 +95,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SQLite.net\SQLite.cs" />
+    <Compile Include="SQLite.net\SQLiteAsync.cs" />
     <Compile Include="UnmanagedCode.cs" />
     <EmbeddedResource Include="MobileDBExporter.resx">
       <DependentUpon>MobileDBExporter.cs</DependentUpon>
@@ -131,6 +134,9 @@
   <ItemGroup>
     <Content Include="farhang.cls">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="sqlite3.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

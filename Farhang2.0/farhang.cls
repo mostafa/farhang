@@ -13,8 +13,8 @@
 \RequirePackage[OT1]{fontenc}
 \RequirePackage{xunicode}
 \RequirePackage{xltxtra}
-\RequirePackage{fontspec}
 \RequirePackage{tipa}
+\RequirePackage{fontspec}
 \RequirePackage{phonetic}
 \RequirePackage{latexsym}
 \RequirePackage{fancyhdr}
@@ -30,7 +30,7 @@
 \RequirePackage{dblfloatfix}
 %\RequirePackage{fix2col}
 %\RequirePackage{hyperref}
-%\RequirePackage{balance}
+\RequirePackage{balance}
 \RequirePackage[absolute]{textpos}
 \RequirePackage{changepage}
 \RequirePackage{everypage}
@@ -41,13 +41,14 @@
 %\RequirePackage[pagecontinue=true,alphMult=ab,AlphMulti=AB,fnsymbolmult=true,romanMult=true,RomanMulti=true]{pagesLTS}
 %\RequirePackage[showframe]{geometry}
 %\RequirePackage{graphicx}
+\RequirePackage{xstring}
 \RequirePackage{xepersian}
 
 % font definitions
 \newfontfamily\ArialNormal[Scale=0.9]{Arial}
 \newfontfamily\ArialBig[Scale=1]{Arial}
-\newfontfamily\TimesNormal[Scale=0.9]{Times New Roman}
-\newfontfamily\DejaVuSansExtraLight[Scale=0.9]{DejaVu Sans ExtraLight}
+\newfontfamily\TimesNormal[Scale=0.9]{Liberation Serif}
+\newfontfamily\DejaVuSansExtraLight[Scale=0.9]{Ubuntu Light}
 \newfontfamily\DejaVuSansNormal[Scale=0.8]{DejaVu Sans}
 
 % color definitions
@@ -79,7 +80,7 @@
 % example: \thumbindex{A}
 \DeclareRobustCommand{\thumbindex}[1]
 {
-	\strictpagecheck%
+	\easypagecheck%
 	\checkoddpage%
 	\ifoddpage%
 		\ifthenelse{\equal{#1}{A}}
@@ -245,7 +246,7 @@
 % usage: \subentry{subentry}{translation}
 % example: \subentry{Hallo}{Hello}
 %%% for myself: put \vspace{1mm} before \newline to have a clearer text/column [43 lines instead of 48 lines per column per page]
-\DeclareRobustCommand{\subentry}[2]{\getEntryLineWidth{\noindent\textcolor{black}{\lr{\TimesNormal{#1\hfill}}}}{\rl{\Roya{#2\hfill}}}\noindent\textcolor{black}{\lr{\TimesNormal{#1\hfill}}\ifthenelse{\equal{#1}{}}{}{\ifthenelse{\lengthtest{\remainingEntryColumnWidth < \TranslationLineWidth}}{\newline}{\hspace*{-1mm}}}\rl{\Roya{#2\hfill}}}\newline}%
+\DeclareRobustCommand{\subentry}[2]{\getEntryLineWidth{\noindent\textcolor{black}{\lr{\TimesNormal{#1\hfill}}}}{\rl{\Roya{#2\hfill}}}\noindent\textcolor{black}{\lr{\TimesNormal{#1\hfill}}\ifthenelse{\equal{#1}{}}{}{\ifthenelse{\lengthtest{\remainingEntryColumnWidth < \TranslationLineWidth}}{\newline}{\hspace*{2mm}}}\rl{\Roya{#2\hfill}}}\newline}%
 
 %\hspace*{-5mm}
 
@@ -274,17 +275,24 @@
 {
 \begin{figure}[H]
 \vspace{-5mm}
+\IfEndWith{#1}{.eps}{
 \centering
+\includegraphics[width=4.5cm,keepaspectratio]{#1}
+}{
 \includegraphics[width=\columnwidth,keepaspectratio]{#1}
-\vspace{-6mm}
+}
+\vspace{-5mm}
 \end{figure}
 }
 {
-\vspace{5mm}
-\begin{figure*}[!tb]
+\end{multicols*}
+%\vspace{-5mm}
+\begin{figure}[!th]
+\noindent
 \centering
-\includegraphics[width=\textwidth,keepaspectratio]{#1}
-\end{figure*}
+\includegraphics[width=\linewidth,keepaspectratio]{#1}
+\end{figure}
 \vspace{-3mm}
+\begin{multicols*}{2}
 }
 }

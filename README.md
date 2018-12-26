@@ -14,7 +14,7 @@ This project is used to typeset a bilingual German-Persian dictionary of over 26
 ![Farhang 2 Screenshot](/assets/farhang.png)
 
 ## TeX Output
-![TeX Output](/assets/tex-output.png)
+ <img src="/assets/tex-output.png" width="400" height="572">
 
 ## Contribution
 Contribution is always welcome! To report bugs, simply open an issue and fill it with related information. To fix a bug, fork the repository, fix the bug, push to your own fork, make a pull request and done!

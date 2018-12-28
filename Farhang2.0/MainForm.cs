@@ -14,7 +14,6 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using MongoDB.Driver.GridFS;
-using Antlr.Runtime;
 using Antlr4.StringTemplate;
 
 namespace Farhang2
@@ -634,7 +633,8 @@ namespace Farhang2
         {
             int count = 0;
             collection = farhang_database.GetCollection<Headword>(cmbBoxLetter4Sort.SelectedItem.ToString());
-            WriteConcernResult result = new WriteConcernResult();
+            BsonDocument response = new BsonDocument();
+            WriteConcernResult result = new WriteConcernResult(response: response);
 
             for (int i = 0; i < newTableForUpdatingPriorities.Rows.Count; i++)
 			{
@@ -642,14 +642,14 @@ namespace Farhang2
                 count++;
 			}
 
-            if (result.Ok)
+            if (result.DocumentsAffected <= 0)
             {
-                txtStatus.Text = "Saved " + count.ToString() + " records successfully!";
-                cmbBoxLetter4Sort_SelectedIndexChanged(sender, e);
+                txtStatus.Text = "No record has been saved!";
             }
             else
             {
-                txtStatus.Text = "No record has been saved!";
+                txtStatus.Text = "Saved " + count.ToString() + " records successfully!";
+                cmbBoxLetter4Sort_SelectedIndexChanged(sender, e);
             }
         }
 
@@ -1026,17 +1026,18 @@ namespace Farhang2
             Headword newHeadword = new Headword(lemma, word, pronunciation, description, currentHeadword.Priority, chkIncomplete.Checked, DateTime.Now, DateTime.Now);
 
             WriteConcernResult result = collection.Insert(newHeadword);
-            if (result.Ok)
+            if (result.DocumentsAffected <= 0)
+            {
+                toolStripResult.Text = "Result: Error creating headword!";
+            }
+            else
             {
                 toolStripResult.Text = "Result: Headword created successfully!";
                 cmbBoxLetterSelectedIndexChanged(sender, e);
             }
-            else
-            {
-                toolStripResult.Text = "Result: Error creating headword!";
-            }
 
-            WriteConcernResult priorityUpdateResult = new WriteConcernResult();
+            BsonDocument response = new BsonDocument();
+            WriteConcernResult priorityUpdateResult = new WriteConcernResult(response: response);
             for (int i = 0; i < headwordsListBox.Items.Count; i++)
             {
                 priorityUpdateResult = collection.Update(Query.EQ("Lemma", headwordsListBox.Items[i].ToString()), MongoDB.Driver.Builders.Update.Set("Priority", (i + 1)), UpdateFlags.Multi);

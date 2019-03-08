@@ -16,7 +16,7 @@ Public Domain.
 
 This project is used to typeset a bilingual German-Persian dictionary of over 2600 pages which is published by Zabankadeh and Langenscheidt AG.
 
-[Großwörterbuch Deutsch – Persisch](https://www.langenscheidt.com/deutsch-daf/schule-studium-woerterbuch/langenscheidt-grosswoerterbuch-deutsch-als-fremdsprache-hardcover)
+[Langenscheidt Handwörterbuch Deutsch-Persisch](https://www.langenscheidt.com/deutsch-daf/selbstlernen-woerterbuch/langenscheidt-handwoerterbuch-deutsch-persisch-hardcover)
 
 ## Screenshots
 
